@@ -1,0 +1,1 @@
+// Zone violation checker component
