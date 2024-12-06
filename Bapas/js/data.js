@@ -69,6 +69,7 @@ function capitalizeFirstLetter(string) {
 }
 
 function showInmateDetails(inmateId) {
-    console.log(`Showing details for inmate with ID: ${inmateId}`);
-    alert(`Navigating to details page for inmate with ID: ${inmateId}`);
+    console.log(`Navigating to details page for inmate with ID: ${inmateId}`);
+    window.location.href = `dataNapi.html?id=${inmateId}`;
 }
+
