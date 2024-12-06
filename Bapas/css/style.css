@@ -1,6 +1,6 @@
 :root {
-    --primary-color: #1a3d5e;
-    --secondary-color: #3a7ca5;
+    --primary-color: #06283D;
+    --secondary-color: #1363DF;
     --background-color: #f1f3f8;
     --card-color: #ffffff;
     --accent-color: #f39c12;
@@ -139,7 +139,7 @@ body {
     display: flex;
     align-items: center;
     padding: 1rem;
-    background-color: #3c6081; 
+    background-color: #1a3d5e; 
     border-radius: 10px;
     transition: all 0.3s ease-in-out;
 }

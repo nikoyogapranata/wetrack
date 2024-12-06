@@ -4,8 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WETRACK | Dashboard</title>
-    <link rel="stylesheet" href="/Expo/css/style.css">
+    <title>WETRACK | Settings</title>
+    <link rel="stylesheet" href="/Bapas/css/style.css">
+    <link rel="stylesheet" href="/Bapas/css/setting.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -13,7 +14,7 @@
         rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="/Expo/js/script.js"></script>
+    <script src="/Bapas/js/script.js"></script>
 </head>
 
 <body>
@@ -55,12 +56,51 @@
                     <i class="fas fa-bars"></i>
                 </button>
             </header>
-            <div class="dashboard-grid">
-
+            <div class="settings-container">
+                <h1>Settings</h1>
+                <div class="settings-section">
+                    <h2><i class="fas fa-user"></i> Profile</h2>
+                    <form id="profile-form">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" value="Serdy Fambo">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" value="serdy.fambo@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="role">Role</label>
+                            <input type="text" id="role" name="role" value="Admin Officer" readonly>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Update Profile</button>
+                    </form>
+                </div>
+                <div class="settings-section">
+                    <h2><i class="fas fa-lock"></i> Change Password</h2>
+                    <form id="password-form">
+                        <div class="form-group">
+                            <label for="current-password">Current Password</label>
+                            <input type="password" id="current-password" name="current-password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="new-password">New Password</label>
+                            <input type="password" id="new-password" name="new-password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirm-password">Confirm New Password</label>
+                            <input type="password" id="confirm-password" name="confirm-password" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Change Password</button>
+                    </form>
+                </div>
+                <div class="settings-section">
+                    <h2><i class="fas fa-sign-out-alt"></i> Log Out</h2>
+                    <button id="logout-btn" class="btn btn-danger">Log Out</button>
+                </div>
             </div>
         </main>
     </div>
-
 </body>
 
 </html>
