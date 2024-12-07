@@ -31,11 +31,14 @@
             </div>
             <nav class="nav-links">
                 <ul>
-                    <li><a href="/Bapas/html/home.html"><i class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a></li>
-                    <li><a href="/Bapas/html/tracking.html"><i class="fas fa-map-marker-alt"></i> <span>Tracking Map</span></a></li>
+                    <li><a href="/Bapas/html/home.html"><i class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a>
+                    </li>
+                    <li><a href="/Bapas/html/tracking.html"><i class="fas fa-map-marker-alt"></i> <span>Tracking
+                                Map</span></a></li>
                     <li><a href="/Bapas/html/data.html"><i class="fas fa-database"></i> <span>Database</span></a>
                     </li>
-                    <li class="active"><a href="/Bapas/html/setting.html"><i class="fas fa-cog"></i> <span>Settings</span></a></li>
+                    <li class="active"><a href="/Bapas/html/setting.html"><i class="fas fa-cog"></i>
+                            <span>Settings</span></a></li>
                 </ul>
             </nav>
             <div class="user-profile">
@@ -47,57 +50,30 @@
             </div>
         </aside>
         <main class="content">
-            <header class="content-header">
-                <div class="search-bar">
-                    <input type="text" placeholder="Search" aria-label="Search">
-                    <i class="fas fa-search"></i>
-                </div>
-                <button class="menu-toggle" aria-label="Toggle menu">
-                    <i class="fas fa-bars"></i>
-                </button>
-            </header>
             <div class="settings-container">
                 <h1>Settings</h1>
-                <div class="settings-section">
-                    <h2><i class="fas fa-user"></i> Profile</h2>
-                    <form id="profile-form">
-                        <div class="form-group">
-                            <label for="name">Name</label>
-                            <input type="text" id="name" name="name" value="Serdy Fambo">
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" name="email" value="serdy.fambo@example.com">
-                        </div>
-                        <div class="form-group">
-                            <label for="role">Role</label>
-                            <input type="text" id="role" name="role" value="Admin Officer" readonly>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Update Profile</button>
-                    </form>
+                <div class="setting-element">
+                    <h2><i class="fas fa-user"></i>Profile</h2>
+                    <a href="profile.html" class="element-button">
+                        <i class="fas fa-chevron-right"></i>
+                    </a>
                 </div>
-                <div class="settings-section">
-                    <h2><i class="fas fa-lock"></i> Change Password</h2>
-                    <form id="password-form">
-                        <div class="form-group">
-                            <label for="current-password">Current Password</label>
-                            <input type="password" id="current-password" name="current-password" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="new-password">New Password</label>
-                            <input type="password" id="new-password" name="new-password" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="confirm-password">Confirm New Password</label>
-                            <input type="password" id="confirm-password" name="confirm-password" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Change Password</button>
-                    </form>
+                <hr>
+                <div class="setting-element">
+                    <h2><i class="fas fa-lock"></i>Privacy</h2>
+                    <button class="element-button">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
                 </div>
-                <div class="settings-section">
-                    <h2><i class="fas fa-sign-out-alt"></i> Log Out</h2>
-                    <button id="logout-btn" class="btn btn-danger">Log Out</button>
+                <hr>
+                <div class="setting-element">
+                    <h2><i class="fas fa-globe"></i>Language</h2>
+                    <select name="language" id="language">
+                        <option value="id">Bahasa Indonesia</option>
+                        <option value="en">English</option>
+                    </select>
                 </div>
+                <button id="logout-btn" class="btn btn-danger">Log Out</button>
             </div>
         </main>
     </div>
