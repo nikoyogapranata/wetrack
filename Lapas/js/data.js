@@ -35,11 +35,11 @@ function populateInmateTable() {
         console.log('Populating inmate table');
         // Inmate data
         const inmates = [
-            { id: 1, name: "John Doe", status: "active" },
-            { id: 2, name: "Jane Smith", status: "inactive" },
-            { id: 3, name: "Mike Johnson", status: "escaped" },
-            { id: 4, name: "Emily Brown", status: "active" },
-            { id: 5, name: "David Wilson", status: "inactive" }
+            { id: 1, name: "John Doe"},
+            { id: 2, name: "Jane Smith"},
+            { id: 3, name: "Mike Johnson"},
+            { id: 4, name: "Emily Brown"},
+            { id: 5, name: "David Wilson"}
         ];
 
         // Populate inmate table
@@ -48,10 +48,6 @@ function populateInmateTable() {
             row.innerHTML = `
                 <td>${index + 1}</td>
                 <td>${inmate.name}</td>
-                <td>
-                    <span class="status-indicator status-${inmate.status}"></span>
-                    ${capitalizeFirstLetter(inmate.status)}
-                </td>
                 <td>
                     <button class="details-button" onclick="showInmateDetails(${inmate.id})">Details</button>
                 </td>
