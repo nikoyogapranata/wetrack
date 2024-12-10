@@ -46,11 +46,41 @@
         </aside>
         <main class="content">
             <div class="content-container">
-                <h1>Database</h1>
-                <button>All</button>
-                <button>Input Data</button>
-                <div class="table">
-
+                <div class="content-header">
+                    <h1>Database</h1>
+                    <div class="search-bar">
+                        <input type="text" placeholder="Search...">
+                        <i class="fas fa-search"></i>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button class="btn btn-primary">All</button>
+                    <button class="btn btn-secondary">Input Data</button>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>Name</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Example rows, to be replaced with SQL data -->
+                            <tr>
+                                <td>1</td>
+                                <td>John Doe</td>
+                                <td><button class="btn btn-action">Details</button></td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Jane Smith</td>
+                                <td><button class="btn btn-action">Details</button></td>
+                            </tr>
+                            <!-- More rows can be added here when connected to SQL -->
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </main>
