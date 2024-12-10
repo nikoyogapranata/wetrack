@@ -37,6 +37,12 @@ body {
     display: flex;
     flex-direction: column;
     transition: width 0.3s ease-in-out;
+    position: fixed; 
+    top: 0;
+    left: 0;
+    height: 100vh;  
+    overflow-y: auto; 
+    z-index: 100; 
 }
 
 .sidebar.collapsed {
@@ -184,8 +190,10 @@ body {
 .content {
     flex: 1;
     padding: 2rem;
+    margin-left: 250px; 
     overflow-y: auto;
 }
+
 
 .content-header {
     display: flex;
@@ -282,6 +290,31 @@ body {
     background-color: var(--secondary-color);
 }
 
+.table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+.btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    max-width: 150px;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: var(--secondary-color);
+}
 
 /* Responsive Design */
 @media (max-width: 1024px) {

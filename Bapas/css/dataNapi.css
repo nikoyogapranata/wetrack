@@ -37,6 +37,12 @@ body {
     display: flex;
     flex-direction: column;
     transition: width 0.3s ease-in-out;
+    position: fixed; 
+    top: 0;
+    left: 0;
+    height: 100vh;  
+    overflow-y: auto; 
+    z-index: 100; 
 }
 
 .sidebar.collapsed {
@@ -184,11 +190,10 @@ body {
 .content {
     flex: 1;
     padding: 2rem;
+    margin-left: 250px; 
     overflow-y: auto;
-    max-height: 100vh;
-    display: flex;
-    flex-direction: column;
 }
+
 
 .content-header {
     display: flex;
