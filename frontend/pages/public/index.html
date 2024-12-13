@@ -1,480 +1,236 @@
 <!DOCTYPE html>
-<html lang="en">
+<html data-wf-page="674bd1ccd37ddf98747a3d49" data-wf-site="674bd1ccd37ddf98747a3d42" data-wf-status="1">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WETRACK - Advanced Monitoring for Ex-Prisoners</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary-color: #06283D;
-            --secondary-color: #1363DF;
-            --accent-color: #47B5FF;
-            --light-bg: #DFF6FF;
-            --text-color: #06283D;
-            --white: #ffffff;
-        }
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: 'Roboto', sans-serif;
-            line-height: 1.6;
-            color: var(--text-color);
-            background-color: var(--light-bg);
-        }
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        .btn {
-            display: inline-block;
-            padding: 12px 24px;
-            background-color: var(--accent-color);
-            color: var(--primary-color);
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-            border: none;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: bold;
-        }
-        .btn:hover {
-            background-color: #3da5e9;
-        }
-        .btn-outline {
-            background-color: transparent;
-            border: 2px solid var(--white);
-            color: var(--white);
-        }
-        .btn-outline:hover {
-            background-color: var(--white);
-            color: var(--primary-color);
-        }
-        header {
-            background-color: var(--primary-color);
-            padding: 1rem 0;
-            position: fixed;
-            width: 100%;
-            z-index: 1000;
-            top: 0;
-        }
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--white);
-            text-decoration: none;
-        }
-        .nav-links {
-            display: flex;
-            list-style: none;
-        }
-        .nav-links li {
-            margin-left: 1.5rem;
-        }
-        .nav-links a {
-            color: var(--white);
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-        .nav-links a:hover {
-            color: var(--accent-color);
-        }
-        .hero {
-            background-size: cover;
-            background-position: center;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            color: var(--white);
-            padding-top: 5rem;
-            background-color: var(--secondary-color);
-        }
-        .hero-content {
-            max-width: 600px;
-            text-align: left;
-        }
-        .hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-        .hero p {
-            font-size: 1.25rem;
-            margin-bottom: 2rem;
-        }
-        .features {
-            padding: 5rem 0;
-            background-color: var(--white);
-        }
-        .features h2 {
-            text-align: center;
-            font-size: 2rem;
-            margin-bottom: 3rem;
-            color: var(--primary-color);
-        }
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-        .feature-card {
-            background-color: var(--light-bg);
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-        }
-        .feature-card:hover {
-            transform: translateY(-5px);
-        }
-        .feature-icon {
-            font-size: 3rem;
-            color: var(--secondary-color);
-            margin-bottom: 1rem;
-        }
-        .stats {
-            background-color: var(--secondary-color);
-            color: var(--white);
-            padding: 5rem 0;
-            text-align: center;
-        }
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-        }
-        .stat-item h3 {
-            font-size: 3rem;
-            margin-bottom: 0.5rem;
-        }
-        .about, .testimonials, .contact {
-            padding: 5rem 0;
-        }
-        .about h2, .testimonials h2, .contact h2 {
-            text-align: center;
-            font-size: 2rem;
-            margin-bottom: 3rem;
-            color: var(--primary-color);
-        }
-        .testimonial-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-        .testimonial-card {
-            background-color: var(--white);
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        .testimonial-card p {
-            font-style: italic;
-            margin-bottom: 1rem;
-        }
-        .testimonial-author {
-            font-weight: 600;
-            color: var(--secondary-color);
-        }
-        .contact-form {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: var(--primary-color);
-        }
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 0.75rem;
-            border: 1px solid var(--secondary-color);
-            border-radius: 5px;
-            font-size: 1rem;
-        }
-        .form-group textarea {
-            height: 150px;
-        }
-        footer {
-            background-color: var(--primary-color);
-            color: var(--white);
-            padding: 3rem 0;
-        }
-        .footer-content {
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-        }
-        .footer-section {
-            flex: 1;
-            margin-bottom: 2rem;
-            min-width: 200px;
-        }
-        .footer-section h3 {
-            margin-bottom: 1rem;
-            color: var(--accent-color);
-        }
-        .footer-section ul {
-            list-style: none;
-        }
-        .footer-section ul li {
-            margin-bottom: 0.5rem;
-        }
-        .footer-section ul li a {
-            color: var(--white);
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-        .footer-section ul li a:hover {
-            color: var(--accent-color);
-        }
-        .footer-bottom {
-            text-align: center;
-            margin-top: 2rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-            .hero h1 {
-                font-size: 2rem;
-            }
-            .hero p {
-                font-size: 1rem;
-            }
-        }
-    </style>
+  <meta charset="utf-8" />
+  <title>wetrack</title>
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <meta content="Webflow" name="generator" />
+  <link href="css/webflow-style.css" rel="stylesheet" type="text/css" />
+  <link href="https://fonts.googleapis.com" rel="preconnect" />
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="anonymous" />
+  <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script>
+  <script
+    type="text/javascript">WebFont.load({ google: { families: ["Open Sans:300,300italic,400,400italic,600,600italic,700,700italic,800,800italic", "Inter:regular,700,italic,700italic", "Poppins:regular,italic,700"] } });</script>
+  <script
+    type="text/javascript">!function (o, c) { var n = c.documentElement, t = " w-mod-"; n.className += t + "js", ("ontouchstart" in o || o.DocumentTouch && c instanceof DocumentTouch) && (n.className += t + "touch") }(window, document);</script>
+  <link href="images/favicon.png" rel="shortcut icon" type="image/x-icon" />
+  <link href="images/app-icon.png" rel="apple-touch-icon" />
 </head>
-<body>
-    <header>
-        <nav class="container">
-            <a href="#" class="logo">WETRACK</a>
-            <ul class="nav-links">
-                <li><a href="#features">Features</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#testimonials">Testimonials</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
 
-    <main>
-        <section class="hero" id="hero">
-            <div class="container">
-                <div class="hero-content">
-                    <h1>Advanced Monitoring for Ex-Prisoners</h1>
-                    <p>Enhancing public safety and supporting reintegration with cutting-edge technology</p>
-                    <a href="#contact" class="btn">Get Started</a>
-                    <a href="#features" class="btn btn-outline">Learn More</a>
-                </div>
-            </div>
-        </section>
-
-        <section id="features" class="features">
-            <div class="container">
-                <h2>Key Features</h2>
-                <div class="feature-grid">
-                    <div class="feature-card">
-                        <div class="feature-icon">📍</div>
-                        <h3>Real-Time Location Tracking</h3>
-                        <p>Monitor the real-time location of each individual using advanced GPS technology, ensuring accurate and up-to-date information.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">🛡️</div>
-                        <h3>Intelligent Geo-Fencing</h3>
-                        <p>Create dynamic geo-fenced areas with customizable rules to restrict monitored individuals from entering specific locations.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">🚨</div>
-                        <h3>Advanced Alert Management</h3>
-                        <p>Receive instant notifications for violations and manage alerts through our sophisticated AI-powered system.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">📊</div>
-                        <h3>Comprehensive Analytics</h3>
-                        <p>Generate in-depth reports on compliance, violation history, and monitoring trends with our powerful analytics engine.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">🔐</div>
-                        <h3>Secure User Management</h3>
-                        <p>Manage user accounts with role-based access control and ensure data security with state-of-the-art encryption.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">💬</div>
-                        <h3>Integrated Support System</h3>
-                        <p>Provide comprehensive support to monitored individuals through our AI-powered chat system and extensive help center.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="stats">
-            <div class="container">
-                <div class="stats-grid">
-                    <div class="stat-item">
-                        <h3 id="userCount">0</h3>
-                        <p>Active Users</p>
-                    </div>
-                    <div class="stat-item">
-                        <h3 id="locationCount">0</h3>
-                        <p>Locations Monitored</p>
-                    </div>
-                    <div class="stat-item">
-                        <h3 id="successRate">0%</h3>
-                        <p>Success Rate</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="about" class="about">
-            <div class="container">
-                <h2>About WETRACK</h2>
-                <p>WETRACK is a state-of-the-art web-based application designed to revolutionize the monitoring of ex-prisoners, particularly parolees and probationers. Our system empowers authorized personnel from POLRI, LAPAS, and BAPAS with advanced tools to manage and track individuals under supervision. By harnessing the power of real-time location tracking, intelligent geo-fencing, and AI-driven compliance management features, WETRACK is at the forefront of enhancing public safety while supporting the successful reintegration of monitored individuals into society.</p>
-            </div>
-        </section>
-
-        <section id="testimonials" class="testimonials">
-            <div class="container">
-                <h2>What Our Users Say</h2>
-                <div class="testimonial-grid">
-                    <div class="testimonial-card">
-                        <p>"WETRACK has significantly improved our ability to monitor and support ex-prisoners. The real-time tracking and alert system have been game-changers for our department."</p>
-                        <div class="testimonial-author">John Doe, POLRI Officer</div>
-                    </div>
-                    <div class="testimonial-card">
-                        <p>"The comprehensive analytics provided by WETRACK have allowed us to make data-driven decisions and improve our rehabilitation programs significantly."</p>
-                        <div class="testimonial-author">Jane Smith, LAPAS Administrator</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="contact" class="contact">
-            <div class="container">
-                <h2>Contact Us</h2>
-                <form class="contact-form">
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" id="name" name="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Message</label>
-                        <textarea id="message" name="message" required></textarea>
-                    </div>
-                    <button type="submit" class="btn">Send Message</button>
-                </form>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>WETRACK</h3>
-                    <p>Advanced monitoring solutions for a safer society.</p>
-                </div>
-                <div class="footer-section">
-                    <h3>Quick Links</h3>
-                    <ul>
-                        <li><a href="#features">Features</a></li>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#testimonials">Testimonials</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>Connect</h3>
-                    <ul>
-                        <li><a href="#">Facebook</a></li>
-                        <li><a href="#">Twitter</a></li>
-                        <li><a href="#">LinkedIn</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 WETRACK. All rights reserved.</p>
-            </div>
+<body class="body">
+  <div data-animation="default" data-collapse="medium" data-duration="400" data-easing="ease" data-easing2="ease"
+    role="banner" class="nav w-nav">
+    <div class="nav-container w-container">
+      <div class="nav-box"><a href="#" class="nav-footer-logo w-nav-brand"><img src="images/logo-dark-blue.png"
+            loading="lazy" width="40" sizes="40px" alt=""
+            srcset="images/logo-dark-blue-p-500.png 500w, images/logo-dark-blue-p-800.png 800w, images/logo-dark-blue-p-1080.png 1080w, images/logo-dark-blue-p-1600.png 1600w, images/logo-dark-blue-p-2000.png 2000w, images/logo-dark-blue.png 2160w"
+            class="logo" />
+          <div class="logo-text">WETRACK</div>
+        </a>
+        <div class="nav-right">
+          <nav role="navigation" class="nav-right-menu w-nav-menu"><a href="#"
+              class="nav-right-link w-nav-link">Home</a><a href="#" class="nav-right-link w-nav-link">Features</a><a
+              href="#" class="nav-right-link w-nav-link">FAQ</a><a href="#"
+              class="nav-right-link w-nav-link">Contact</a></nav>
+          <div class="nav-right-buttpn">
+            <div class="nav-menu-button w-nav-button">
+              <div class="nav-hamburger-icon w-icon-nav-menu"></div>
+            </div><a href="#" class="nav-cta w-button">Login</a>
+          </div>
         </div>
-    </footer>
-
-    <script>
-        // Function to set custom background image
-        function setCustomBackground() {
-            const input = document.createElement('input');
-            input.type = 'file';
-            input.accept = 'image/*';
-            input.onchange = e => {
-                const file = e.target.files[0];
-                const reader = new FileReader();
-                reader.onload = function(event) {
-                    document.querySelector('.hero').style.backgroundImage = `url('${event.target.result}')`;
-                }
-                reader.readAsDataURL(file);
-            }
-            input.click();
-        }
-
-        // Add event listener to a button (you can add this button in the HTML)
-        document.getElementById('changeBackgroundBtn').addEventListener('click', setCustomBackground);
-
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-
-        // Animated counter for statistics
-        function animateValue(id, start, end, duration) {
-            let range = end - start;
-            let current = start;
-            let increment = end > start? 1 : -1;
-            let stepTime = Math.abs(Math.floor(duration / range));
-            let obj = document.getElementById(id);
-            let timer = setInterval(function() {
-                current += increment;
-                obj.innerHTML = current + (id === 'successRate' ? '%' : '');
-                if (current == end) {
-                    clearInterval(timer);
-                }
-            }, stepTime);
-        }
-
-        // Trigger animation when the stats section is in view
-        let observer = new IntersectionObserver((entries) => {
-            if(entries[0].isIntersecting === true) {
-                animateValue("userCount", 0, 5000, 2000);
-                animateValue("locationCount", 0, 10000, 2000);
-                animateValue("successRate", 0, 95, 2000);
-                observer.unobserve(entries[0].target);
-            }
-        }, { threshold: [0.5] });
-
-        observer.observe(document.querySelector(".stats"));
-    </script>
+      </div>
+    </div>
+  </div>
+  <div class="hero-section">
+    <div class="hero-container w-container">
+      <div class="w-layout-grid hero-grid">
+        <div id="w-node-_13d1e863-e8b8-9f0d-2e47-6aa50a433990-747a3d49" class="hero-left">
+          <h1 class="hero-heading">Empowering Reintegration, Enhancing Public Safety</h1>
+          <div class="hero-subtitle">A comprehensive web-based tracking system designed to monitor and support
+            &quot;abdul&quot; while ensuring compliance and safety for all.</div>
+          <div class="hero-cta"><a href="#" class="hero-cta-button wide-cta w-button">Login</a></div>
+        </div>
+        <div id="w-node-_13d1e863-e8b8-9f0d-2e47-6aa50a433998-747a3d49" class="hero-right"><img
+            src="images/man-with-tablet-20-1-201-20-1-.png" loading="lazy"
+            sizes="(max-width: 479px) 92vw, (max-width: 767px) 90vw, 92vw"
+            srcset="images/man-with-tablet-20-1-201-20-1-p-500.png 500w, images/man-with-tablet-20-1-201-20-1-p-800.png 800w, images/man-with-tablet-20-1-201-20-1-p-1080.png 1080w, images/man-with-tablet-20-1-201-20-1-p-1600.png 1600w, images/man-with-tablet-20-1-201-20-1-.png 2734w"
+            alt="" class="hero-image" /></div>
+      </div>
+    </div>
+    <div class="hero-container w-container"></div>
+  </div>
+  <div class="main">
+    <div class="main-continer w-container">
+      <div class="main-heading">
+        <h2 class="main-faq-heading">Features</h2>
+      </div>
+      <div class="w-layout-grid main-grid">
+        <div id="w-node-_293dae1c-880f-e55f-219a-a454b8c12548-747a3d49" class="main-wide-feature">
+          <div class="main-feature-text">
+            <h1 class="main-feature-text-heading"><strong>Real-Time Location Tracking</strong></h1>
+            <div class="main-wide-feature-text-subtitle">Track individuals’ locations with precise GPS data in real
+              time. Access historical records to verify compliance effortlessly.</div>
+          </div><img src="images/wide-20feature.webp" loading="lazy"
+            sizes="(max-width: 479px) 85vw, (max-width: 767px) 63vw, 48vw"
+            srcset="images/wide-2520feature-p-500.png 500w, images/wide-2520feature-p-800.png 800w, images/wide-20feature.webp 854w"
+            alt="" class="main-feature-wide-image" />
+        </div>
+        <div class="main-vertical-feature">
+          <div class="main-vertical-text">
+            <h1 class="main-feature-text-heading">Geo-Fencing and Safe Zone Management</h1>
+            <div class="main-vertical-feature-text-subtitle">Define virtual boundaries and enforce curfews for monitored
+              individuals. Get instant alerts when geo-fence rules are violated.</div>
+          </div><img src="images/feature-207-20second.svg" loading="lazy" alt="" class="main-vertica-feature-image" />
+        </div>
+        <div class="main-small-feature">
+          <div class="main-small-featue-icon-containerr"><img src="images/warning.png" loading="lazy" sizes="32px"
+              srcset="images/warning-p-500.png 500w, images/warning.png 512w" alt="" class="main-small-featue-icon" />
+          </div>
+          <h1 class="main-feature-text-heading">Alerts and Notifications System</h1>
+          <div class="main-small-feature-text-subtitle-1">Stay informed with instant notifications for violations or
+            emergencies. Review alert details to respond swiftly and effectively.</div>
+        </div>
+        <div class="main-small-feature">
+          <div class="main-small-featue-icon-containerr"><img src="images/clipboard.png" loading="lazy" sizes="32px"
+              srcset="images/clipboard-p-500.png 500w, images/clipboard.png 512w" alt=""
+              class="main-small-featue-icon" /></div>
+          <h1 class="main-feature-text-heading">Comprehensive Reporting and Analytics</h1>
+          <div class="_2ain-small-feature-text-subtitle-2">Generate detailed reports and visualize trends with analytics
+            dashboards. Export data easily for reviews and legal needs.</div>
+        </div>
+        <div class="main-small-feature">
+          <div class="main-small-featue-icon-containerr"><img src="images/shield.png" loading="lazy" sizes="32px"
+              srcset="images/shield-p-500.png 500w, images/shield.png 512w" alt="" class="main-small-featue-icon" />
+          </div>
+          <h1 class="main-feature-text-heading">Secure and Role-Based User Management</h1>
+          <div class="main-small-feature-text-subtitle-3">Manage users with role-based permissions and encrypted data.
+            Ensure access control and accountability across the system.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="main">
+    <div class="main-continer w-container">
+      <div class="main-faq-heading-container">
+        <h2 class="main-faq-heading">Everything You Need to Know About WETRACK</h2>
+        <div class="main-faq-subtitle">Find answers to common questions about WETRACK&#x27;s functionality, security,
+          and usage for authorized users and monitored individuals.</div>
+      </div>
+      <div class="main-faq">
+        <div class="main-faq-container">
+          <div class="main-faq-question-container">
+            <div class="main-faq-question-box">
+              <div class="main-faq-question">What is WETRACK, and who is it for?</div>
+              <div class="main-faq-answer-box">
+                <div class="main-faq-expand-space"></div>
+                <p class="main-faq-answer">WETRACK is a web-based monitoring system designed for authorized agencies to
+                  track and manage individuals on probation or parole.</p>
+              </div>
+            </div>
+            <div class="waves---expand-icon-wrap">
+              <div class="waves---expand-line vertical"></div>
+              <div class="waves---expand-line"></div>
+            </div>
+          </div>
+          <div class="main-faq-question-container">
+            <div class="main-faq-question-box">
+              <div class="main-faq-question">How does geo-fencing work?</div>
+              <div class="main-faq-answer-box">
+                <div class="main-faq-expand-space"></div>
+                <p class="main-faq-answer">Geo-fencing allows users to define virtual boundaries, and WETRACK sends
+                  alerts if these boundaries are breached.</p>
+              </div>
+            </div>
+            <div class="waves---expand-icon-wrap">
+              <div class="waves---expand-line vertical"></div>
+              <div class="waves---expand-line"></div>
+            </div>
+          </div>
+          <div class="main-faq-question-container">
+            <div class="main-faq-question-box">
+              <div class="main-faq-question">Is the data stored in WETRACK secure?</div>
+              <div class="main-faq-answer-box">
+                <div class="main-faq-expand-space"></div>
+                <p class="main-faq-answer">Yes, WETRACK uses advanced encryption to safeguard sensitive data and comply
+                  with privacy regulations.</p>
+              </div>
+            </div>
+            <div class="waves---expand-icon-wrap">
+              <div class="waves---expand-line vertical"></div>
+              <div class="waves---expand-line"></div>
+            </div>
+          </div>
+          <div class="main-faq-question-container">
+            <div class="main-faq-question-box">
+              <div class="main-faq-question">Can individuals being monitored access their data?</div>
+              <div class="main-faq-answer-box">
+                <div class="main-faq-expand-space"></div>
+                <p class="main-faq-answer"><em class="italic-text-6">Yes, monitored individuals can view their
+                    compliance status, report issues, and access support resources.</em></p>
+              </div>
+            </div>
+            <div class="waves---expand-icon-wrap">
+              <div class="waves---expand-line vertical"></div>
+              <div class="waves---expand-line"></div>
+            </div>
+          </div>
+          <div class="main-faq-question-container">
+            <div class="main-faq-question-box">
+              <div class="main-faq-question">What devices support WETRACK?</div>
+              <div class="main-faq-answer-box">
+                <div class="main-faq-expand-space"></div>
+                <p class="main-faq-answer">WETRACK is compatible with desktops, tablets, and mobile devices via modern
+                  web browsers.</p>
+              </div>
+            </div>
+            <div class="waves---expand-icon-wrap">
+              <div class="waves---expand-line vertical"></div>
+              <div class="waves---expand-line"></div>
+            </div>
+          </div>
+          <div class="main-faq-question-container">
+            <div class="main-faq-question-box">
+              <div class="main-faq-question">Does WETRACK support real-time tracking?</div>
+              <div class="main-faq-answer-box">
+                <div class="main-faq-expand-space"></div>
+                <p class="main-faq-answer">Yes, WETRACK provides live GPS tracking and records historical data to ensure
+                  accurate compliance monitoring.</p>
+              </div>
+            </div>
+            <div class="waves---expand-icon-wrap">
+              <div class="waves---expand-line vertical"></div>
+              <div class="waves---expand-line"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <div class="main-continer w-container">
+      <div class="footer-top"><a href="#" class="nav-footer-logo w-nav-brand"><img src="images/logo-white.png"
+            loading="lazy" width="40" sizes="40px" alt=""
+            srcset="images/logo-white-p-500.png 500w, images/logo-white-p-800.png 800w, images/logo-white-p-1080.png 1080w, images/logo-white-p-1600.png 1600w, images/logo-white-p-2000.png 2000w, images/logo-white.png 2160w"
+            class="logo" />
+          <div class="logo-text logo-text-footer">WETRACK</div>
+        </a>
+        <div class="footer-right"><a href="#" class="footer-link">Home</a><a href="#" class="footer-link">About</a><a
+            href="#" class="footer-link">Features</a><a href="#" class="footer-link">FAQ</a></div>
+      </div>
+      <div class="footer-divider"></div>
+      <div class="footer-bottom">
+        <div class="footer-copyright">© 2024 WETRACK. All rights reserved.</div>
+        <div class="footer-logo-container"><a href="#" class="w-inline-block"><img src="images/kemenkumham.png"
+              loading="lazy" alt="" class="footer-logo" /></a><a href="#" class="w-inline-block"><img
+              src="images/lapas.png" loading="lazy" sizes="24px"
+              srcset="images/lapas-p-500.png 500w, images/lapas.png 520w" alt="" class="footer-logo" /></a><a href="#"
+            class="w-inline-block"><img src="images/polri.png" loading="lazy" alt="" class="footer-logo" /></a></div>
+      </div>
+    </div>
+  </div>
+  <script src="js/jquery.js" type="text/javascript"></script>
+  <script src="js/webflow-script.js" type="text/javascript"></script>
 </body>
+
 </html>
