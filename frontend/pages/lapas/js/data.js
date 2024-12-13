@@ -24,48 +24,39 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Inmate tracking table functionality
-    populateInmateTable();
-});
+    const showTableBtn = document.getElementById('showTableBtn');
+    const showInputBtn = document.getElementById('showInputBtn');
+    const tableContainer = document.querySelector('.table-container');
+    const inputContainer = document.querySelector('.input-container');
 
-function populateInmateTable() {
-    const inmateTableBody = document.getElementById('inmateTableBody');
-    console.log('Inmate table body:', inmateTableBody);
-
-    if (inmateTableBody) {
-        console.log('Populating inmate table');
-        // Inmate data
-        const inmates = [
-            { id: 1, name: "John Doe"},
-            { id: 2, name: "Jane Smith"},
-            { id: 3, name: "Mike Johnson"},
-            { id: 4, name: "Emily Brown"},
-            { id: 5, name: "David Wilson"}
-        ];
-
-        // Populate inmate table
-        inmates.forEach((inmate, index) => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${index + 1}</td>
-                <td>${inmate.name}</td>
-                <td>
-                    <button class="details-button" onclick="showInmateDetails(${inmate.id})">Details</button>
-                </td>
-            `;
-            inmateTableBody.appendChild(row);
-        });
-        console.log('Inmate table populated');
-    } else {
-        console.error('Inmate table body not found');
+    function showTable() {
+        tableContainer.style.display = 'block';
+        inputContainer.style.display = 'none';
+        showTableBtn.classList.add('btn-primary');
+        showTableBtn.classList.remove('btn-secondary');
+        showInputBtn.classList.add('btn-secondary');
+        showInputBtn.classList.remove('btn-primary');
     }
-}
 
-function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-}
+    function showInput() {
+        tableContainer.style.display = 'none';
+        inputContainer.style.display = 'block';
+        showInputBtn.classList.add('btn-primary');
+        showInputBtn.classList.remove('btn-secondary');
+        showTableBtn.classList.add('btn-secondary');
+        showTableBtn.classList.remove('btn-primary');
+    }
 
-function showInmateDetails(inmateId) {
-    console.log(`Navigating to details page for inmate with ID: ${inmateId}`);
-    window.location.href = `dataNapi.html?id=${inmateId}`;
-}
+    showTableBtn.addEventListener('click', showTable);
+    showInputBtn.addEventListener('click', showInput);
 
+    showTable();
+
+    const inputForm = document.getElementById('inputForm');
+    if (inputForm) {
+        inputForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            console.log('Form submitted');
+        });
+    }
+});
