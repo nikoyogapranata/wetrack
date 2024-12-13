@@ -70,6 +70,6 @@ function capitalizeFirstLetter(string) {
 
 function showInmateDetails(inmateId) {
     console.log(`Navigating to details page for inmate with ID: ${inmateId}`);
-    window.location.href = `dataNapi.html?id=${inmateId}`;
+    window.location.href = `data-napi.html?id=${inmateId}`;
 }
 
