@@ -29,11 +29,13 @@ document.addEventListener('DOMContentLoaded', function () {
     const tableContainer = document.querySelector('.table-container');
     const inputContainer = document.querySelector('.input-container');
     const headerContent = document.querySelector('.search-bar');
+    const btnDelete = document.querySelector('.delete-btn');
 
     function showTable() {
         tableContainer.style.display = 'block';
         inputContainer.style.display = 'none';
         headerContent.style.display = 'block';
+        btnDelete.style.display ='block';
         showTableBtn.classList.add('btn-primary');
         showTableBtn.classList.remove('btn-secondary');
         showInputBtn.classList.add('btn-secondary');
@@ -44,11 +46,11 @@ document.addEventListener('DOMContentLoaded', function () {
         tableContainer.style.display = 'none';
         inputContainer.style.display = 'block';
         headerContent.style.display = 'none';
+        btnDelete.style.display ='none';
         showInputBtn.classList.add('btn-primary');
         showInputBtn.classList.remove('btn-secondary');
         showTableBtn.classList.add('btn-secondary');
         showTableBtn.classList.remove('btn-primary');
-
     }
 
     showTableBtn.addEventListener('click', showTable);
@@ -96,4 +98,8 @@ document.addEventListener('DOMContentLoaded', function () {
         option.textContent = country;
         select.appendChild(option);
       });
+
+      document.getElementById("btn-details").addEventListener("click",function(){
+        window.location.href ="dataNapi.html";
+    })
 });
