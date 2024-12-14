@@ -240,19 +240,19 @@ body {
 .profile-header {
     display: flex;
     align-items: center;
-    margin-bottom: 2rem;
+    margin-bottom: 20px;
 }
 
 .profile-image {
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
     border-radius: 50%;
-    object-fit: cover;
-    margin-right: 1.5rem;
+    margin-right: 20px;
 }
 
 .profile-title {
     flex-grow: 1;
+    margin-top: 0;
 }
 
 .profile-title h1 {
@@ -270,7 +270,16 @@ body {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 2rem;
-    margin-bottom: 2rem;
+    margin-bottom: 20px;
+}
+
+.profile-title h1 {
+    margin-top: 0;
+}
+
+.profile-content {
+    margin-bottom: 20px;
+    margin-bottom: 20px;
 }
 
 .info-section,
@@ -281,7 +290,8 @@ body {
 
 .info-grid {
     display: grid;
-    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-gap: 10px;
 }
 
 .info-item {
@@ -290,32 +300,14 @@ body {
 }
 
 .info-item label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
     font-weight: 500;
     color: var(--text-color);
 }
 
 .info-item span {
-    color: var(--secondary-color);
-}
-
-.violation-list {
-    display: grid;
-    gap: 0.75rem;
-}
-
-.violation-item {
-    display: flex;
-    gap: 0.5rem;
-    padding: 0.75rem;
-    border-radius: 6px;
-}
-
-.violation-date {
-    font-weight: 500;
-    color: var(--text-color);
-}
-
-.violation-desc {
     color: var(--secondary-color);
 }
 
