@@ -307,7 +307,7 @@ tr:last-child td {
 }
 
 .form-group label, ::placeholder, option, input[type="date"]::placeholder {
-    flex: 0 0 150px; 
+    flex: 0 0 250px;
     text-align: left; 
     margin-right: 10px; 
     font-weight: 500;

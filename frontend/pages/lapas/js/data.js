@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function () {
     
       countries.forEach(country => {
         const option = document.createElement("option");
-        option.value = country.toLowerCase().replace(/\s+/g, '-'); // Normalize the country name for value
+        option.value = country.toLowerCase().replace(/\s+/g, '-'); 
         option.textContent = country;
         select.appendChild(option);
       });
