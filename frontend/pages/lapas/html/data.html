@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +10,8 @@
     <script src="/frontend/pages/lapas/js/data.js" defer></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
@@ -27,10 +29,14 @@
             </div>
             <nav class="nav-links">
                 <ul>
-                    <li><a href="/frontend/pages/Lapas/html/home.html"><i class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a></li>
-                    <li class="active"><a href="/Lapas/html/data.html"><i class="fas fa-database"></i> <span>Database</span></a></li>
-                    <li><a href="/frontend/pages/Lapas/html/Laporan.html"><i class="fas fa-file-invoice"></i><span>Final Report</span></a></li>
-                    <li><a href="/frontend/pages//Lapas/html/setting.html"><i class="fas fa-cog"></i> <span>Settings</span></a></li>
+                    <li><a href="/frontend/pages/Lapas/html/home.html"><i class="fas fa-tachometer-alt"></i>
+                            <span>Dashboard</span></a></li>
+                    <li class="active"><a href="/frontend/pages/Lapas/html/data.html"><i class="fas fa-database"></i>
+                            <span>Database</span></a></li>
+                    <li><a href="/frontend/pages/Lapas/html/Laporan.html"><i class="fas fa-file-invoice"></i><span>Final
+                                Report</span></a></li>
+                    <li><a href="/frontend/pages//Lapas/html/setting.html"><i class="fas fa-cog"></i>
+                            <span>Settings</span></a></li>
                 </ul>
             </nav>
             <div class="user-profile">
@@ -51,7 +57,7 @@
                     </div>
                 </div>
                 <div class="button-group">
-                    <button class="btn btn-primary" id="showTableBtn" >All</button>
+                    <button class="btn btn-primary" id="showTableBtn">All</button>
                     <button class="btn btn-secondary" id="showInputBtn" onclick="showInput()">Input Data</button>
                 </div>
                 <div class="table-container">
@@ -80,40 +86,65 @@
                 <div class="input-container" style="display: none;">
                     <form id="inputForm">
                         <div class="form-group">
-                            <label for="nik">NIK:</label>
-                            <input type="text" id="nik" name="nik" required>
+                            <label for="nik">Photo:</label>
+                            <input type="file" id="fileInput" accept=".png, .jpg, .jpeg" required>
                         </div>
                         <div class="form-group">
-                            <label for="nama">Nama Tahanan:</label>
-                            <input type="text" id="nama" name="nama" required>
+                            <label for="nik">NIK:</label>
+                            <input type="text" id="nik" name="nik"  placeholder="Enter National ID number" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="nama">Name:</label>
+                            <input type="text" id="nama" name="nama" placeholder="Enter Name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="dateBirth">Date of Birth:</label>
+                            <input type="date" id="dateBirth" name="dateBirth" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="address">Address:</label>
+                            <textarea name="address" id="address" placeholder="Enter Address" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="gender">Gender:</label>
+                            <select id="gender" name="gender" required>
+                                <option value="" disabled selected>Select gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="nationality">Nationality:</label>
+                            <select id="nationality" name="nationality" required>
+                                <option value="" disabled selected>Select Nationality</option>
+                            </select>
                         </div>
                         <div class="form-group">
                             <label for="crime">Type of Crime:</label>
-                            <input type="text" id="crime" name="crime" required>
+                            <select id="crime" name="crime" required>
+                                <option value="" disabled selected>Select type of crime</option>
+                                <option value="TwA">Theft with Aggravation</option>
+                                <option value="Ot">Ordinary Theft</option>
+                                <option value="Fraud">Fraud</option>
+                                <option value="Assault">Assault</option>
+                                <option value="NO">Narcotics Offenses</option>
+                                <option value="Embezzlement">Embezzlement</option>
+                                <option value="MvT">Motor Vehicle Theft</option>
+                                <option value="Robbery">Robbery</option>
+                                <option value="Brawling">Brawling</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="case">Incident Report:</label>
+                            <textarea name="case" id="case" placeholder="Enter Incident Report" required></textarea>
                         </div>
                         <div class="form-group">
                             <label for="punishment">Punishment Period:</label>
-                            <input type="text" id="punishment" name="punishment" required>
+                            <input type="text" id="punishment" name="punishment" placeholder="Enter Punishment Period" required>
                         </div>
                         <div class="form-group">
                             <label for="releaseDate">Release Date:</label>
                             <input type="date" id="releaseDate" name="releaseDate" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="status">Status:</label>
-                            <select id="status" name="status" required>
-                                <option value="">Select Status</option>
-                                <option value="active">Active</option>
-                                <option value="released">Released</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="trackerStatus">Tracker Status:</label>
-                            <select id="trackerStatus" name="trackerStatus" required>
-                                <option value="">Select Tracker Status</option>
-                                <option value="active">Active</option>
-                                <option value="inactive">Inactive</option>
-                            </select>
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
@@ -122,4 +153,5 @@
         </main>
     </div>
 </body>
+
 </html>

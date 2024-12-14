@@ -306,15 +306,20 @@ tr:last-child td {
     gap: 1rem; 
 }
 
-.form-group label {
+.form-group label, ::placeholder, option, input[type="date"]::placeholder {
     flex: 0 0 150px; 
     text-align: left; 
     margin-right: 10px; 
     font-weight: 500;
+    font-family: 'Poppins', sans-serif;
+}
+
+textarea{
+    resize: none;
 }
 
 .form-group input,
-.form-group select {
+.form-group select, textarea {
     flex: 1;
     padding: 0.8rem;
     margin-bottom: 5px;
