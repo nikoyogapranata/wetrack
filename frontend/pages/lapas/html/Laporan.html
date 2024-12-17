@@ -30,10 +30,14 @@
             </div>
             <nav class="nav-links">
                 <ul>
-                    <li><a href="/frontend/pages/Lapas/html/home.html"><i class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a></li>
-                    <li><a href="/frontend/pages/Lapas/html/data.html"><i class="fas fa-database"></i> <span>Database</span></a></li>
-                    <li class="active"><a href="/frontend/pages/Lapas/html/Laporan.html"><i class="fas fa-file-invoice"></i> <span>Final Report</span></a></li>
-                    <li><a href="/frontend/pages/Lapas/html/setting.html"><i class="fas fa-cog"></i> <span>Settings</span></a></li>
+                    <li><a href="/frontend/pages/Lapas/html/home.html"><i class="fas fa-tachometer-alt"></i>
+                            <span>Dashboard</span></a></li>
+                    <li><a href="/frontend/pages/Lapas/html/data.html"><i class="fas fa-database"></i>
+                            <span>Database</span></a></li>
+                    <li class="active"><a href="/frontend/pages/Lapas/html/Laporan.html"><i
+                                class="fas fa-file-invoice"></i> <span>Final Report</span></a></li>
+                    <li><a href="/frontend/pages/Lapas/html/setting.html"><i class="fas fa-cog"></i>
+                            <span>Settings</span></a></li>
                 </ul>
             </nav>
             <div class="user-profile">
@@ -46,15 +50,117 @@
         </aside>
         <main class="content">
             <div class="content-container">
-                <h1>Final Report</h1>
-                <button>All</button>
-                <button>Create Final Report</button>
-                <div class="table">
+                <div class="content-header">
+                    <h1>Final Report</h1>
+                    <div class="search-bar">
+                        <input type="text" placeholder="Search...">
+                        <i class="fas fa-search"></i>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button class="btn btn-primary" id="showTableBtn">All</button>
+                    <button class="btn btn-secondary" id="showInputBtn" onclick="showInput()">Input Data</button>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>Name</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>John Doe</td>
+                                <td><button class="btn btn-action">Details</button></td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Jane Smith</td>
+                                <td><button class="btn btn-action">Details</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="input-container" style="display: none;">
+                    <form id="inputForm">
+                        <div class="form-group">
+                            <label for="nik">National ID Number:</label>
+                            <input type="text" id="nik" name="nik" placeholder="Enter National ID number" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Name:</label>
+                            <input type="text" id="nama" name="nama" placeholder="Enter Name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="nrt">Prisoner Registration Number:</label>
+                            <input type="text" id="nrt" name="nrt" placeholder="Enter Prisoner Registration Number"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label for="address">Address:</label>
+                            <textarea name="address" id="address" placeholder="Enter Address" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="gender">Gender:</label>
+                            <select id="gender" name="gender" required>
+                                <option value="" disabled selected>Select gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="nationality">Nationality:</label>
+                            <select id="nationality" name="nationality" required>
+                                <option value="" disabled selected>Select Nationality</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="crime">Type of Crime:</label>
+                            <select id="crime" name="crime" required>
+                                <option value="" disabled selected>Select type of crime</option>
+                                <option value="TwA">Theft with Aggravation</option>
+                                <option value="Ot">Ordinary Theft</option>
+                                <option value="Fraud">Fraud</option>
+                                <option value="Assault">Assault</option>
+                                <option value="NO">Narcotics Offenses</option>
+                                <option value="Embezzlement">Embezzlement</option>
+                                <option value="MvT">Motor Vehicle Theft</option>
+                                <option value="Robbery">Robbery</option>
+                                <option value="Brawling">Brawling</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="punishment">Punishment Period:</label>
+                            <input type="text" id="punishment" name="punishment" placeholder="Enter Punishment Period"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label for="monitoringDate">Monitoring Start Date:</label>
+                            <input type="date" id="monitoringDate" name="monitoringDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="monitoringEndDate">Monitoring End Date:</label>
+                            <input type="date" id="monitoringEndDate" name="monitoringEndDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="information">Information:</label>
+                            <textarea name="information" id="information" placeholder="Enter information"
+                                required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="finalStatus">Final Status and Recommendations:</label>
+                            <textarea name="finalStatus" id="finalStatus" placeholder="Enter Final Status and Recommendations"
+                                required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
                 </div>
             </div>
         </main>
     </div>
-    <script src="/frontend/pages/js/data.js"></script>
 </body>
 
 </html>

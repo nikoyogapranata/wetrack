@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WETRACK | Dashboard</title>
-    <link rel="stylesheet" href="/frontend/pages/Lapas/css/style.css">
-    <script src="/frontend/pages/Lapas/js/script.js"></script>
-    <link rel="icon" href="/frontend/pages/Lapas/Images/wetrack-logo-white.png" type="Image/x-icon">
+    <link rel="stylesheet" href="/frontend/pages/polri/css/style.css">
+    <script src="/frontend/pages/superadmin/js/script.js"></script>    
+    <link rel="icon" href="/frontend/pages/superadmin/Images/wetrack-logo-white.png" type="Image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -22,7 +22,7 @@
         <aside class="sidebar">
             <div class="sidebar-header">
                 <div class="logo">
-                    <img src="/frontend/pages/Lapas/Image/wetrack-logo-white.png" alt="WETRACK Logo">
+                    <img src="/frontend/pages/superadmin/Images/wetrack-logo-white.png" alt="WETRACK Logo">
                     <h1 class="logo-text">WETRACK</h1>
                 </div>
                 <button id="toggle-sidebar" class="toggle-sidebar">
@@ -31,24 +31,33 @@
             </div>
             <nav class="nav-links">
                 <ul>
-                    <li class="active"><a href="/frontend/pages/Lapas/html/home.html"><i class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a></li>
-                    <li><a href="/frontend/pages/Lapas/html/data.html"><i class="fas fa-database"></i> <span>Database</span></a></li>
-                    <li><a href="/frontend/pages/Lapas/html/Laporan.html"><i class="fas fa-file-invoice"></i> <span>Final Report</span></a></li>
-                    <li><a href="/frontend/pages/Lapas/html/setting.html"><i class="fas fa-cog"></i> <span>Settings</span></a></li>
+                    <li class="active"><a href="/frontend/pages/superadmin/html/home.html"><i class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a></li>
+                    <!-- <li><a href="/polri/html/tracking.html"><i class="fas fa-map-marker-alt"></i> <span>Tracking Map</span></a></li>
+                    <li><a href="/polri/html/data.html"><i class="fas fa-database"></i> <span>Database</span></a></li> -->
+                    <li><a href="/frontend/pages/superadmin/html/setting.html"><i class="fas fa-cog"></i> <span>Settings</span></a></li>
                 </ul>
             </nav>
             <div class="user-profile">
-                <img src="/frontend/pages/Lapas/Image/lapas-logo.png" alt="Profile picture" width="40" height="40">
+                <img src="/frontend/pages/superadmin/Images/LogoKemenhumkam.jpg" alt="Profile picture" width="40" height="40">
                 <div class="user-info">
                     <h2>Serdy Fambo</h2>
-                    <p>Administrative Staff</p>
+                    <p>Admin Officer</p>
                 </div>
             </div>
         </aside>
         <main class="content">
+            <header class="content-header">
+                <div class="search-bar">
+                    <input type="text" placeholder="Search" aria-label="Search">
+                    <i class="fas fa-search"></i>
+                </div>
+                <button class="menu-toggle" aria-label="Toggle menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </header>
             <div class="dashboard-grid">
                 <section class="card summary-card">
-                    <h3><i class="fas fa-users"></i>Total Individuals Registered</h3>
+                    <h3><i class="fas fa-users"></i>Total Tracked Individuals</h3>
                     <div class="card-content">
                         <span class="number">1,365</span>
                     </div>
@@ -58,11 +67,18 @@
                     </div>
                 </section>
                 <section class="card alert-card">
-                    <h3><i class="fas fa-file-invoice"></i>Total Final Report</h3>
+                    <h3><i class="fas fa-exclamation-triangle"></i>Active Alerts</h3>
                     <div class="card-content">
                         <span class="number">7</span>
                     </div>
                     <p class="trend negative">Requires immediate attention</p>
+                </section>
+                <section class="card success-regist">
+                    <h3><i class="fas fa-check-circle"></i>Successful Registrations</h3>
+                    <div class="card-content">
+                        <span class="number">152</span>
+                    </div>
+                    <p class="trend positive">+12% this week</p>
                 </section>
                 <section class="card activity-card">
                     <h3><i class="fas fa-history"></i>Recent Activities</h3>

@@ -22,54 +22,52 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     }
+        // Inmate tracking table functionality
+        const showTableBtn = document.getElementById('showTableBtn');
+        const showInputBtn = document.getElementById('showInputBtn');
+        const tableContainer = document.querySelector('.table-container');
+        const inputContainer = document.querySelector('.input-container');
+        const headerContent = document.querySelector('.search-bar');
+        const btnDelete = document.querySelector('.delete-btn');
+        const btnDetails = document.querySelector('.btn-details');
+    
+        function showTable() {
+            tableContainer.style.display = 'block';
+            inputContainer.style.display = 'none';
+            headerContent.style.display = 'block';
+            btnDelete.style.display ='block';
+            showTableBtn.classList.add('btn-primary');
+            showTableBtn.classList.remove('btn-secondary');
+            showInputBtn.classList.add('btn-secondary');
+            showInputBtn.classList.remove('btn-primary');
+        }
+    
+        function showInput() {
+            tableContainer.style.display = 'none';
+            inputContainer.style.display = 'block';
+            headerContent.style.display = 'none';
+            btnDelete.style.display ='none';
+            showInputBtn.classList.add('btn-primary');
+            showInputBtn.classList.remove('btn-secondary');
+            showTableBtn.classList.add('btn-secondary');
+            showTableBtn.classList.remove('btn-primary');
+        }
 
-    // Inmate tracking table functionality
-    populateInmateTable();
-});
+    showTableBtn.addEventListener('click', showTable);
+    showInputBtn.addEventListener('click', showInput);
 
-function populateInmateTable() {
-    const inmateTableBody = document.getElementById('inmateTableBody');
-    console.log('Inmate table body:', inmateTableBody);
+    showTable();
 
-    if (inmateTableBody) {
-        console.log('Populating inmate table');
-        // Inmate data
-        const inmates = [
-            { id: 1, name: "John Doe", status: "active" },
-            { id: 2, name: "Jane Smith", status: "inactive" },
-            { id: 3, name: "Mike Johnson", status: "escaped" },
-            { id: 4, name: "Emily Brown", status: "active" },
-            { id: 5, name: "David Wilson", status: "inactive" }
-        ];
-
-        // Populate inmate table
-        inmates.forEach((inmate, index) => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${index + 1}</td>
-                <td>${inmate.name}</td>
-                <td>
-                    <span class="status-indicator status-${inmate.status}"></span>
-                    ${capitalizeFirstLetter(inmate.status)}
-                </td>
-                <td>
-                    <button class="details-button" onclick="showInmateDetails(${inmate.id})">Details</button>
-                </td>
-            `;
-            inmateTableBody.appendChild(row);
+    const inputForm = document.getElementById('inputForm');
+    if (inputForm) {
+        inputForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            console.log('Form submitted');
         });
-        console.log('Inmate table populated');
-    } else {
-        console.error('Inmate table body not found');
     }
-}
 
-function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-}
-
-function showInmateDetails(inmateId) {
-    console.log(`Navigating to details page for inmate with ID: ${inmateId}`);
-    window.location.href = `dataNapi.html?id=${inmateId}`;
-}
+    document.getElementById("btn-details").addEventListener("click",function(){
+        window.location.href ="data-napi.html";
+    })
+});
 

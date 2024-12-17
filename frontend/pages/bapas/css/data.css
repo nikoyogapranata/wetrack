@@ -100,7 +100,7 @@ body {
     justify-content: center;
     width: 40px;
     height: 40px;
- flex-shrink: 0;;
+    flex-shrink: 0;
 }
 
 .nav-links {
@@ -194,12 +194,23 @@ body {
     overflow-y: auto;
 }
 
+.content-container {
+    background-color: var(--card-color);
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
 
 .content-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 2rem;
+}
+
+.content-header h1 {
+    font-size: 2rem;
+    color: var(--primary-color);
 }
 
 .search-bar {
@@ -222,85 +233,16 @@ body {
     color: #999;
 }
 
-/*Tabel*/
-.inmate-table {
-    background: var(--card-color);
-    border-radius: 10px;
-    padding: 1.5rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    margin-top: 2rem;
-}
-
-.inmate-table h2 {
-    margin-bottom: 1rem;
-}
-
-.inmate-table table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.inmate-table th,
-.inmate-table td {
-    padding: 0.75rem;
-    text-align: left;
-    border-bottom: 1px solid #eee;
-}
-
-.inmate-table th {
-    font-weight: bold;
-    background-color: #f8f9fa;
-}
-
-.inmate-table tr:last-child td {
-    border-bottom: none;
-}
-
-.status-indicator {
-    display: inline-block;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    margin-right: 5px;
-}
-
-.status-active {
-    background-color: #27ae60;
-}
-
-.status-inactive {
-    background-color: #95a5a6;
-}
-
-.status-escaped {
-    background-color: #e74c3c;
-}
-
-.details-button {
-    background-color: var(--primary-color);
-    color: white;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.details-button:hover {
-    background-color: var(--secondary-color);
-}
-
-.table-header {
+.button-group {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
-  }
-  
-.btn {
+    gap: 1rem;
+    margin-bottom: 2rem;
+    margin-right: 2rem;
+}
+
+.btn, .delete-btn {
     padding: 0.75rem 1.5rem;
     border: none;
-    max-width: 150px;
     border-radius: 8px;
     font-weight: 500;
     cursor: pointer;
@@ -312,14 +254,105 @@ body {
     color: white;
 }
 
-.btn-primary:hover {
-    background-color: var(--secondary-color);
+.btn-secondary {
+    background-color: var(--background-color);
+    color: var(--primary-color);
 }
 
-/* Responsive Design */
+.btn-action {
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+}
+
+.btn:hover {
+    opacity: 0.9;
+}
+
+.table-container {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+th {
+    background-color: var(--background-color);
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+/* Input Form Styles */
+.input-container {
+    overflow-x: auto;
+}
+
+.form-group {
+    display: flex;
+    align-items: center;
+    gap: 1rem; 
+}
+
+.form-group label, ::placeholder, option, input[type="date"]::placeholder {
+    flex: 0 0 250px;
+    text-align: left; 
+    margin-right: 10px; 
+    font-weight: 500;
+    font-family: 'Poppins', sans-serif;
+}
+
+textarea{
+    resize: none;
+}
+
+.form-group input,
+.form-group select, textarea {
+    flex: 1;
+    padding: 0.8rem;
+    margin-bottom: 5px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+.form-group select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23333' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    padding-right: 2.5rem;
+}
+
+.delete-btn {
+    background-color: var(--danger-color);
+    color: white;
+}
+
+.delete-btn:hover {
+    background-color: #c0392b;
+}
+
 @media (max-width: 1024px) {
     .sidebar {
         width: 200px;
+    }
+    
+    .content {
+        margin-left: 200px;
     }
 }
 
@@ -347,4 +380,7 @@ body {
         padding-top: 4rem;
     }
 
+    .search-bar input {
+        width: 100%;
+    }
 }
