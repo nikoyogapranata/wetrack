@@ -1,8 +1,9 @@
 <?php
-require 'connection.php';
+require '/wetrack/frontend/pages/lapas/html/connection.php';
 if(isset($_POST["submit"])){
     $fileInput = $_POST["fileInput"];
     $nik = $_POST["nik"];
+    $nrt = $_POST["nrt"];
     $nama = $_POST["nama"];
     $dateBirth = $_POST["dateBirth"];
     $address = $_POST["address"];
@@ -13,7 +14,7 @@ if(isset($_POST["submit"])){
     $punishment = $_POST["punishment"];
     $releaseDate = $_POST["releaseDate"];
 
-    $query = "Insert INTO tb_data Values('', '$fileInput','$nik', '$nama','$dateBirth', '$address', '$nationality', '$crime', '$case', '$punishment', '$releaseDate')";
+    $query = "Insert INTO tb_data Values('', '$fileInput','$nik', '$nrt', '$nama','$dateBirth', '$address', '$nationality', '$crime', '$case', '$punishment', '$releaseDate')";
     mysqli_query($conn, $query);
 
     echo
