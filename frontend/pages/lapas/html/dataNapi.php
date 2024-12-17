@@ -58,52 +58,59 @@
                 <div class="profile-header">
                     <img src="/frontend/pages/Bapas/Image/20240305.webp" alt="Profile Image" class="profile-image">
                     <div class="profile-title">
-                        <h1>Chou Tzuyu</h1>
-                        <p class="id-text">National ID Number: 1234567890</p>
-                        <p class="id-text">Prisoner Registration Number: PRN123456</p>
+                        <h1><?php echo $row["nama"];?></h1>
+                        <p class="id-text">National ID Number: <?php echo $row["nik"];?></p>
+                        <p class="id-text">Prisoner Registration Number: <?php echo $row["nrt"];?></p>
                     </div>
                 </div>
 
-                <div class="profile-content">
-                    <div class="info-section">
-                        <h2>Personal Information</h2>
-                        <div class="info-grid">
-                            <div class="info-item">
-                                <label>Date of Birth:</label>
-                                <span>June 14, 1999</span>
-                            </div>
-                            <div class="info-item">
-                                <label>Address:</label>
-                                <span>123 Main St, City, Country</span>
-                            </div>
-                            <div class="info-item">
-                                <label>Gender:</label>
-                                <span>Female</span>
-                            </div>
-                            <div class="info-item">
-                                <label>Nationality:</label>
-                                <span>Taiwanese</span>
-                            </div>
-                            <div class="info-item">
-                                <label>Type of Crime:</label>
-                                <span>Theft</span>
-                            </div>
-                            <div class="info-item">
-                                <label>Incident Report:</label>
-                                <span>Brief description of the incident</span>
-                            </div>
-                            <div class="info-item">
-                                <label>Punishment Period:</label>
-                                <span>5 Years</span>
-                            </div>
-                            <div class="info-item">
-                                <label>Release Date:</label>
-                                <span>2025-01-15</span>
+                <?php
+                require 'connection.php';
+                $rows = mysqli_query($conn, "SELECT * FROM /*nama tabel*/ ORDER BY id DESC");
+                foreach ($rows as $row) :
+                ?>
+
+                    <div class="profile-content">
+                        <div class="info-section">
+                            <h2>Personal Information</h2>
+                            <div class="info-grid">
+                                <div class="info-item">
+                                    <label>Date of Birth:</label>
+                                    <span><?php echo $row["dateBirth"];?></span>
+                                </div>
+                                <div class="info-item">
+                                    <label>Address:</label>
+                                    <span>123 Main St, City, Country</span>
+                                </div>
+                                <div class="info-item">
+                                    <label>Gender:</label>
+                                    <span>Female</span>
+                                </div>
+                                <div class="info-item">
+                                    <label>Nationality:</label>
+                                    <span>Taiwanese</span>
+                                </div>
+                                <div class="info-item">
+                                    <label>Type of Crime:</label>
+                                    <span>Theft</span>
+                                </div>
+                                <div class="info-item">
+                                    <label>Incident Report:</label>
+                                    <span>Brief description of the incident</span>
+                                </div>
+                                <div class="info-item">
+                                    <label>Punishment Period:</label>
+                                    <span>5 Years</span>
+                                </div>
+                                <div class="info-item">
+                                    <label>Release Date:</label>
+                                    <span>2025-01-15</span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
             </div>
+        <?php endforeach; ?>
         </main>
     </div>
 </body>

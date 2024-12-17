@@ -20,7 +20,7 @@ if(isset($_POST["submit"])){
     "
     <script>
     alert('Data Added Successfully');
-    document.location.href = 'dataNapi.php';
+    document.location.href = '/frontend/pages/lapas/html/dataNapi.php';
     </script>
     ";
 }
