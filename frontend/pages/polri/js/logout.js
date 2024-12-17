@@ -1,1 +1,8 @@
-/Applications/MAMP/htdocs/wetrack/frontend/pages/polri/js/alerts.js /Applications/MAMP/htdocs/wetrack/frontend/pages/polri/js/database.js /Applications/MAMP/htdocs/wetrack/frontend/pages/polri/js/logout.js /Applications/MAMP/htdocs/wetrack/frontend/pages/polri/js/penanganan.js /Applications/MAMP/htdocs/wetrack/frontend/pages/polri/js/profile.js /Applications/MAMP/htdocs/wetrack/frontend/pages/polri/js/script.js
+function navigateTo(page) {
+    window.location.href = page;
+  }
+
+  function logout() {
+    alert("You have logged out.");
+    window.location.href = '/frontend/pages/public/landing-page/index.html'; // Redirect to login page
+  }

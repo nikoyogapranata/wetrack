@@ -51,24 +51,23 @@
             </div>
         </aside>
         <main class="content">
-            <div class="profile-card">
-                <div class="path-to-back">
-                    <a href="/frontend/pages/lapas/html/data.html"><i class="fas fa-arrow-left"></i></a>
-                </div>
-                <div class="profile-header">
-                    <img src="/frontend/pages/Bapas/Image/20240305.webp" alt="Profile Image" class="profile-image">
-                    <div class="profile-title">
-                        <h1><?php echo $row["nama"];?></h1>
-                        <p class="id-text">National ID Number: <?php echo $row["nik"];?></p>
-                        <p class="id-text">Prisoner Registration Number: <?php echo $row["nrt"];?></p>
+            <?php
+            require 'connection.php';
+            $rows = mysqli_query($conn, "SELECT * FROM mantan_narapidana ORDER BY id DESC");
+            foreach ($rows as $row) :
+            ?>
+                <div class="profile-card">
+                    <div class="path-to-back">
+                        <a href="/frontend/pages/lapas/html/data.html"><i class="fas fa-arrow-left"></i></a>
                     </div>
-                </div>
-
-                <?php
-                require 'connection.php';
-                $rows = mysqli_query($conn, "SELECT * FROM /*nama tabel*/ ORDER BY id DESC");
-                foreach ($rows as $row) :
-                ?>
+                    <div class="profile-header">
+                        <img src="/frontend/pages/Bapas/Image/20240305.webp" alt="Profile Image" class="profile-image">
+                        <div class="profile-title">
+                            <h1><?php echo $row["nama"]; ?></h1>
+                            <p class="id-text">National ID Number: <?php echo $row["nik"]; ?></p>
+                            <p class="id-text">Prisoner Registration Number: <?php echo $row["nrt"]; ?></p>
+                        </div>
+                    </div>
 
                     <div class="profile-content">
                         <div class="info-section">
@@ -76,41 +75,41 @@
                             <div class="info-grid">
                                 <div class="info-item">
                                     <label>Date of Birth:</label>
-                                    <span><?php echo $row["dateBirth"];?></span>
+                                    <span><?php echo $row["dateBirth"]; ?></span>
                                 </div>
                                 <div class="info-item">
                                     <label>Address:</label>
-                                    <span>123 Main St, City, Country</span>
+                                    <span><?php echo $row["address"]; ?></span>
                                 </div>
                                 <div class="info-item">
                                     <label>Gender:</label>
-                                    <span>Female</span>
+                                    <span><?php echo $row["gender"]; ?></span>
                                 </div>
                                 <div class="info-item">
                                     <label>Nationality:</label>
-                                    <span>Taiwanese</span>
+                                    <span><?php echo $row["nationality"]; ?></span>
                                 </div>
                                 <div class="info-item">
                                     <label>Type of Crime:</label>
-                                    <span>Theft</span>
+                                    <span><?php echo $row["crime"]; ?></span>
                                 </div>
                                 <div class="info-item">
                                     <label>Incident Report:</label>
-                                    <span>Brief description of the incident</span>
+                                    <span><?php echo $row["case"]; ?></span>
                                 </div>
                                 <div class="info-item">
                                     <label>Punishment Period:</label>
-                                    <span>5 Years</span>
+                                    <span><?php echo $row["punishment"]; ?></span>
                                 </div>
                                 <div class="info-item">
                                     <label>Release Date:</label>
-                                    <span>2025-01-15</span>
+                                    <span><?php echo $row["releaseDate"]; ?></span>
                                 </div>
                             </div>
                         </div>
                     </div>
-            </div>
-        <?php endforeach; ?>
+                </div>
+            <?php endforeach; ?>
         </main>
     </div>
 </body>
