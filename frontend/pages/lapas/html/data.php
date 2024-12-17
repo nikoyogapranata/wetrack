@@ -1,3 +1,31 @@
+<?php
+require 'connection.php';
+if(isset($_POST["submit"])){
+    $fileInput = $_POST["fileInput"];
+    $nik = $_POST["nik"];
+    $nama = $_POST["nama"];
+    $dateBirth = $_POST["dateBirth"];
+    $address = $_POST["address"];
+    $gender = $_POST["gender"];
+    $nationality = $_POST["nationality"];
+    $crime = $_POST["crime"];
+    $case = $_POST["case"];
+    $punishment = $_POST["punishment"];
+    $releaseDate = $_POST["releaseDate"];
+
+    $query = "Insert INTO tb_data Values('', '$fileInput','$nik', '$nama','$dateBirth', '$address', '$nationality', '$crime', '$case', '$punishment', '$releaseDate')";
+    mysqli_query($conn, $query);
+
+    echo
+    "
+    <script>
+    alert('Data Added Successfully');
+    document.location.href = '/frontend/pages/lapas/html/dataNapi.php';
+    </script>
+    ";
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -31,7 +59,7 @@
                 <ul>
                     <li><a href="/frontend/pages/Lapas/html/home.html"><i class="fas fa-tachometer-alt"></i>
                             <span>Dashboard</span></a></li>
-                    <li class="active"><a href="/frontend/pages/Lapas/html/data.html"><i class="fas fa-database"></i>
+                    <li class="active"><a href="/frontend/pages/Lapas/html/data.php"><i class="fas fa-database"></i>
                             <span>Database</span></a></li>
                     <li><a href="/frontend/pages/Lapas/html/Laporan.html"><i class="fas fa-file-invoice"></i><span>Final
                                 Report</span></a></li>
@@ -88,7 +116,7 @@
                     <form id="inputForm">
                         <div class="form-group">
                             <label for="photo">Photo:</label>
-                            <input type="file" id="fileInput" accept=".png, .jpg, .jpeg" required>
+                            <input type="file" name="fileInput" id="fileInput" accept=".png, .jpg, .jpeg" required>
                         </div>
                         <div class="form-group">
                             <label for="nik">National ID Number:</label>
