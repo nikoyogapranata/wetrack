@@ -5,10 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WETRACK | Database</title>
-    <link rel="stylesheet" href="/frontend/pages/Bapas/css/data-napi.css">
-    <script src="/frontend/pages/Bapas/js/data-napi.js"></script>
+    <link rel="stylesheet" href="/frontend/pages/bapas/css/data-napi.css">
+    <script src="/frontend/pages/bapas/js/data-napi.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="icon" href="/frontend/pages/Bapas/Image/wetrack-logo-white.png" type="Image/x-icon">
+    <link rel="icon" href="/frontend/pages/bapas/Image/wetrack-logo-white.png" type="Image/x-icon">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Parkinsans:wght@300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300..700&display=swap"
@@ -32,15 +32,11 @@
             </div>
             <nav class="nav-links">
                 <ul>
-                    <li><a href="/frontend/pages/Bapas/html/home.html"><i class="fas fa-tachometer-alt"></i>
-                            <span>Dashboard</span></a></li>
-                    <li><a href="/frontend/pages/Bapas/html/tracking.html"><i class="fas fa-map-marker-alt"></i>
-                            <span>Tracking Map</span></a></li>
-                    <li class="active"><a href="/frontend/pages/Bapas/html/data.html"><i class="fas fa-database"></i>
-                            <span>Database</span></a>
+                    <li><a href="/frontend/pages/Bapas/html/home.html"><i class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a></li>
+                    <li><a href="/frontend/pages/Bapas/html/tracking.html"><i class="fas fa-map-marker-alt"></i> <span>Tracking Map</span></a></li>
+                    <li class="active"><a href="/frontend/pages/Bapas/html/data.html"><i class="fas fa-database"></i> <span>Database</span></a>
                     </li>
-                    <li><a href="/frontend/pages/Bapas/html/setting.html"><i class="fas fa-cog"></i>
-                            <span>Settings</span></a></li>
+                    <li><a href="/frontend/pages/Bapas/html/setting.html"><i class="fas fa-cog"></i> <span>Settings</span></a></li>
                 </ul>
             </nav>
             <div class="user-profile">
@@ -52,16 +48,21 @@
             </div>
         </aside>
         <main class="content">
+            <header class="content-header">
+                <div class="search-bar">
+                    <input type="text" placeholder="Search" aria-label="Search">
+                    <i class="fas fa-search"></i>
+                </div>
+            </header>
             <div class="profile-card">
                 <div class="path-to-back">
                     <a href="/frontend/pages/Bapas/html/data.html"><i class="fas fa-arrow-left"></i></a>
                 </div>
                 <div class="profile-header">
-                    <img src="/frontend/pages/Bapas/Image/20240305.webp" alt="Profile Image" class="profile-image">
+                    <img src="/frontend/pages/Bapas/Image/nanti-diganti.png" alt="Profile Image" class="profile-image">
                     <div class="profile-title">
-                        <h1>Chou Tzuyu</h1>
-                        <p class="id-text">National ID Number: 1234567890</p>
-                        <p class="id-text">Prisoner Registration Number: PRN123456</p>
+                        <h1>Gita Sekar</h1>
+                        <p class="id-text">ID: 06</p>
                     </div>
                 </div>
 
@@ -70,51 +71,39 @@
                         <h2>Personal Information</h2>
                         <div class="info-grid">
                             <div class="info-item">
-                                <label>Date of Birth:</label>
-                                <span>June 14, 1999</span>
-                            </div>
-                            <div class="info-item">
-                                <label>Address:</label>
-                                <span>123 Main St, City, Country</span>
-                            </div>
-                            <div class="info-item">
-                                <label>Gender:</label>
-                                <span>Female</span>
-                            </div>
-                            <div class="info-item">
-                                <label>Nationality:</label>
-                                <span>Taiwanese</span>
-                            </div>
-                            <div class="info-item">
                                 <label>Type of Crime:</label>
                                 <span>Theft</span>
                             </div>
                             <div class="info-item">
-                                <label>Incident Report:</label>
-                                <span>Brief description of the incident</span>
-                            </div>
-                            <div class="info-item">
-                                <label>Punishment Period:</label>
+                                <label>Punishment period </label>
                                 <span>5 Years</span>
                             </div>
                             <div class="info-item">
                                 <label>Release Date:</label>
-                                <span>2025-01-15</span>
+                                <span>2023-01-15</span>
+                            </div>
+                            <div class="info-item">
+                                <label>Status:</label>
+                                <span>Under Supervision</span>
+                            </div>
+                            <div class="info-item">
+                                <label>Tracker Status:</label>
+                                <span>Active</span>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="violation-section">
-                    <h2>Violation History:</h2>
-                    <div class="violation-list">
-                        <div class="violation-item">
-                            <span class="violation-date">2023-03-10:</span>
-                            <span class="violation-desc">Exceeding Area Boundaries</span>
-                        </div>
-                        <div class="violation-item">
-                            <span class="violation-date">2023-04-22:</span>
-                            <span class="violation-desc">Late Self-Reporting</span>
+                    <div class="violation-section">
+                        <h2>Violation History:</h2>
+                        <div class="violation-list">
+                            <div class="violation-item">
+                                <span class="violation-date">2023-03-10:</span>
+                                <span class="violation-desc">Exceeding Area Boundaries</span>
+                            </div>
+                            <div class="violation-item">
+                                <span class="violation-date">2023-04-22:</span>
+                                <span class="violation-desc">Late Self-Reporting</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -128,7 +117,6 @@
                     <button class="btn btn-danger">Report Violation</button>
                 </div>
             </div>
-
         </main>
     </div>
 </body>
