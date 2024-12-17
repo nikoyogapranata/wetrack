@@ -53,7 +53,7 @@
         <main class="content">
             <?php
             require 'connection.php';
-            $rows = mysqli_query($conn, "SELECT * FROM /*nama tabel*/ ORDER BY id DESC");
+            $rows = mysqli_query($conn, "SELECT * FROM mantan_narapidana ORDER BY id DESC");
             foreach ($rows as $row) :
             ?>
                 <div class="profile-card">
