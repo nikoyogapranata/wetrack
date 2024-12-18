@@ -1,3 +1,15 @@
+<?php
+require 'connection.php';
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+    $result = mysqli_query($conn, "SELECT * FROM mantan_narapidana WHERE id = $id");
+    $row = mysqli_fetch_assoc($result);
+} else {
+    header("Location: data.php");
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -49,67 +61,61 @@
                     <p>Administrative Staff</p>
                 </div>
             </div>
-        </aside>
+            </aside>
         <main class="content">
-            <?php
-            require 'connection.php';
-            $rows = mysqli_query($conn, "SELECT * FROM mantan_narapidana ORDER BY id DESC");
-            foreach ($rows as $row) :
-            ?>
-                <div class="profile-card">
-                    <div class="path-to-back">
-                        <a href="/frontend/pages/lapas/html/data.html"><i class="fas fa-arrow-left"></i></a>
+            <div class="profile-card">
+                <div class="path-to-back">
+                    <a href="/frontend/pages/lapas/html/data.php"><i class="fas fa-arrow-left"></i></a>
+                </div>
+                <div class="profile-header">
+                    <img src="<?php echo $row["fileInput"]; ?>" alt="Profile Image" class="profile-image">
+                    <div class="profile-title">
+                        <h1><?php echo $row["nama"]; ?></h1>
+                        <p class="id-text">National ID Number: <?php echo $row["nik"]; ?></p>
+                        <p class="id-text">Prisoner Registration Number: <?php echo $row["nrt"]; ?></p>
                     </div>
-                    <div class="profile-header">
-                        <img src="/frontend/pages/Bapas/Image/20240305.webp" alt="Profile Image" class="profile-image">
-                        <div class="profile-title">
-                            <h1><?php echo $row["nama"]; ?></h1>
-                            <p class="id-text">National ID Number: <?php echo $row["nik"]; ?></p>
-                            <p class="id-text">Prisoner Registration Number: <?php echo $row["nrt"]; ?></p>
-                        </div>
-                    </div>
+                </div>
 
-                    <div class="profile-content">
-                        <div class="info-section">
-                            <h2>Personal Information</h2>
-                            <div class="info-grid">
-                                <div class="info-item">
-                                    <label>Date of Birth:</label>
-                                    <span><?php echo $row["dateBirth"]; ?></span>
-                                </div>
-                                <div class="info-item">
-                                    <label>Address:</label>
-                                    <span><?php echo $row["address"]; ?></span>
-                                </div>
-                                <div class="info-item">
-                                    <label>Gender:</label>
-                                    <span><?php echo $row["gender"]; ?></span>
-                                </div>
-                                <div class="info-item">
-                                    <label>Nationality:</label>
-                                    <span><?php echo $row["nationality"]; ?></span>
-                                </div>
-                                <div class="info-item">
-                                    <label>Type of Crime:</label>
-                                    <span><?php echo $row["crime"]; ?></span>
-                                </div>
-                                <div class="info-item">
-                                    <label>Incident Report:</label>
-                                    <span><?php echo $row["case"]; ?></span>
-                                </div>
-                                <div class="info-item">
-                                    <label>Punishment Period:</label>
-                                    <span><?php echo $row["punishment"]; ?></span>
-                                </div>
-                                <div class="info-item">
-                                    <label>Release Date:</label>
-                                    <span><?php echo $row["releaseDate"]; ?></span>
-                                </div>
+                <div class="profile-content">
+                    <div class="info-section">
+                        <h2>Personal Information</h2>
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <label>Date of Birth:</label>
+                                <span><?php echo $row["dateBirth"]; ?></span>
+                            </div>
+                            <div class="info-item">
+                                <label>Address:</label>
+                                <span><?php echo $row["address"]; ?></span>
+                            </div>
+                            <div class="info-item">
+                                <label>Gender:</label>
+                                <span><?php echo $row["gender"]; ?></span>
+                            </div>
+                            <div class="info-item">
+                                <label>Nationality:</label>
+                                <span><?php echo $row["nationality"]; ?></span>
+                            </div>
+                            <div class="info-item">
+                                <label>Type of Crime:</label>
+                                <span><?php echo $row["crime"]; ?></span>
+                            </div>
+                            <div class="info-item">
+                                <label>Incident Report:</label>
+                                <span><?php echo $row["case"]; ?></span>
+                            </div>
+                            <div class="info-item">
+                                <label>Punishment Period:</label>
+                                <span><?php echo $row["punishment"]; ?></span>
+                            </div>
+                            <div class="info-item">
+                                <label>Release Date:</label>
+                                <span><?php echo $row["releaseDate"]; ?></span>
                             </div>
                         </div>
                     </div>
                 </div>
-            <?php endforeach; ?>
+            </div>
         </main>
     </div>
 </body>
