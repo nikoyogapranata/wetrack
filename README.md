@@ -2,5 +2,5 @@
 
 Language
 Frontend: (HTML, CSS - Bootstrap, JavaScript)
-Backend: (Laravel)
+Backend: (PHP)
 Database: (MySQL)
