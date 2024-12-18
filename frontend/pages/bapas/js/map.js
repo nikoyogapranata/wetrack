@@ -1,5 +1,6 @@
 let map;
 let marker;
+let socket;
 
 function initMap() {
     map = L.map('map').setView([0, 0], 2);
@@ -10,17 +11,31 @@ function initMap() {
 
     marker = L.marker([0, 0]).addTo(map);
 
-    updateLocation();
+    // Initialize Socket.io connection
+    socket = io('http://localhost:3000');
+
+    // Listen for location updates from the server
+    socket.on('locationUpdate', function(data) {
+        updateLocation(data.lat, data.lon);
+    });
+
+    // Start sending location updates to the server
+    startLocationUpdates();
 }
 
-function updateLocation() {
+function updateLocation(lat, lon) {
+    marker.setLatLng([lat, lon]);
+    map.setView([lat, lon], 15);
+}
+
+function startLocationUpdates() {
     if ("geolocation" in navigator) {
         navigator.geolocation.watchPosition(function(position) {
             const lat = position.coords.latitude;
             const lon = position.coords.longitude;
 
-            marker.setLatLng([lat, lon]);
-            map.setView([lat, lon], 15);
+            // Send location update to the server
+            socket.emit('updateLocation', { lat, lon });
         }, function(error) {
             console.error("Error: " + error.message);
         });

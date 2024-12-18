@@ -34,8 +34,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function showTable() {
         tableContainer.style.display = 'block';
         inputContainer.style.display = 'none';
-        headerContent.style.display = 'block';
-        btnDelete.style.display ='block';
+        headerContent.style.display = 'block';btnDelete.style.display ='block';
         showTableBtn.classList.add('btn-primary');
         showTableBtn.classList.remove('btn-secondary');
         showInputBtn.classList.add('btn-secondary');
@@ -61,12 +60,12 @@ document.addEventListener('DOMContentLoaded', function () {
     const inputForm = document.getElementById('inputForm');
     if (inputForm) {
         inputForm.addEventListener('submit', function(e) {
-            e.preventDefault();
+            // Form submission is now handled by PHP, so we don't need to prevent default
             console.log('Form submitted');
         });
     }
 
-    //select country
+    // Select country
     const countries = [
         "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua and Barbuda", "Argentina", "Armenia", "Australia",
         "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bhutan",
@@ -89,17 +88,14 @@ document.addEventListener('DOMContentLoaded', function () {
         "United States", "Uruguay", "Uzbekistan", "Vanuatu", "Vatican City", "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabwe"
     ];
 
+    const select = document.getElementById("nationality");
     
-      const select = document.getElementById("nationality");
-    
-      countries.forEach(country => {
+    countries.forEach(country => {
         const option = document.createElement("option");
         option.value = country.toLowerCase().replace(/\s+/g, '-'); 
         option.textContent = country;
         select.appendChild(option);
-      });
+    });
 
-      document.getElementById("btn-details").addEventListener("click",function(){
-        window.location.href ="dataNapi.html";
-    })
 });
+

@@ -238,7 +238,7 @@ body {
 }
 
 .profile-content {
-    display: flex;
+    display: column;
     gap: 2rem;
     margin-bottom: 2rem;
 }

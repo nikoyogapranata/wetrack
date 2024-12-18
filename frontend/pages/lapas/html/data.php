@@ -1,7 +1,7 @@
 <?php
-require '/wetrack/frontend/pages/lapas/html/connection.php';
-if(isset($_POST["submit"])){
-    $fileInput = $_POST["fileInput"];
+require 'connection.php';
+if (isset($_POST["submit"])) {
+    $fileInput = $_FILES["fileInput"]["name"];
     $nik = $_POST["nik"];
     $nrt = $_POST["nrt"];
     $nama = $_POST["nama"];
@@ -9,21 +9,30 @@ if(isset($_POST["submit"])){
     $address = $_POST["address"];
     $gender = $_POST["gender"];
     $nationality = $_POST["nationality"];
+    $nationality = ucwords(str_replace('-', ' ', $nationality));
     $crime = $_POST["crime"];
     $case = $_POST["case"];
     $punishment = $_POST["punishment"];
     $releaseDate = $_POST["releaseDate"];
 
-    $query = "Insert INTO tb_data Values('', '$fileInput','$nik', '$nrt', '$nama','$dateBirth', '$address', '$nationality', '$crime', '$case', '$punishment', '$releaseDate')";
-    mysqli_query($conn, $query);
+    // File upload handling
+    $target_dir = "uploads/";
+    $target_file = $target_dir . basename($_FILES["fileInput"]["name"]);
+    move_uploaded_file($_FILES["fileInput"]["tmp_name"], $target_file);
 
-    echo
-    "
-    <script>
-    alert('Data Added Successfully');
-    document.location.href = '/frontend/pages/lapas/html/dataNapi.php';
-    </script>
-    ";
+    $query = "INSERT INTO mantan_narapidana (fileInput, nik, nrt, nama, dateBirth, address, gender, nationality, crime, `case`, punishment, releaseDate) 
+              VALUES ('$target_file', '$nik', '$nrt', '$nama', '$dateBirth', '$address', '$gender', '$nationality', '$crime', '$case', '$punishment', '$releaseDate')";
+
+    if (mysqli_query($conn, $query)) {
+        echo "
+        <script>
+        alert('Data Added Successfully');
+        document.location.href = '/frontend/pages/lapas/html/dataNapi.php';
+        </script>
+        ";
+    } else {
+        echo "Error: " . $query . "<br>" . mysqli_error($conn);
+    }
 }
 ?>
 
@@ -36,12 +45,12 @@ if(isset($_POST["submit"])){
     <title>WETRACK | Database</title>
     <link rel="icon" href="/frontend/pages/Lapas/Image/wetrack-logo-white.png" type="Image/x-icon">
     <link rel="stylesheet" href="/frontend/pages/lapas/css/data.css">
-    <script src="/frontend/pages/lapas/js/data.js" defer></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="/frontend/pages/lapas/js/data.js" defer></script>
 </head>
 
 <body>
@@ -75,7 +84,7 @@ if(isset($_POST["submit"])){
                     <p>Administrative Staff</p>
                 </div>
             </div>
-        </aside>
+            </aside>
         <main class="content">
             <div class="content-container">
                 <div class="content-header">
@@ -87,7 +96,7 @@ if(isset($_POST["submit"])){
                 </div>
                 <div class="button-group">
                     <button class="btn btn-primary" id="showTableBtn">All</button>
-                    <button class="btn btn-secondary" id="showInputBtn" onclick="showInput()">Input Data</button>
+                    <button class="btn btn-secondary" id="showInputBtn">Input Data</button>
                     <button class="delete-btn" id="delete-btn" class="btn btn-danger">Delete</button>
                 </div>
                 <div class="table-container">
@@ -100,21 +109,23 @@ if(isset($_POST["submit"])){
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Chou Tzuyu</td>
-                                <td><button class="btn btn-action" id="btn-details">Details</button></td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Gita Sekar Andarini</td>
-                                <td><button class="btn btn-action" id="btn-details">Details</button></td>
-                            </tr>
+                            <?php
+                            $result = mysqli_query($conn, "SELECT id, nama FROM mantan_narapidana ORDER BY id DESC");
+                            $i = 1;
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                echo "<tr>";
+                                echo "<td>" . $i . "</td>";
+                                echo "<td>" . $row['nama'] . "</td>";
+                                echo "<td><button class='btn btn-action' onclick='showDetails(" . $row['id'] . ")'>Details</button></td>";
+                                echo "</tr>";
+                                $i++;
+                            }
+                            ?>
                         </tbody>
                     </table>
                 </div>
                 <div class="input-container" style="display: none;">
-                    <form id="inputForm">
+                    <form id="inputForm" method="post" enctype="multipart/form-data" autocomplete="off">
                         <div class="form-group">
                             <label for="photo">Photo:</label>
                             <input type="file" name="fileInput" id="fileInput" accept=".png, .jpg, .jpeg" required>
@@ -180,12 +191,17 @@ if(isset($_POST["submit"])){
                             <label for="releaseDate">Release Date:</label>
                             <input type="date" id="releaseDate" name="releaseDate" required>
                         </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" name="submit" class="btn btn-primary">Submit</button>
                     </form>
                 </div>
             </div>
         </main>
     </div>
+    <script>
+    function showDetails(id) {
+        window.location.href = "dataNapi.php?id=" + id;
+    }
+    </script>
 </body>
 
 </html>
