@@ -332,6 +332,33 @@ body {
     font-size: 0.875rem;
 }
 
+/* Styling the login history table */
+.login-history-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.login-history-table th, .login-history-table td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+.login-history-table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+.login-history-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.login-history-table tr:hover {
+    background-color: #e0e0e0;
+}
+
+
 /* Responsive Design */
 @media (max-width: 1024px) {
     .sidebar {

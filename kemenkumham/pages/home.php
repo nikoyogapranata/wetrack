@@ -141,21 +141,30 @@ if (!$profile_picture) {
                 <!-- Login History -->
                 <section class="card login-history-card">
                     <h3><i class="fas fa-sign-in-alt"></i> Recent Logins</h3>
-                    <ul class="login-history-list">
-                        <?php foreach ($login_history as $login): ?>
-                            <?php 
-                                // Format the login time
-                                $formatted_time = date('Y-m-d H:i:s', strtotime($login['login_time']));
-                                // Format the IP address (example: replace local IP with "Localhost")
-                                $formatted_ip = ($login['ip_address'] === '127.0.0.1') ? 'Localhost' : $login['ip_address'];
-                            ?>
-                            <li>
-                                <span class="login-user-id">User ID: <?php echo $login['user_id']; ?></span> <!-- Display user ID -->
-                                <span class="login-time"><?php echo $formatted_time; ?></span>
-                                <span class="login-ip"><?php echo $formatted_ip; ?></span>
-                            </li>
-                        <?php endforeach; ?>
-                    </ul>
+                    <table class="login-history-table">
+                        <thead>
+                            <tr>
+                                <th>User ID</th>
+                                <th>Login Time</th>
+                                <th>IP Address</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($login_history as $login): ?>
+                                <?php 
+                                    // Format the login time
+                                    $formatted_time = date('Y-m-d H:i:s', strtotime($login['login_time']));
+                                    // Format the IP address (example: replace local IP with "Localhost")
+                                    $formatted_ip = ($login['ip_address'] === '127.0.0.1') ? 'Localhost' : $login['ip_address'];
+                                ?>
+                                <tr>
+                                    <td><?php echo $login['user_id']; ?></td>
+                                    <td><?php echo $formatted_time; ?></td>
+                                    <td><?php echo $formatted_ip; ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
                 </section>
             </div>
         </main>
