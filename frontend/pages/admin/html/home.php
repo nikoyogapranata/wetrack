@@ -5,13 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WETRACK</title>
-    <link rel="stylesheet" href="/frontend/pages/Lapas/css/style.css">
-    <script src="/frontend/pages/Lapas/js/script.js"></script>
-    <link rel="icon" href="/frontend/pages/Lapas/Images/wetrack-logo-white.png" type="Image/x-icon">
+    <link rel="stylesheet" href="http://localhost/wetrack/frontend/pages/admin/css/style.css">
+    <script src="http://localhost/wetrack/frontend/pages/Lapas/js/script.js"></script>
+    <link rel="icon" href="http://localhost/wetrack/frontend/pages/admin/Images/wetrack-logo-white.png" type="Image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Parkinsans:wght@300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300..700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Parkinsans:wght@300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&family=Quicksand:wght@300..700&display=swap"
         rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -22,7 +22,7 @@
         <aside class="sidebar">
             <div class="sidebar-header">
                 <div class="logo">
-                    <img src="/frontend/pages/admin/Image/wetrack-logo-white.png" alt="WETRACK Logo">
+                    <img src="http://localhost/wetrack/frontend/pages/admin/Images/wetrack-logo-white.png" alt="WETRACK Logo">
                     <h1 class="logo-text">WETRACK</h1>
                 </div>
                 <button id="toggle-sidebar" class="toggle-sidebar">
@@ -31,14 +31,14 @@
             </div>
             <nav class="nav-links">
                 <ul>
-                    <li class="active"><a href="/frontend/pages/admin/html/home.html"><i class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a></li>
-                    <li><a href="/frontend/pages/admin/html/data.html"><i class="fas fa-database"></i> <span>Database</span></a></li>
-                    <li><a href="/frontend/pages/admin/html/Laporan.html"><i class="fas fa-file-invoice"></i> <span>Final Report</span></a></li>
-                    <li><a href="/frontend/pages/admin/html/setting.html"><i class="fas fa-cog"></i> <span>Settings</span></a></li>
+                    <li class="active"><a href="http://localhost/wetrack/frontend/pages/admin/html/home.php"><i class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a></li>
+                    <li><a href="http://localhost/wetrack/frontend/pages/admin/html/data.php"><i class="fas fa-database"></i> <span>Database</span></a></li>
+                    <li><a href="http://localhost/wetrack/frontend/pages/admin/html/Laporan.php"><i class="fas fa-file-invoice"></i> <span>Final Report</span></a></li>
+                    <li><a href="http://localhost/wetrack/frontend/pages/admin/html/setting.php"><i class="fas fa-cog"></i> <span>Settings</span></a></li>
                 </ul>
             </nav>
             <div class="user-profile">
-                <img src="/frontend/pages/admin/Image/kemenkumham.png" alt="Profile picture" width="40" height="40">
+                <img src="http://localhost/wetrack/frontend/pages/admin/Images/kemenkumham.png" alt="Profile picture" width="40" height="40">
                 <div class="user-info">
                     <h2>Serdy Fambo</h2>
                     <p>Administrative Staff</p>
