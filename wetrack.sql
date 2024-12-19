@@ -3,14 +3,13 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Waktu pembuatan: 19 Des 2024 pada 06.39
+-- Waktu pembuatan: 19 Des 2024 pada 06:39
 -- Versi server: 8.0.35
 -- Versi PHP: 8.2.20
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
-
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -23,7 +22,7 @@ SET time_zone = "+00:00";
 
 -- Struktur dari tabel `data_polri`
 CREATE TABLE `data_polri` (
-  `id` int NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
   `nama` varchar(100) NOT NULL,
   `nik` varchar(16) NOT NULL,
   `id_napi` varchar(20) NOT NULL,
@@ -31,7 +30,8 @@ CREATE TABLE `data_polri` (
   `unggah_foto` varchar(255) NOT NULL,
   `isi_laporan` text NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `tanggal_laporan` date NOT NULL
+  `tanggal_laporan` date NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data untuk tabel `data_polri`
@@ -45,7 +45,7 @@ INSERT INTO `data_polri` (`id`, `nama`, `nik`, `id_napi`, `alamat`, `unggah_foto
 
 -- Struktur dari tabel `mantan_narapidana`
 CREATE TABLE `mantan_narapidana` (
-  `id` int NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
   `fileInput` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `nik` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `nrt` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
@@ -58,7 +58,8 @@ CREATE TABLE `mantan_narapidana` (
   `case` text COLLATE utf8mb4_general_ci,
   `punishment` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `releaseDate` date DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data untuk tabel `mantan_narapidana`
@@ -72,9 +73,10 @@ INSERT INTO `mantan_narapidana` (`id`, `fileInput`, `nik`, `nrt`, `nama`, `dateB
 
 -- Struktur dari tabel `kemenkumham_users`
 CREATE TABLE `kemenkumham_users` (
-  `id` int NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
   `password` varchar(255) NOT NULL,
-  `profile_picture` varchar(255) DEFAULT '/wetrack/kemenkumham/image/kemenkumham.png'  -- Default profile picture
+  `profile_picture` varchar(255) DEFAULT '/wetrack/kemenkumham/image/kemenkumham.png', -- Default profile picture
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data untuk tabel `kemenkumham_users`
@@ -85,20 +87,23 @@ INSERT INTO `kemenkumham_users` (`id`, `password`, `profile_picture`) VALUES
 (1000004, '$2y$10$w/r8735TfDv0HBUOz5pkmedxSWYZjq/LDcWe4GzOXy/I5T1LWeLlu', '/wetrack/kemenkumham/image/kemenkumham.png'),
 (1000005, '$2y$10$w/r8735TfDv0HBUOz5pkmedxSWYZjq/LDcWe4GzOXy/I5T1LWeLlu', '/wetrack/kemenkumham/image/kemenkumham.png');
 
--- Indexes for dumped tables
-ALTER TABLE `kemenkumham_users`
-  ADD PRIMARY KEY (`id`);
+-- --------------------------------------------------------
 
+-- Struktur dari tabel `login_history`
+CREATE TABLE `login_history` (
+    `id` INT AUTO_INCREMENT PRIMARY KEY,
+    `user_id` INT NOT NULL,
+    `login_time` DATETIME DEFAULT CURRENT_TIMESTAMP,
+    `ip_address` VARCHAR(45) NOT NULL, -- New column to store IP address
+    FOREIGN KEY (user_id) REFERENCES kemenkumham_users(id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+-- Auto Increment updates
 ALTER TABLE `kemenkumham_users`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000006;
 
-
-
-ALTER TABLE `data_polri`
-  ADD PRIMARY KEY (`id`);
-
-ALTER TABLE `mantan_narapidana`
-  ADD PRIMARY KEY (`id`);
 
 ALTER TABLE `data_polri`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
@@ -107,7 +112,6 @@ ALTER TABLE `mantan_narapidana`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 COMMIT;
-
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

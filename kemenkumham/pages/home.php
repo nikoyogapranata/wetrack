@@ -15,6 +15,25 @@ $stmt->bind_result($id, $profile_picture);
 $stmt->fetch();
 $stmt->close();
 
+// Fetch login history for all users
+$query = "SELECT u.id AS user_id, l.login_time, l.ip_address 
+          FROM login_history l
+          JOIN kemenkumham_users u ON l.user_id = u.id
+          ORDER BY l.login_time DESC LIMIT 10"; // Adjust the limit as needed
+$stmt = $conn->prepare($query);
+$stmt->execute();
+$stmt->bind_result($login_user_id, $login_time, $ip_address);
+
+$login_history = [];
+while ($stmt->fetch()) {
+    $login_history[] = [
+        'user_id' => $login_user_id, 
+        'login_time' => $login_time, 
+        'ip_address' => $ip_address
+    ];
+}
+$stmt->close();
+
 // Set a default profile picture if none is set
 if (!$profile_picture) {
     $profile_picture = '/wetrack/kemenkumham/Image/default-profile.png';
@@ -44,7 +63,7 @@ if (!$profile_picture) {
     <div class="container">
         <aside class="sidebar">
             <div class="sidebar-header">
-            <div class="logo">
+                <div class="logo">
                     <img src="/wetrack/kemenkumham/Image/wetrack-logo-white.png" alt="WETRACK Logo">
                     <h1 class="logo-text">WETRACK</h1>
                 </div>
@@ -111,6 +130,26 @@ if (!$profile_picture) {
                             <li>
                                 <span class="time"><?php echo $activity['time']; ?></span>
                                 <span class="activity"><?php echo $activity['activity']; ?></span>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                </section>
+
+                <!-- Login History -->
+                <section class="card login-history-card">
+                    <h3><i class="fas fa-sign-in-alt"></i> Recent Logins</h3>
+                    <ul class="login-history-list">
+                        <?php foreach ($login_history as $login): ?>
+                            <?php 
+                                // Format the login time
+                                $formatted_time = date('Y-m-d H:i:s', strtotime($login['login_time']));
+                                // Format the IP address (example: replace local IP with "Localhost")
+                                $formatted_ip = ($login['ip_address'] === '127.0.0.1') ? 'Localhost' : $login['ip_address'];
+                            ?>
+                            <li>
+                                <span class="login-user-id">User ID: <?php echo $login['user_id']; ?></span> <!-- Display user ID -->
+                                <span class="login-time"><?php echo $formatted_time; ?></span>
+                                <span class="login-ip"><?php echo $formatted_ip; ?></span>
                             </li>
                         <?php endforeach; ?>
                     </ul>

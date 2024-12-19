@@ -19,6 +19,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($user && password_verify($password, $user['password'])) {
                 // Store user ID in session if login is successful
                 $_SESSION['user_id'] = $user['id'];
+
+                // Log the login attempt in the login_history table
+                $stmt = $pdo->prepare("INSERT INTO login_history (user_id) VALUES (?)");
+                $stmt->execute([$user['id']]);
+
                 // Redirect to the home page after successful login
                 header('Location: /wetrack/kemenkumham/pages/home.php');
                 exit();
@@ -36,6 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
