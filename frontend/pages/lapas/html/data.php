@@ -90,14 +90,14 @@ if (isset($_POST["submit"])) {
                 <div class="content-header">
                     <h1>Database</h1>
                     <div class="search-bar">
-                        <input type="text" placeholder="Search...">
+                        <input type="text" id="searchInput" placeholder="Search...">
                         <i class="fas fa-search"></i>
                     </div>
                 </div>
                 <div class="button-group">
                     <button class="btn btn-primary" id="showTableBtn">All</button>
                     <button class="btn btn-secondary" id="showInputBtn">Input Data</button>
-                    <button class="delete-btn" id="delete-btn" class="btn btn-danger">Delete</button>
+                    <button class="delete-btn" id="delete-btn">Delete</button>
                 </div>
                 <div class="table-container">
                     <table>
@@ -116,7 +116,7 @@ if (isset($_POST["submit"])) {
                                 echo "<tr>";
                                 echo "<td>" . $i . "</td>";
                                 echo "<td>" . $row['nama'] . "</td>";
-                                echo "<td><button class='btn btn-action' onclick='showDetails(" . $row['id'] . ")'>Details</button></td>";
+                                echo "<td><button class='btn btn-action' data-id='" . $row['id'] . "'>Details</button></td>";
                                 echo "</tr>";
                                 $i++;
                             }
@@ -202,6 +202,7 @@ if (isset($_POST["submit"])) {
         window.location.href = "dataNapi.php?id=" + id;
     }
     </script>
+    <script src="http://localhost/wetrack/frontend/pages/lapas/js/delete-functionality.js"></script>
 </body>
 
 </html>

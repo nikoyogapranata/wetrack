@@ -74,7 +74,7 @@ if (isset($_GET['id'])) {
                         $row = $result->fetch_assoc();
                         echo '<img src="' . htmlspecialchars($row["fileInput"]) . '" alt="Profile Image" class="profile-image">';
                     } else {
-                        echo '<img src="http://localhost/wetrack/frontend/pages/Lapas/Image/nanti-diganti.png" alt="Default Photo" class="profile-image">';
+                        echo '<img src="http://localhost/wetrack/frontend/pages/lapas/image/nanti-diganti.png" alt="Default Photo" class="profile-image">';
                     }
                     ?>
                     <div class="profile-title">
