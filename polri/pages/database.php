@@ -5,7 +5,7 @@ if (isset($_GET['id'])) {
     $result = mysqli_query($conn, "SELECT * FROM data_polri WHERE id = $id");
     $row = mysqli_fetch_assoc($result);
 } else {
-    header("Location: penanganan.php");
+    header("Location: ../database.php");
     exit();
 }
 ?>
