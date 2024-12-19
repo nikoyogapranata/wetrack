@@ -123,7 +123,10 @@ if (!$profile_picture) {
                     </div>
                     <p class="trend negative">-1% from last month</p>
                 </section>
-                <section class="card activity-card">
+                
+            </div>
+            <div class="dashboard-grid">
+            <section class="card activity-card">
                     <h3><i class="fas fa-history"></i>Recent Activities</h3>
                     <ul class="activity-list">
                         <?php foreach ($activities as $activity): ?>
