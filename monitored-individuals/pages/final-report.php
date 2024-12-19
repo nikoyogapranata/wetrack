@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Laporan Akhir</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="http://localhost/wetrack/monitored-individuals/css/styles.css">
     <style>
         .pdf-container {
             width: 100%;
@@ -32,9 +32,9 @@
         <div class="profile-card">
             <h1 class="profile-name">Laporan Akhir</h1>
             <div class="pdf-container">
-                <iframe src="/frontend/pages/monitored-individuals/html/WETRACK - BYTE ME.pdf" width="100%" height="100%" style="border: none;"></iframe>
+                <iframe src="http://localhost/wetrack/monitored-individuals/pages/WETRACK - BYTE ME.pdf" width="100%" height="100%" style="border: none;"></iframe>
             </div>
-            <a href="frontend/pages/monitored-individuals/html/final-report.html" download class="download-btn">Download PDF</a>
+            <a href="http://localhost/wetrack/monitored-individuals/pages/final-report.php" download class="download-btn">Download PDF</a>
         </div>
     </div>
 </body>
