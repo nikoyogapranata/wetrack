@@ -1,0 +1,200 @@
+Directory Structure for: d:\xampp\htdocs\wetrack
+Scanned on: 2024-12-19 10:59:04
+==================================================
+
+📁 .vscode/
+    📄 settings.json (42.0 B)
+📁 bapas/
+    📁 css/
+        📄 data-napi.css (7.4 KB)
+        📄 data.css (6.9 KB)
+        📄 profile.css (2.0 KB)
+        📄 setting.css (1.5 KB)
+        📄 style.css (6.5 KB)
+        📄 tracking.css (4.8 KB)
+    📁 Image/
+        📄 20240305.webp (27.0 KB)
+        📄 lapas-logo.png (245.0 KB)
+        📄 logo-dark-blue.png (123.9 KB)
+        📄 nanti-diganti.png (735.0 B)
+        📄 wetrack-logo-white.png (123.7 KB)
+    📁 js/
+        📄 data-napi.js (2.8 KB)
+        📄 data.js (3.0 KB)
+        📄 map.js (1.4 KB)
+        📄 script.js (4.4 KB)
+    📁 pages/
+        📄 data-napi.php (6.7 KB)
+        📄 data.php (8.8 KB)
+        📄 home.php (4.8 KB)
+        📄 profile.php (4.1 KB)
+        📄 setting.php (4.3 KB)
+        📄 tracking.php (3.0 KB)
+📁 kemenhumkam/
+    📁 css/
+        📄 data.css (6.9 KB)
+        📄 dataNapi.css (6.6 KB)
+        📄 profile.css (2.0 KB)
+        📄 setting.css (1.5 KB)
+        📄 style.css (6.5 KB)
+    📁 Image/
+        📄 kemenkumham.png (39.6 KB)
+        📄 logo-dark-blue.png (123.9 KB)
+        📄 nanti-diganti.png (735.0 B)
+        📄 wetrack-logo-white.png (123.7 KB)
+    📁 js/
+        📄 data.js (5.7 KB)
+        📄 dataNapi.js (2.8 KB)
+        📄 script.js (4.4 KB)
+    📁 pages/
+        📄 data.php (8.7 KB)
+        📄 dataNapi.php (5.4 KB)
+        📄 home.php (4.9 KB)
+        📄 Laporan.php (9.0 KB)
+        📄 profile.php (4.0 KB)
+        📄 setting.php (4.2 KB)
+📁 lapas/
+    📁 css/
+        📄 data.css (7.3 KB)
+        📄 dataNapi.css (6.6 KB)
+        📄 profile.css (2.0 KB)
+        📄 setting.css (1.5 KB)
+        📄 style.css (6.5 KB)
+    📁 Image/
+        📄 lapas-logo.png (245.0 KB)
+        📄 logo-dark-blue.png (123.9 KB)
+        📄 nanti-diganti.png (735.0 B)
+        📄 wetrack-logo-white.png (123.7 KB)
+    📁 js/
+        📄 data.js (5.6 KB)
+        📄 dataNapi.js (2.8 KB)
+        📄 delete-functionality.js (2.4 KB)
+        📄 script.js (4.4 KB)
+    📁 pages/
+        📄 connection.php (427.0 B)
+        📄 data.php (10.7 KB)
+        📄 dataNapi.php (6.4 KB)
+        📄 delete-record.php (572.0 B)
+        📄 home.php (4.8 KB)
+        📄 Laporan.php (9.0 KB)
+        📄 profile.php (4.0 KB)
+        📄 setting.php (4.2 KB)
+📁 monitored-individuals/
+    📁 css/
+        📄 profile.css (1.9 KB)
+    📁 images/
+        📄 Ousmane_Dembele_Barcelona_2021-22.jpg.webp (98.9 KB)
+    📁 js/
+        📄 profile.js (248.0 B)
+    📁 pages/
+        📄 final-report.php (1.4 KB)
+        📄 profile.php (1.7 KB)
+        📄 WETRACK - BYTE ME.pdf (191.0 KB)
+📁 polri/
+    📁 css/
+        📄 styles.css (6.2 KB)
+    📁 Images/
+        📄 Lambang_Polri.png (342.5 KB)
+        📄 logo-dark-blue.png (123.9 KB)
+        📄 wetrack-logo-white.png (123.7 KB)
+    📁 js/
+        📄 alerts.js (1.4 KB)
+        📄 database.js (200.0 B)
+        📄 logout.js (236.0 B)
+        📄 penanganan.js (585.0 B)
+        📄 profile.js (204.0 B)
+        📄 scripts.js (780.0 B)
+    📁 pages/
+        📄 alerts.php (1.7 KB)
+        📄 database.php (1.9 KB)
+        📄 index.php (2.5 KB)
+        📄 logout.php (1.0 KB)
+        📄 penanganan.php (2.5 KB)
+        📄 profiles.php (2.2 KB)
+    📄 .DS_Store (6.0 KB)
+📁 public/
+    📁 landing-page/
+        📁 css/
+            📄 webflow-style.css (129.1 KB)
+        📁 images/
+            📄 app-icon.png (123.7 KB)
+            📄 businessman-using-digital-tablet-20-1-.jpg (722.2 KB)
+            📄 clipboard-p-500.png (6.1 KB)
+            📄 clipboard.png (6.6 KB)
+            📄 devices.svg (2.4 KB)
+            📄 favicon.png (123.7 KB)
+            📄 feature-207-20second.svg (23.1 KB)
+            📄 kemenkumham.png (22.5 KB)
+            📄 lapas-p-500.png (81.6 KB)
+            📄 lapas.png (257.4 KB)
+            📄 logo-dark-blue-p-1080.png (33.1 KB)
+            📄 logo-dark-blue-p-1600.png (54.5 KB)
+            📄 logo-dark-blue-p-2000.png (74.8 KB)
+            📄 logo-dark-blue-p-500.png (15.6 KB)
+            📄 logo-dark-blue-p-800.png (24.8 KB)
+            📄 logo-dark-blue.png (123.9 KB)
+            📄 logo-white-p-1080.png (32.2 KB)
+            📄 logo-white-p-1600.png (53.5 KB)
+            📄 logo-white-p-2000.png (73.0 KB)
+            📄 logo-white-p-500.png (14.1 KB)
+            📄 logo-white-p-800.png (23.3 KB)
+            📄 logo-white.png (123.7 KB)
+            📄 man-with-tablet-20-1-201-20-1-.png (1.9 MB)
+            📄 man-with-tablet-20-1-201-20-1-p-1080.png (601.5 KB)
+            📄 man-with-tablet-20-1-201-20-1-p-1600.png (1.3 MB)
+            📄 man-with-tablet-20-1-201-20-1-p-500.png (132.2 KB)
+            📄 man-with-tablet-20-1-201-20-1-p-800.png (322.2 KB)
+            📄 polri.png (342.5 KB)
+            📄 shield-p-500.png (15.0 KB)
+            📄 shield.png (17.7 KB)
+            📄 warning-p-500.png (9.4 KB)
+            📄 warning.png (12.3 KB)
+            📄 webflow-badge-icon-d2.89e12c322e.svg (424.0 B)
+            📄 webflow-badge-text-d2.c82cec3b78.svg (9.7 KB)
+            📄 wide-20feature.webp (138.8 KB)
+            📄 wide-2520feature-p-500.png (30.9 KB)
+            📄 wide-2520feature-p-800.png (98.8 KB)
+        📁 js/
+            📄 jquery.js (169.5 KB)
+            📄 webflow-script.js (352.8 KB)
+        📄 index.php (15.3 KB)
+    📁 login-admin/
+        📁 css/
+            📄 webflow-style.css (46.5 KB)
+        📁 images/
+            📄 app-icon.png (123.7 KB)
+            📄 favicon.png (123.7 KB)
+            📄 logo-white-p-1080.png (32.2 KB)
+            📄 logo-white-p-1600.png (53.5 KB)
+            📄 logo-white-p-2000.png (73.0 KB)
+            📄 logo-white-p-500.png (14.1 KB)
+            📄 logo-white-p-800.png (23.3 KB)
+            📄 logo-white.png (123.7 KB)
+            📄 webflow-badge-icon-d2.89e12c322e.svg (424.0 B)
+            📄 webflow-badge-text-d2.c82cec3b78.svg (9.7 KB)
+        📁 js/
+            📄 jquery.js (169.5 KB)
+            📄 webflow-script.js (88.3 KB)
+        📄 index.php (4.5 KB)
+    📁 login-prisoner/
+        📁 css/
+            📄 webflow-style.css (46.5 KB)
+        📁 images/
+            📄 app-icon.png (123.7 KB)
+            📄 favicon.png (123.7 KB)
+            📄 logo-white-p-1080.png (32.2 KB)
+            📄 logo-white-p-1600.png (53.5 KB)
+            📄 logo-white-p-2000.png (73.0 KB)
+            📄 logo-white-p-500.png (14.1 KB)
+            📄 logo-white-p-800.png (23.3 KB)
+            📄 logo-white.png (123.7 KB)
+            📄 webflow-badge-icon-d2.89e12c322e.svg (424.0 B)
+            📄 webflow-badge-text-d2.c82cec3b78.svg (9.7 KB)
+        📁 js/
+            📄 jquery.js (169.5 KB)
+            📄 webflow-script.js (88.3 KB)
+        📄 index.php (4.5 KB)
+📄 .DS_Store (6.0 KB)
+📄 file_structure.py (3.6 KB)
+📄 README.md (103.0 B)
+📄 wetrack.sql (2.9 KB)
