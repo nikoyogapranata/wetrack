@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WETRACK | Settings</title>
-    <link rel="stylesheet" href="/wetrack/Lapas/css/style.css">
-    <link rel="icon" href="/wetrack/Lapas/Image/wetrack-logo-white.png" type="Image/x-icon">
-    <link rel="stylesheet" href="/wetrack/Lapas/css/setting.css">
+    <link rel="stylesheet" href="/wetrack/kemenhumkam/css/style.css">
+    <link rel="icon" href="/wetrack/kemenhumkam/Image/wetrack-logo-white.png" type="Image/x-icon">
+    <link rel="stylesheet" href="/wetrack/kemenhumkam/css/setting.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -15,7 +15,7 @@
         rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="/wetrack/Lapas/js/script.js"></script>
+    <script src="/wetrack/kemenhumkam/js/script.js"></script>
 </head>
 
 <body>
@@ -23,7 +23,7 @@
         <aside class="sidebar">
             <div class="sidebar-header">
                 <div class="logo">
-                    <img src="/wetrack/Lapas/Image/wetrack-logo-white.png" alt="WETRACK Logo">
+                    <img src="/wetrack/kemenhumkam/Image/wetrack-logo-white.png" alt="WETRACK Logo">
                     <h1 class="logo-text">WETRACK</h1>
                 </div>
                 <button id="toggle-sidebar" class="toggle-sidebar">
@@ -32,14 +32,14 @@
             </div>
             <nav class="nav-links">
                 <ul>
-                    <li><a href="/wetrack/Lapas/pages/home.php"><i class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a></li>
-                    <li><a href="/wetrack/Lapas/pages/data.php"><i class="fas fa-database"></i> <span>Database</span></a></li>
-                    <li><a href="/wetrack/Lapas/pages/Laporan.php"><i class="fas fa-file-invoice"></i> <span>Final Report</span></a></li>
-                    <li class="active"><a href="/wetrack/Lapas/pages/setting.php"><i class="fas fa-cog"></i> <span>Settings</span></a></li>
+                    <li><a href="/wetrack/kemenhumkam/pages/home.php"><i class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a></li>
+                    <li><a href="/wetrack/kemenhumkam/pages/data.php"><i class="fas fa-database"></i> <span>Database</span></a></li>
+                    <li><a href="/wetrack/kemenhumkam/pages/Laporan.php"><i class="fas fa-file-invoice"></i> <span>Final Report</span></a></li>
+                    <li class="active"><a href="/wetrack/kemenhumkam/pages/setting.php"><i class="fas fa-cog"></i> <span>Settings</span></a></li>
                 </ul>
             </nav>
             <div class="user-profile">
-                <img src="/wetrack/Lapas/Image/lapas-logo.png" alt="Profile picture" width="40" height="40">
+                <img src="/wetrack/kemenhumkam/Image/kemenhumkam-logo.png" alt="Profile picture" width="40" height="40">
                 <div class="user-info">
                     <h2>Serdy Fambo</h2>
                     <p>kemenhumkamistrative Staff</p>
@@ -51,7 +51,7 @@
                 <h1>Settings</h1>
                 <div class="setting-element">
                     <h2><i class="fas fa-user"></i>Profile</h2>
-                    <a href="/wetrack/lapas/pages/profile.php" class="element-button">
+                    <a href="/wetrack/kemenhumkam/pages/profile.php" class="element-button">
                         <i class="fas fa-chevron-right"></i>
                     </a>
                 </div>
