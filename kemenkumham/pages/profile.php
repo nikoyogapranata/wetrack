@@ -27,12 +27,13 @@ if (!$profile_picture) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WETRACK | Settings</title>
+    <title>WETRACK | Profile</title>
     <link rel="stylesheet" href="/wetrack/kemenkumham/css/style.css">
     <link rel="icon" href="/wetrack/kemenkumham/Image/wetrack-logo-white.png" type="Image/x-icon">
     <link rel="stylesheet" href="/wetrack/kemenkumham/css/setting.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="/wetrack/kemenkumham/css/profile.css">
     <link
         href="https://fonts.googleapis.com/css2?family=Parkinsans:wght@300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300..700&display=swap"
         rel="stylesheet">
@@ -67,34 +68,28 @@ if (!$profile_picture) {
                     <p>Administrative Staff</p>
                 </div>
             </div>
+
         </aside>
         <main class="content">
-            <div class="settings-container">
-                <h1>Settings</h1>
-                <div class="setting-element">
-                    <h2><i class="fas fa-user"></i>Profile</h2>
-                    <a href="/wetrack/kemenkumham/pages/profile.php" class="element-button">
-                        <i class="fas fa-chevron-right"></i>
-                    </a>
-                </div>
-                <div class="setting-element">
-                    <h2><i class="fas fa-question-circle"></i>FAQ</h2>
-                    <button class="element-button">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
-                </div>
-                <hr>
-                <div class="setting-element">
-                    <h2><i class="fas fa-globe"></i>Language</h2>
-                    <select name="language" id="language">
-                        <option value="en">English</option>
-                        <option value="id">Bahasa Indonesia</option>
-                        <option value="vie">Vietnam</option>
-                    </select>
-                </div>
-                <button id="logout-btn" class="btn btn-danger" onclick="window.location.href='/wetrack/kemenkumham/pages/logout.php'">Log Out</button>
 
+        <div class="profile-container">
+            <div class="path-to-back">
+                <a href="/wetrack/kemenkumham/pages/setting.php"><i class="fas fa-arrow-left"></i></a>
             </div>
+            <h1>Administrative Staff</h1>
+
+            <!-- Profile Picture -->
+            <img src="<?php echo $profile_picture; ?>" alt="Photo Profile" width="150" height="150">
+
+            <!-- User Information -->
+            <p>ID: <?php echo $id; ?></p>
+
+            <div class="change-password-button">
+                <a href="change-password.php" class="btn">Change Password</a> <!-- Redirects to change-password.php -->
+            </div>
+        </div>
+
+
         </main>
     </div>
 </body>

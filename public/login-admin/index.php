@@ -64,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <div class="logo-text logo-text-footer">WETRACK</div>
                     </a>
                     <div class="content-box">
-                        <h1 class="heading-1">Welcome back, Kemenkumham Admin! Please log in to manage accounts, monitor activities, and oversee reports.</h1>
+                        <h1 class="heading-1">Welcome back, Admin! Please log in to manage accounts, monitor activities, and oversee reports.</h1>
                     </div>
                     <div class="legal-box _2">
                         <div class="legal-text">© 2024 WETRACK. All rights reserved.</div>

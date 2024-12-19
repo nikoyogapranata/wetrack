@@ -73,20 +73,25 @@ INSERT INTO `mantan_narapidana` (`id`, `fileInput`, `nik`, `nrt`, `nama`, `dateB
 -- Struktur dari tabel `kemenkumham_users`
 CREATE TABLE `kemenkumham_users` (
   `id` int NOT NULL,
-  `password` varchar(255) NOT NULL
+  `password` varchar(255) NOT NULL,
+  `profile_picture` varchar(255) DEFAULT '/wetrack/kemenkumham/image/kemenkumham.png'  -- Default profile picture
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data untuk tabel `kemenkumham_users`
-INSERT INTO `kemenkumham_users` (`id`, `password`) VALUES
-(1000001, '$2y$10$w/r8735TfDv0HBUOz5pkmedxSWYZjq/LDcWe4GzOXy/I5T1LWeLlu'),
-(1000002, '$2y$10$w/r8735TfDv0HBUOz5pkmedxSWYZjq/LDcWe4GzOXy/I5T1LWeLlu');
+INSERT INTO `kemenkumham_users` (`id`, `password`, `profile_picture`) VALUES
+(1000001, '$2y$10$w/r8735TfDv0HBUOz5pkmedxSWYZjq/LDcWe4GzOXy/I5T1LWeLlu', '/wetrack/kemenkumham/image/kemenkumham.png'),
+(1000002, '$2y$10$w/r8735TfDv0HBUOz5pkmedxSWYZjq/LDcWe4GzOXy/I5T1LWeLlu', '/wetrack/kemenkumham/image/kemenkumham.png'),
+(1000003, '$2y$10$w/r8735TfDv0HBUOz5pkmedxSWYZjq/LDcWe4GzOXy/I5T1LWeLlu', '/wetrack/kemenkumham/image/kemenkumham.png'),
+(1000004, '$2y$10$w/r8735TfDv0HBUOz5pkmedxSWYZjq/LDcWe4GzOXy/I5T1LWeLlu', '/wetrack/kemenkumham/image/kemenkumham.png'),
+(1000005, '$2y$10$w/r8735TfDv0HBUOz5pkmedxSWYZjq/LDcWe4GzOXy/I5T1LWeLlu', '/wetrack/kemenkumham/image/kemenkumham.png');
 
 -- Indexes for dumped tables
 ALTER TABLE `kemenkumham_users`
   ADD PRIMARY KEY (`id`);
 
 ALTER TABLE `kemenkumham_users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000003;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000006;
+
 
 
 ALTER TABLE `data_polri`

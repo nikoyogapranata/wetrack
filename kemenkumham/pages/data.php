@@ -1,3 +1,26 @@
+<?php
+// Include database connection
+include('connect.php'); // Adjust the path as needed
+
+// Assuming you have a session that holds the user ID (e.g., from login)
+session_start();
+$user_id = $_SESSION['user_id']; // Or any method you're using to store the logged-in user ID
+
+// Fetch user information from the database
+$query = "SELECT id, profile_picture FROM kemenkumham_users WHERE id = ?";
+$stmt = $conn->prepare($query);
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$stmt->bind_result($id, $profile_picture);
+$stmt->fetch();
+$stmt->close();
+
+// Set a default profile picture if none is set
+if (!$profile_picture) {
+    $profile_picture = '/wetrack/kemenkumham/Image/default-profile.png';
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -37,6 +60,13 @@
                             <span>Settings</span></a></li>
                 </ul>
             </nav>
+            <div class="user-profile">
+                <img src="<?php echo $profile_picture; ?>" alt="Profile picture" width="40" height="40">
+                <div class="user-info">
+                    <h2><?php echo htmlspecialchars($id); ?></h2> <!-- Dynamically displays the user ID -->
+                    <p>Administrative Staff</p>
+                </div>
+            </div>
         </aside>
         <main class="content">
             <div class="content-container">
