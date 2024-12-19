@@ -4,12 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   <title>Form Penanganan Laporan</title>
   <link rel="stylesheet" href="/polri/css/styles.css">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
 =======
+=======
+>>>>>>> Stashed changes
 <<<<<<< HEAD
   <title>Penanganan Laporan</title>
   <link rel="stylesheet" href="http://localhost/wetrack/polri/css/styles.css">
@@ -31,6 +34,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
     <nav class="sidebar">
       <h2>Admin POLRI</h2>
@@ -44,6 +50,9 @@
       </ul>
     </nav>
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+>>>>>>> Stashed changes
 
     <main class="main-content">
       <h1>Form Penanganan Laporan</h1>
@@ -83,6 +92,7 @@
             <button type="submit" class="submit-btn">Kirim Laporan</button>
           </div>
         </form>
+<<<<<<< Updated upstream
       </div>
     </main>
 
@@ -127,6 +137,8 @@
             <button type="submit" class="submit-btn">Kirim Laporan</button>
           </div>
         </form>
+=======
+>>>>>>> Stashed changes
 >>>>>>> eb4b3a35da7571982c0408673d331f9dafdcbd52
       </div>
     </main>
@@ -176,6 +188,9 @@
 =======
   <script src="/polri/js/penanganan.js"></script>
 >>>>>>> eb4b3a35da7571982c0408673d331f9dafdcbd52
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 </body>
 </html>
