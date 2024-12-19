@@ -12,12 +12,12 @@
     <div class="sidebar">
         <h2>Admin POLRI</h2>
         <ul>
-          <li class="active"><a href="/frontend/pages/polri/html/index.html" style="color: inherit; text-decoration: none;">Dashboard</a></li>
-          <li><a href="/frontend/pages/polri/html/alerts.html" style="color: inherit; text-decoration: none;">Alerts</a></li>
-          <li><a href="/frontend/pages/polri/html/penanganan.html" style="color: inherit; text-decoration: none;">Penanganan</a></li>
-          <li><a href="/frontend/pages/polri/html/database.html" style="color: inherit; text-decoration: none;">Database</a></li>
-          <li><a href="/frontend/pages/polri/html/profiles.html" style="color: inherit; text-decoration: none;">Profile</a></li>
-          <li><a href="/frontend/pages/polri/html/logout.html" style="color: inherit; text-decoration: none;">Log Out</a></li>
+          <li class="active"><a href="/polri/html/index.html" style="color: inherit; text-decoration: none;">Dashboard</a></li>
+          <li><a href="/polri/html/alerts.html" style="color: inherit; text-decoration: none;">Alerts</a></li>
+          <li><a href="/polri/html/penanganan.html" style="color: inherit; text-decoration: none;">Penanganan</a></li>
+          <li><a href="/polri/html/database.html" style="color: inherit; text-decoration: none;">Database</a></li>
+          <li><a href="/polri/html/profiles.html" style="color: inherit; text-decoration: none;">Profile</a></li>
+          <li><a href="/polri/html/logout.html" style="color: inherit; text-decoration: none;">Log Out</a></li>
         </ul>
       </div>
       
@@ -65,6 +65,6 @@
     </div>
   </div>
 
-  <script src="/frontend/pages/polri/js/scripts.js"></script>
+  <script src="/polri/js/scripts.js"></script>
 </body>
 </html>
