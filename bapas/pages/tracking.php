@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WETRACK | Tracking Map</title>
-    <link rel="stylesheet" href="http://localhost/wetrack/Bapas/css/tracking.css">
-    <link rel="icon" href="http://localhost/wetrack/Bapas/Image/wetrack-logo-white.png" type="Image/x-icon">
+    <link rel="stylesheet" href="/wetrack/Bapas/css/tracking.css">
+    <link rel="icon" href="/wetrack/Bapas/Image/wetrack-logo-white.png" type="Image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -15,8 +15,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-    <script src="http://localhost/wetrack/Bapas/js/script.js" defer></script>
-    <script src="http://localhost/wetrack/Bapas/js/map.js" defer></script>
+    <script src="/wetrack/Bapas/js/script.js" defer></script>
+    <script src="/wetrack/Bapas/js/map.js" defer></script>
 </head>
 
 <body>
@@ -24,7 +24,7 @@
         <aside class="sidebar">
             <div class="sidebar-header">
                 <div class="logo">
-                    <img src="http://localhost/wetrack/Bapas/Image/wetrack-logo-white.png" alt="WETRACK Logo">
+                    <img src="/wetrack/Bapas/Image/wetrack-logo-white.png" alt="WETRACK Logo">
                     <h1 class="logo-text">WETRACK</h1>
                 </div>
                 <button id="toggle-sidebar" class="toggle-sidebar">
@@ -33,15 +33,15 @@
             </div>
             <nav class="nav-links">
                 <ul>
-                    <li><a href="http://localhost/wetrack/Bapas/pages/home.php"><i class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a></li>
+                    <li><a href="/wetrack/Bapas/pages/home.php"><i class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a></li>
                     <li class="active"><a href="/frontend/pages/Bapas/pages/tracking.php"><i class="fas fa-map-marker-alt"></i> <span>Tracking Map</span></a></li>
-                    <li><a href="http://localhost/wetrack/Bapas/pages/data.php"><i class="fas fa-database"></i> <span>Database</span></a>
+                    <li><a href="/wetrack/Bapas/pages/data.php"><i class="fas fa-database"></i> <span>Database</span></a>
                     </li>
-                    <li><a href="http://localhost/wetrack/Bapas/pages/setting.php"><i class="fas fa-cog"></i> <span>Settings</span></a></li>
+                    <li><a href="/wetrack/Bapas/pages/setting.php"><i class="fas fa-cog"></i> <span>Settings</span></a></li>
                 </ul>
             </nav>
             <div class="user-profile">
-                <img src="http://localhost/wetrack/Bapas/Image/lapas-logo.png" alt="Profile picture" width="40" height="40">
+                <img src="/wetrack/Bapas/Image/lapas-logo.png" alt="Profile picture" width="40" height="40">
                 <div class="user-info">
                     <h2>Serdy Fambo</h2>
                     <p>Parole Observation Team</p>

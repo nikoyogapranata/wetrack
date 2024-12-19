@@ -5,7 +5,7 @@ if (isset($_GET['id'])) {
     $result = mysqli_query($conn, "SELECT * FROM data_polri WHERE id = $id");
     $row = mysqli_fetch_assoc($result);
 } else {
-    header("Location: ../database.php");
+    header("Location: penanganan.php");
     exit();
 }
 ?>
@@ -16,8 +16,9 @@ if (isset($_GET['id'])) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Database</title>
+  <link rel="stylesheet" href="/polri/css/styles.css">
   <link rel="stylesheet" href="/wetrack/polri/css/styles.css">
-
+  <link rel="stylesheet" href="/polri/css/styles.css">
 </head>
 <body>
     <div class="sidebar">
