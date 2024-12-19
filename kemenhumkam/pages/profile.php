@@ -43,7 +43,7 @@
                 <img src="/wetrack/Lapas/Image/lapas-logo.png" alt="Profile picture" width="40" height="40">
                 <div class="user-info">
                     <h2>Serdy Fambo</h2>
-                    <p>Administrative Staff</p>
+                    <p>kemenhumkamistrative Staff</p>
                 </div>
             </div>
         </aside>
@@ -53,7 +53,7 @@
                 <div class="path-to-back">
                     <a href="/wetrack/Lapas/pages/setting.php"><i class="fas fa-arrow-left"></i></a>
                 </div>
-                <h1>Administrative Staff</h1>
+                <h1>kemenhumkamistrative Staff</h1>
                 <img src="/wetrack/Lapas/Image/lapas-logo.png" alt="Photo Profile">
                 <h2>Serdy Fambo</h2>
                 <p>NIP. 06-30-21</p>
@@ -71,7 +71,7 @@
                     <p>Job History:</p>
                     <nav>
                         <ul>
-                            <li>Head of Administration and Public Order of Class IIB Cilacap Prison</li>
+                            <li>Head of kemenhumkamistration and Public Order of Class IIB Cilacap Prison</li>
                             <li>Head of Class IIB Klungkung Prison</li>
                         </ul>
                     </nav>

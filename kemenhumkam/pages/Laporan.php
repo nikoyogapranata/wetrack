@@ -44,7 +44,7 @@
                 <img src="/wetrack/Lapas/Image/lapas-logo.png" alt="Profile picture" width="40" height="40">
                 <div class="user-info">
                     <h2>Serdy Fambo</h2>
-                    <p>Administrative Staff</p>
+                    <p>kemenhumkamistrative Staff</p>
                 </div>
             </div>
         </aside>
