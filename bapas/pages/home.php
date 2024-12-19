@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WETRACK | Dashboard</title>
-    <link rel="stylesheet" href="/frontend/pages/Bapas/css/style.css">
+    <link rel="stylesheet" href="http://localhost/wetrack/bapas/css/style.css">
     <script src="/frontend/pages/Bapas/js/script.js"></script>
     <link rel="icon" href="/frontend/pages/Bapas/Image/wetrack-logo-white.png" type="Image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
