@@ -18,6 +18,7 @@
           <li><a href="/wetrack/polri/pages/database.php" style="color: inherit; text-decoration: none;">Database</a></li>
           <li><a href="/wetrack/polri/pages/profiles.php" style="color: inherit; text-decoration: none;">Profile</a></li>
           <li><a href="/wetrack/polri/pages/logout.php" style="color: inherit; text-decoration: none;">Log Out</a></li>
+
         </ul>
       </div>
       

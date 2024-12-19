@@ -3,13 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Logout - Dashboard</title>
+  <link rel="stylesheet" href="/wetrack/polri/css/styles.css">
+  <!-- <title>Logout - Dashboard</title>
   <link rel="stylesheet" href="/polri/css/styles.css"> 
   <script src="/polri/js/logout.js"></script>
-  <link rel="stylesheet" href="/wetrack/polri/css/styles.css"> 
+  <link rel="stylesheet" href="/wetrack/polri/css/styles.css">
   <script src="/wetrack/polri/js/logout.js"></script>
   <link rel="stylesheet" href="/polri/css/styles.css"> 
-  <script src="/polri/js/logout.js"></script>
+  <script src="/polri/js/logout.js"></script> -->
 </head>
 <body>
   <!-- Sidebar -->
