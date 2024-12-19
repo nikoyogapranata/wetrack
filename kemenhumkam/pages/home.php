@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WETRACK</title>
-    <link rel="stylesheet" href="http://localhost/wetrack/frontend/pages/admin/css/style.css">
-    <script src="http://localhost/wetrack/frontend/pages/Lapas/js/script.js"></script>
-    <link rel="icon" href="http://localhost/wetrack/frontend/pages/admin/Images/wetrack-logo-white.png" type="Image/x-icon">
+    <link rel="stylesheet" href="http://localhost/wetrackhttp://localhost/wetrack/admin/css/style.css">
+    <script src="http://localhost/wetrackhttp://localhost/wetrack/Lapas/js/script.js"></script>
+    <link rel="icon" href="http://localhost/wetrackhttp://localhost/wetrack/admin/Images/wetrack-logo-white.png" type="Image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -22,7 +22,7 @@
         <aside class="sidebar">
             <div class="sidebar-header">
                 <div class="logo">
-                    <img src="http://localhost/wetrack/frontend/pages/admin/Images/wetrack-logo-white.png" alt="WETRACK Logo">
+                    <img src="http://localhost/wetrackhttp://localhost/wetrack/admin/Images/wetrack-logo-white.png" alt="WETRACK Logo">
                     <h1 class="logo-text">WETRACK</h1>
                 </div>
                 <button id="toggle-sidebar" class="toggle-sidebar">
@@ -31,10 +31,10 @@
             </div>
             <nav class="nav-links">
                 <ul>
-                    <li class="active"><a href="http://localhost/wetrack/frontend/pages/admin/html/home.php"><i class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a></li>
-                    <li><a href="http://localhost/wetrack/frontend/pages/admin/html/data.php"><i class="fas fa-database"></i> <span>Database</span></a></li>
-                    <li><a href="http://localhost/wetrack/frontend/pages/admin/html/Laporan.php"><i class="fas fa-file-invoice"></i> <span>Final Report</span></a></li>
-                    <li><a href="http://localhost/wetrack/frontend/pages/admin/html/setting.php"><i class="fas fa-cog"></i> <span>Settings</span></a></li>
+                    <li class="active"><a href="http://localhost/wetrackhttp://localhost/wetrack/admin/pages/home.php"><i class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a></li>
+                    <li><a href="http://localhost/wetrackhttp://localhost/wetrack/admin/pages/data.php"><i class="fas fa-database"></i> <span>Database</span></a></li>
+                    <li><a href="http://localhost/wetrackhttp://localhost/wetrack/admin/pages/Laporan.php"><i class="fas fa-file-invoice"></i> <span>Final Report</span></a></li>
+                    <li><a href="http://localhost/wetrackhttp://localhost/wetrack/admin/pages/setting.php"><i class="fas fa-cog"></i> <span>Settings</span></a></li>
                 </ul>
             </nav>
             <div class="user-profile">
