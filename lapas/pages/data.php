@@ -84,13 +84,13 @@ if (isset($_POST["submit"])) {
                     <p>Administrative Staff</p>
                 </div>
             </div>
-            </aside>
+        </aside>
         <main class="content">
             <div class="content-container">
                 <div class="content-header">
                     <h1>Database</h1>
                     <div class="search-bar">
-                    <i class="fas fa-search"></i>
+                        <i class="fas fa-search"></i>
                         <input type="text" id="searchInput" placeholder="Search...">
                     </div>
                 </div>
@@ -132,11 +132,11 @@ if (isset($_POST["submit"])) {
                         </div>
                         <div class="form-group">
                             <label for="nik">National ID Number:</label>
-                            <input type="text" id="nik" name="nik"  placeholder="Enter National ID number" required>
+                            <input type="text" id="nik" name="nik" placeholder="Enter National ID number" required>
                         </div>
                         <div class="form-group">
                             <label for="nrt">Prisoner Registration Number:</label>
-                            <input type="text" id="nrt" name="nrt"  placeholder="Enter Prisoner Registration Number" required>
+                            <input type="text" id="nrt" name="nrt" placeholder="Enter Prisoner Registration Number" required>
                         </div>
                         <div class="form-group">
                             <label for="name">Name:</label>
@@ -198,11 +198,11 @@ if (isset($_POST["submit"])) {
         </main>
     </div>
     <script>
-    function showDetails(id) {
-        window.location.href = "dataNapi.php?id=" + id;
-    }
+        function showDetails(id) {
+            window.location.href = "dataNapi.php?id=" + id;
+        }
     </script>
-    <script src="wetrack/frontend/pages/lapas/js/delete-functionality.js"></script>
+    <script src="/wetrack/lapas/js/delete-functionality.js"></script>
 </body>
 
 </html>
