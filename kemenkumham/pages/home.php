@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WETRACK</title>
-    <link rel="stylesheet" href="/wetrack/kemenhumkam/css/style.css">
-    <script src="/wetrack/kemenhumkam/js/script.js"></script>
-    <link rel="icon" href="/wetrack/kemenhumkam/Images/wetrack-logo-white.png" type="Image/x-icon">
+    <link rel="stylesheet" href="/wetrack/kemenkumham/css/style.css">
+    <script src="/wetrack/kemenkumham/js/script.js"></script>
+    <link rel="icon" href="/wetrack/kemenkumham/Images/wetrack-logo-white.png" type="Image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -22,7 +22,7 @@
         <aside class="sidebar">
             <div class="sidebar-header">
             <div class="logo">
-                    <img src="/wetrack/kemenhumkam/Image/wetrack-logo-white.png" alt="WETRACK Logo">
+                    <img src="/wetrack/kemenkumham/Image/wetrack-logo-white.png" alt="WETRACK Logo">
                     <h1 class="logo-text">WETRACK</h1>
                 </div>
                 <button id="toggle-sidebar" class="toggle-sidebar">
@@ -31,9 +31,9 @@
             </div>
             <nav class="nav-links">
                 <ul>
-                    <li class="active"><a href="/wetrack/kemenhumkam/pages/home.php"><i class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a></li>
-                    <li><a href="/wetrack/kemenhumkam/pages/data.php"><i class="fas fa-database"></i> <span>Database</span></a></li>
-                    <li><a href="/wetrack/kemenhumkam/pages/setting.php"><i class="fas fa-cog"></i> <span>Settings</span></a></li>
+                    <li class="active"><a href="/wetrack/kemenkumham/pages/home.php"><i class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a></li>
+                    <li><a href="/wetrack/kemenkumham/pages/data.php"><i class="fas fa-database"></i> <span>Database</span></a></li>
+                    <li><a href="/wetrack/kemenkumham/pages/setting.php"><i class="fas fa-cog"></i> <span>Settings</span></a></li>
                 </ul>
             </nav>
         </aside>

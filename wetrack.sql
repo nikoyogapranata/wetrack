@@ -17,16 +17,11 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
---
 -- Database: `wetrack`
---
 
 -- --------------------------------------------------------
 
---
 -- Struktur dari tabel `data_polri`
---
-
 CREATE TABLE `data_polri` (
   `id` int NOT NULL,
   `nama` varchar(100) NOT NULL,
@@ -39,10 +34,7 @@ CREATE TABLE `data_polri` (
   `tanggal_laporan` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
 -- Dumping data untuk tabel `data_polri`
---
-
 INSERT INTO `data_polri` (`id`, `nama`, `nik`, `id_napi`, `alamat`, `unggah_foto`, `isi_laporan`, `created_at`, `tanggal_laporan`) VALUES
 (1, 'nama', '1111111111111111', '123', 'qwe', 'uploads/6763baf87d618.jpeg', 'qwe', '2024-12-19 06:19:36', '2025-01-02'),
 (2, 'niko', '1111111111111111', '234', 'ruko', 'uploads/6763bb41314c0.jpeg', 'weok', '2024-12-19 06:20:49', '2024-12-18'),
@@ -51,10 +43,7 @@ INSERT INTO `data_polri` (`id`, `nama`, `nik`, `id_napi`, `alamat`, `unggah_foto
 
 -- --------------------------------------------------------
 
---
 -- Struktur dari tabel `mantan_narapidana`
---
-
 CREATE TABLE `mantan_narapidana` (
   `id` int NOT NULL,
   `fileInput` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
@@ -72,48 +61,48 @@ CREATE TABLE `mantan_narapidana` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
 -- Dumping data untuk tabel `mantan_narapidana`
---
-
 INSERT INTO `mantan_narapidana` (`id`, `fileInput`, `nik`, `nrt`, `nama`, `dateBirth`, `address`, `gender`, `nationality`, `crime`, `case`, `punishment`, `releaseDate`, `created_at`) VALUES
 (1, 'uploads/nanti-diganti.png', '892189', '123141', 'yanto', '2024-12-03', 'jakal', 'male', 'Jamaica', 'Embezzlement', 'tersangka', '5 years', '2028-12-06', '2024-12-18 15:53:43'),
 (2, 'uploads/nanti-diganti.png', '1245', '66666', 'jokowi', '2013-06-30', 'solo', 'male', 'Indonesia', 'NO', 'pengedar', '100000 years', '2047-05-27', '2024-12-18 15:55:37'),
 (3, 'uploads/lapas-logo.png', '1234', '1234', 'anjay', '2024-12-18', 'kepo', 'male', 'Indonesia', 'Assault', 'nusuk', '10000', '2024-12-19', '2024-12-19 00:00:21'),
 (4, 'uploads/lapas-logo.png', '78978979', '123189481', 'Joko', '2002-02-28', 'Jl. Jakal', 'male', 'Belgium', 'NO', 'Pengedar', '100 Years', '2025-01-22', '2024-12-19 03:09:25');
 
---
+-- --------------------------------------------------------
+
+-- Struktur dari tabel `kemenkumham_users`
+CREATE TABLE `kemenkumham_users` (
+  `id` int NOT NULL,
+  `password` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- Dumping data untuk tabel `kemenkumham_users`
+INSERT INTO `kemenkumham_users` (`id`, `password`) VALUES
+(1000001, '$2y$10$w/r8735TfDv0HBUOz5pkmedxSWYZjq/LDcWe4GzOXy/I5T1LWeLlu'),
+(1000002, '$2y$10$w/r8735TfDv0HBUOz5pkmedxSWYZjq/LDcWe4GzOXy/I5T1LWeLlu');
+
 -- Indexes for dumped tables
---
+ALTER TABLE `kemenkumham_users`
+  ADD PRIMARY KEY (`id`);
 
---
--- Indeks untuk tabel `data_polri`
---
+ALTER TABLE `kemenkumham_users`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000003;
+
+
 ALTER TABLE `data_polri`
   ADD PRIMARY KEY (`id`);
 
---
--- Indeks untuk tabel `mantan_narapidana`
---
 ALTER TABLE `mantan_narapidana`
   ADD PRIMARY KEY (`id`);
 
---
--- AUTO_INCREMENT untuk tabel yang dibuang
---
-
---
--- AUTO_INCREMENT untuk tabel `data_polri`
---
 ALTER TABLE `data_polri`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
---
--- AUTO_INCREMENT untuk tabel `mantan_narapidana`
---
 ALTER TABLE `mantan_narapidana`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
 COMMIT;
+
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
