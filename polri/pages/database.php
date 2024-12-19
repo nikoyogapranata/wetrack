@@ -4,7 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Database</title>
+<<<<<<< HEAD
   <link rel="stylesheet" href="http://localhost/wetrack/polri/css/styles.css">
+=======
+  <link rel="stylesheet" href="/polri/css/styles.css">
+  <link rel="stylesheet" href="/wetrack/polri/css/styles.css">
+  <link rel="stylesheet" href="/polri/css/styles.css">
+>>>>>>> db2358c2c43cad43ff4ca52c74e22ae048bac53e
 </head>
 <body>
     <div class="sidebar">
