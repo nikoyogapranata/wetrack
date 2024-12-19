@@ -27,7 +27,7 @@ if (isset($_POST["submit"])) {
         echo "
         <script>
         alert('Data Added Successfully');
-        document.location.href = 'http://localhost/wetrack/frontend/pages/lapas/pages/dataNapi.php';
+        document.location.href = '/wetrack/lapas/pages/dataNapi.php';
         </script>
         ";
     } else {
@@ -43,14 +43,14 @@ if (isset($_POST["submit"])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WETRACK | Database</title>
-    <link rel="icon" href="http://localhost/wetrack/frontend/pages/Lapas/Image/wetrack-logo-white.png" type="Image/x-icon">
-    <link rel="stylesheet" type="text/css" href="http://localhost/wetrack/frontend/pages/lapas/css/data.css">
+    <link rel="icon" href="/wetrack/Lapas/Image/wetrack-logo-white.png" type="Image/x-icon">
+    <link rel="stylesheet" type="text/css" href="/wetrack/lapas/css/data.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="http://localhost/wetrack/frontend/pages/lapas/js/data.js" defer></script>
+    <script src="/wetrack/lapas/js/data.js" defer></script>
 </head>
 
 <body>
@@ -71,14 +71,14 @@ if (isset($_POST["submit"])) {
                             <span>Dashboard</span></a></li>
                     <li class="active"><a href="/wetrack/Lapas/pages/data.php"><i class="fas fa-database"></i>
                             <span>Database</span></a></li>
-                    <li><a href="http://localhost/wetrack/frontend/pages/Lapas/pages/Laporan.php"><i class="fas fa-file-invoice"></i><span>Final
+                    <li><a href="/wetrack/Lapas/pages/Laporan.php"><i class="fas fa-file-invoice"></i><span>Final
                                 Report</span></a></li>
-                    <li><a href="http://localhost/wetrack/frontend/pages//Lapas/pages/setting.php"><i class="fas fa-cog"></i>
+                    <li><a href="/wetrack/Lapas/pages/setting.php"><i class="fas fa-cog"></i>
                             <span>Settings</span></a></li>
                 </ul>
             </nav>
             <div class="user-profile">
-                <img src="http://localhost/wetrack/frontend/pages/Lapas/Image/lapas-logo.png" alt="Profile picture" width="40" height="40">
+                <img src="/wetrack/Lapas/Image/lapas-logo.png" alt="Profile picture" width="40" height="40">
                 <div class="user-info">
                     <h2>Serdy Fambo</h2>
                     <p>Administrative Staff</p>
