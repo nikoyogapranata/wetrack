@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>POLRI Admin Dashboard</title>
-  <link rel="stylesheet" href="http://localhost/wetrack/polri/css/styles.css">
+  <link rel="stylesheet" href="/wetrack/polri/css/styles.css">
   <!-- Tambahkan Chart.js Library -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
@@ -12,12 +12,12 @@
     <div class="sidebar">
         <h2>Admin POLRI</h2>
         <ul>
-          <li class="active"><a href="http://localhost/wetrack/polri/pages/index.php" style="color: inherit; text-decoration: none;">Dashboard</a></li>
-          <li><a href="http://localhost/wetrack/polri/pages/alerts.php" style="color: inherit; text-decoration: none;">Alerts</a></li>
-          <li><a href="http://localhost/wetrack/polri/pages/penanganan.php" style="color: inherit; text-decoration: none;">Penanganan</a></li>
-          <li><a href="http://localhost/wetrack/polri/pages/database.php" style="color: inherit; text-decoration: none;">Database</a></li>
-          <li><a href="http://localhost/wetrack/polri/pages/profiles.php" style="color: inherit; text-decoration: none;">Profile</a></li>
-          <li><a href="http://localhost/wetrack/polri/pages/logout.php" style="color: inherit; text-decoration: none;">Log Out</a></li>
+          <li class="active"><a href="/wetrack/polri/pages/index.php" style="color: inherit; text-decoration: none;">Dashboard</a></li>
+          <li><a href="/wetrack/polri/pages/alerts.php" style="color: inherit; text-decoration: none;">Alerts</a></li>
+          <li><a href="/wetrack/polri/pages/penanganan.php" style="color: inherit; text-decoration: none;">Penanganan</a></li>
+          <li><a href="/wetrack/polri/pages/database.php" style="color: inherit; text-decoration: none;">Database</a></li>
+          <li><a href="/wetrack/polri/pages/profiles.php" style="color: inherit; text-decoration: none;">Profile</a></li>
+          <li><a href="/wetrack/polri/pages/logout.php" style="color: inherit; text-decoration: none;">Log Out</a></li>
 
         </ul>
       </div>
@@ -66,7 +66,7 @@
     </div>
   </div>
   <script src="/polri/js/scripts.js"></script>
-  <script src="http://localhost/wetrack/polri/js/scripts.js"></script>
+  <script src="/wetrack/polri/js/scripts.js"></script>
   <script src="/polri/js/scripts.js"></script>
 </body>
 </html>
