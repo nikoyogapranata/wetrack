@@ -61,14 +61,22 @@ if (isset($_GET['id'])) {
                     <p>Administrative Staff</p>
                 </div>
             </div>
-            </aside>
+        </aside>
         <main class="content">
             <div class="profile-card">
                 <div class="path-to-back">
                     <a href="http://localhost/wetrack/frontend/pages/lapas/html/data.php"><i class="fas fa-arrow-left"></i></a>
                 </div>
                 <div class="profile-header">
-                    <img src="<?php echo $row['fileInput']; ?>" alt="Profile Image" class="profile-image">
+                    <?php
+                    $result = $conn->query("SELECT * FROM mantan_narapidana WHERE id = $id");
+                    if ($result->num_rows > 0) {
+                        $row = $result->fetch_assoc();
+                        echo '<img src="' . htmlspecialchars($row["fileInput"]) . '" alt="Profile Image" class="profile-image">';
+                    } else {
+                        echo '<img src="http://localhost/wetrack/frontend/pages/Lapas/Image/nanti-diganti.png" alt="Default Photo" class="profile-image">';
+                    }
+                    ?>
                     <div class="profile-title">
                         <h1><?php echo $row["nama"]; ?></h1>
                         <p class="id-text">National ID Number: <?php echo $row["nik"]; ?></p>
