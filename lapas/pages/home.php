@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WETRACK | Dashboard</title>
-    <link rel="stylesheet" href="/frontend/pages/Lapas/css/style.css">
-    <script src="/frontend/pages/Lapas/js/script.js"></script>
-    <link rel="icon" href="/frontend/pages/Lapas/Images/wetrack-logo-white.png" type="Image/x-icon">
+    <link rel="stylesheet" href="http://localhost/wetrack/Lapas/css/style.css">
+    <script src="http://localhost/wetrack/Lapas/js/script.js"></script>
+    <link rel="icon" href="http://localhost/wetrack/Lapas/Images/wetrack-logo-white.png" type="Image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -22,7 +22,7 @@
         <aside class="sidebar">
             <div class="sidebar-header">
                 <div class="logo">
-                    <img src="/frontend/pages/Lapas/Image/wetrack-logo-white.png" alt="WETRACK Logo">
+                    <img src="http://localhost/wetrack/Lapas/Image/wetrack-logo-white.png" alt="WETRACK Logo">
                     <h1 class="logo-text">WETRACK</h1>
                 </div>
                 <button id="toggle-sidebar" class="toggle-sidebar">
@@ -31,14 +31,14 @@
             </div>
             <nav class="nav-links">
                 <ul>
-                    <li class="active"><a href="/frontend/pages/Lapas/html/home.html"><i class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a></li>
-                    <li><a href="/frontend/pages/Lapas/html/data.html"><i class="fas fa-database"></i> <span>Database</span></a></li>
-                    <li><a href="/frontend/pages/Lapas/html/Laporan.html"><i class="fas fa-file-invoice"></i> <span>Final Report</span></a></li>
-                    <li><a href="/frontend/pages/Lapas/html/setting.html"><i class="fas fa-cog"></i> <span>Settings</span></a></li>
+                    <li class="active"><a href="http://localhost/wetrack/Lapas/pages/home.php"><i class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a></li>
+                    <li><a href="http://localhost/wetrack/Lapas/pages/data.php"><i class="fas fa-database"></i> <span>Database</span></a></li>
+                    <li><a href="http://localhost/wetrack/Lapas/pages/Laporan.php"><i class="fas fa-file-invoice"></i> <span>Final Report</span></a></li>
+                    <li><a href="http://localhost/wetrack/Lapas/pages/setting.php"><i class="fas fa-cog"></i> <span>Settings</span></a></li>
                 </ul>
             </nav>
             <div class="user-profile">
-                <img src="/frontend/pages/Lapas/Image/lapas-logo.png" alt="Profile picture" width="40" height="40">
+                <img src="http://localhost/wetrack/Lapas/Image/lapas-logo.png" alt="Profile picture" width="40" height="40">
                 <div class="user-info">
                     <h2>Serdy Fambo</h2>
                     <p>Administrative Staff</p>

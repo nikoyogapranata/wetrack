@@ -17,10 +17,10 @@ if (isset($_GET['id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WETRACK | Database</title>
-    <link rel="stylesheet" href="http://localhost/wetrack/Lapas/css/dataNapi.css">
-    <script src="http://localhost/wetrack/Lapas/js/dataNapi.js"></script>
+    <link rel="stylesheet" href="http://localhost/wetrackhttp://localhost/wetrack/Lapas/css/dataNapi.css">
+    <script src="http://localhost/wetrackhttp://localhost/wetrack/Lapas/js/dataNapi.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="icon" href="http://localhost/wetrack/Lapas/Image/wetrack-logo-white.png" type="Image/x-icon">
+    <link rel="icon" href="http://localhost/wetrackhttp://localhost/wetrack/Lapas/Image/wetrack-logo-white.png" type="Image/x-icon">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Parkinsans:wght@300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300..700&display=swap"
@@ -35,7 +35,7 @@ if (isset($_GET['id'])) {
         <aside class="sidebar">
             <div class="sidebar-header">
                 <div class="logo">
-                    <img src="http://localhost/wetrack/Lapas/Image/wetrack-logo-white.png" alt="WETRACK Logo">
+                    <img src="http://localhost/wetrackhttp://localhost/wetrack/Lapas/Image/wetrack-logo-white.png" alt="WETRACK Logo">
                     <h1 class="logo-text">WETRACK</h1>
                 </div>
                 <button id="toggle-sidebar" class="toggle-sidebar">
@@ -46,11 +46,11 @@ if (isset($_GET['id'])) {
                 <ul>
                     <li><a href="http://localhost/wetrack/Lapas/pages/home.php"><i class="fas fa-tachometer-alt"></i>
                             <span>Dashboard</span></a></li>
-                    <li class="active"><a href="http://localhost/wetrack/Lapas/pages/data.html"><i class="fas fa-database"></i>
+                    <li class="active"><a href="http://localhost/wetrack/Lapas/pages/data.php"><i class="fas fa-database"></i>
                             <span>Database</span></a></li>
-                    <li><a href="http://localhost/wetrack/Lapas/pages/Laporan.html"><i class="fas fa-file-invoice"></i>
+                    <li><a href="http://localhost/wetrack/Lapas/pages/Laporan.php"><i class="fas fa-file-invoice"></i>
                             <span>Final Report</span></a></li>
-                    <li><a href="http://localhost/wetrack/Lapas/pages/setting.html"><i class="fas fa-cog"></i>
+                    <li><a href="http://localhost/wetrack/Lapas/pages/setting.php"><i class="fas fa-cog"></i>
                             <span>Settings</span></a></li>
                 </ul>
             </nav>

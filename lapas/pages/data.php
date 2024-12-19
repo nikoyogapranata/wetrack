@@ -27,7 +27,7 @@ if (isset($_POST["submit"])) {
         echo "
         <script>
         alert('Data Added Successfully');
-        document.location.href = 'http://localhost/wetrack/frontend/pages/lapas/html/dataNapi.php';
+        document.location.href = 'http://localhost/wetrack/frontend/pages/lapas/pages/dataNapi.php';
         </script>
         ";
     } else {
@@ -67,13 +67,13 @@ if (isset($_POST["submit"])) {
             </div>
             <nav class="nav-links">
                 <ul>
-                    <li><a href="http://localhost/wetrack/frontend/pages/Lapas/html/home.html"><i class="fas fa-tachometer-alt"></i>
+                    <li><a href="http://localhost/wetrack/frontend/pages/Lapas/pages/home.html"><i class="fas fa-tachometer-alt"></i>
                             <span>Dashboard</span></a></li>
-                    <li class="active"><a href="http://localhost/wetrack/frontend/pages/Lapas/html/data.php"><i class="fas fa-database"></i>
+                    <li class="active"><a href="http://localhost/wetrack/frontend/pages/Lapas/pages/data.php"><i class="fas fa-database"></i>
                             <span>Database</span></a></li>
-                    <li><a href="http://localhost/wetrack/frontend/pages/Lapas/html/Laporan.html"><i class="fas fa-file-invoice"></i><span>Final
+                    <li><a href="http://localhost/wetrack/frontend/pages/Lapas/pages/Laporan.html"><i class="fas fa-file-invoice"></i><span>Final
                                 Report</span></a></li>
-                    <li><a href="http://localhost/wetrack/frontend/pages//Lapas/html/setting.html"><i class="fas fa-cog"></i>
+                    <li><a href="http://localhost/wetrack/frontend/pages//Lapas/pages/setting.html"><i class="fas fa-cog"></i>
                             <span>Settings</span></a></li>
                 </ul>
             </nav>
@@ -202,7 +202,7 @@ if (isset($_POST["submit"])) {
         window.location.href = "dataNapi.php?id=" + id;
     }
     </script>
-    <script src="http://localhost/wetrack/lapas/js/delete-functionality.js"></script>
+    <script src="http://localhost/wetrack/frontend/pages/lapas/js/delete-functionality.js"></script>
 </body>
 
 </html>
