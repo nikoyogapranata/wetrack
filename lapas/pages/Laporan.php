@@ -59,7 +59,8 @@
                 </div>
                 <div class="button-group">
                 <button class="btn btn-primary" id="showTableBtn">All</button>
-                <button class="btn btn-secondary" id="showInputBtn">Input Data</button>
+                    <button class="btn btn-secondary" id="showInputBtn">Input Data</button>
+                    <button class="delete-btn" id="delete-btn">Delete</button>
                 </div>
                 <div class="table-container">
                     <table>
@@ -91,69 +92,13 @@
                             <input type="text" id="nik" name="nik" placeholder="Enter National ID number" required>
                         </div>
                         <div class="form-group">
-                            <label for="name">Name:</label>
-                            <input type="text" id="nama" name="nama" placeholder="Enter Name" required>
-                        </div>
-                        <div class="form-group">
                             <label for="nrt">Prisoner Registration Number:</label>
                             <input type="text" id="nrt" name="nrt" placeholder="Enter Prisoner Registration Number"
                                 required>
                         </div>
                         <div class="form-group">
-                            <label for="address">Address:</label>
-                            <textarea name="address" id="address" placeholder="Enter Address" required></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="gender">Gender:</label>
-                            <select id="gender" name="gender" required>
-                                <option value="" disabled selected>Select gender</option>
-                                <option value="male">Male</option>
-                                <option value="female">Female</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="nationality">Nationality:</label>
-                            <select id="nationality" name="nationality" required>
-                                <option value="" disabled selected>Select Nationality</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="crime">Type of Crime:</label>
-                            <select id="crime" name="crime" required>
-                                <option value="" disabled selected>Select type of crime</option>
-                                <option value="TwA">Theft with Aggravation</option>
-                                <option value="Ot">Ordinary Theft</option>
-                                <option value="Fraud">Fraud</option>
-                                <option value="Assault">Assault</option>
-                                <option value="NO">Narcotics Offenses</option>
-                                <option value="Embezzlement">Embezzlement</option>
-                                <option value="MvT">Motor Vehicle Theft</option>
-                                <option value="Robbery">Robbery</option>
-                                <option value="Brawling">Brawling</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="punishment">Punishment Period:</label>
-                            <input type="text" id="punishment" name="punishment" placeholder="Enter Punishment Period"
-                                required>
-                        </div>
-                        <div class="form-group">
-                            <label for="monitoringDate">Monitoring Start Date:</label>
-                            <input type="date" id="monitoringDate" name="monitoringDate" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="monitoringEndDate">Monitoring End Date:</label>
-                            <input type="date" id="monitoringEndDate" name="monitoringEndDate" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="information">Information:</label>
-                            <textarea name="information" id="information" placeholder="Enter information"
-                                required></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="finalStatus">Final Status and Recommendations:</label>
-                            <textarea name="finalStatus" id="finalStatus" placeholder="Enter Final Status and Recommendations"
-                                required></textarea>
+                            <label for="document">Upload Final Report:</label>
+                            <input type="file" name="docInput" id="docInput" accept=".pdf, .doc, .docx" required>
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>

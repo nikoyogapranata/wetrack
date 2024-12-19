@@ -1,3 +1,16 @@
+<?php
+require 'connection.php'; 
+
+$result = mysqli_query($conn, "SELECT COUNT(id) as total FROM mantan_narapidana");
+
+if ($result) {
+    $row = mysqli_fetch_assoc($result);
+    $total = $row['total'];
+} else {
+    $total = 0; 
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -50,7 +63,7 @@
                 <section class="card summary-card">
                     <h3><i class="fas fa-users"></i>Total Individuals Registered</h3>
                     <div class="card-content">
-                        <span class="number">1,365</span>
+                        <span class="number"><?php echo $total; ?></span>
                     </div>
                     <p class="trend positive">+5% from last month</p>
                     <div class="chart-container">
