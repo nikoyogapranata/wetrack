@@ -58,7 +58,7 @@ if (isset($_POST["submit"])) {
         <aside class="sidebar">
             <div class="sidebar-header">
                 <div class="logo">
-                    <img src="http://localhost/wetrack/frontend/pages/Lapas/Image/wetrack-logo-white.png" alt="WETRACK Logo">
+                    <img src="/wetrack/Lapas/Image/wetrack-logo-white.png" alt="WETRACK Logo">
                     <h1 class="logo-text">WETRACK</h1>
                 </div>
                 <button id="toggle-sidebar" class="toggle-sidebar">
@@ -67,13 +67,13 @@ if (isset($_POST["submit"])) {
             </div>
             <nav class="nav-links">
                 <ul>
-                    <li><a href="http://localhost/wetrack/frontend/pages/Lapas/pages/home.html"><i class="fas fa-tachometer-alt"></i>
+                    <li><a href="/wetrack/lapas/pages/home.php"><i class="fas fa-tachometer-alt"></i>
                             <span>Dashboard</span></a></li>
-                    <li class="active"><a href="http://localhost/wetrack/frontend/pages/Lapas/pages/data.php"><i class="fas fa-database"></i>
+                    <li class="active"><a href="/wetrack/Lapas/pages/data.php"><i class="fas fa-database"></i>
                             <span>Database</span></a></li>
-                    <li><a href="http://localhost/wetrack/frontend/pages/Lapas/pages/Laporan.html"><i class="fas fa-file-invoice"></i><span>Final
+                    <li><a href="http://localhost/wetrack/frontend/pages/Lapas/pages/Laporan.php"><i class="fas fa-file-invoice"></i><span>Final
                                 Report</span></a></li>
-                    <li><a href="http://localhost/wetrack/frontend/pages//Lapas/pages/setting.html"><i class="fas fa-cog"></i>
+                    <li><a href="http://localhost/wetrack/frontend/pages//Lapas/pages/setting.php"><i class="fas fa-cog"></i>
                             <span>Settings</span></a></li>
                 </ul>
             </nav>
