@@ -1,3 +1,15 @@
+<?php
+require 'connection.php';
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+    $result = mysqli_query($conn, "SELECT * FROM data_polri WHERE id = $id");
+    $row = mysqli_fetch_assoc($result);
+} else {
+    header("Location: penanganan.php");
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

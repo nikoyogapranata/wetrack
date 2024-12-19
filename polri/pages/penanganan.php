@@ -80,12 +80,17 @@
 
           <div class="form-group">
             <label for="foto">Unggah Foto:</label>
-            <input type="file" id="foto" name="foto" accept="image/*" required>
+            <input type="file" id="unggah_foto" name="unggah_foto" accept="image/*" required>
           </div>
 
           <div class="form-group">
             <label for="laporan">Isi Laporan:</label>
-            <textarea id="laporan" name="laporan" rows="5" required></textarea>
+            <textarea id="isi_laporan" name="isi_laporan" rows="5" required></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="tanggal_laporan">Tanggal Laporan:</label>
+            <input id="tanggal_laporan" name="tanggal_laporan" type="date" required></input>
           </div>
 
           <div class="form-group">
