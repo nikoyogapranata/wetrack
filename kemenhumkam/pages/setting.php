@@ -37,13 +37,6 @@
                     <li class="active"><a href="/wetrack/kemenhumkam/pages/setting.php"><i class="fas fa-cog"></i> <span>Settings</span></a></li>
                 </ul>
             </nav>
-            <div class="user-profile">
-                <img src="/wetrack/kemenhumkam/Image/kemenhumkam-logo.png" alt="Profile picture" width="40" height="40">
-                <div class="user-info">
-                    <h2>Serdy Fambo</h2>
-                    <p>kemenhumkamistrative Staff</p>
-                </div>
-            </div>
         </aside>
         <main class="content">
             <div class="settings-container">

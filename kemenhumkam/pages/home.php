@@ -21,8 +21,8 @@
     <div class="container">
         <aside class="sidebar">
             <div class="sidebar-header">
-                <div class="logo">
-                    <img src="/wetrack/kemenhumkam/Images/wetrack-logo-white.png" alt="WETRACK Logo">
+            <div class="logo">
+                    <img src="/wetrack/kemenhumkam/Image/wetrack-logo-white.png" alt="WETRACK Logo">
                     <h1 class="logo-text">WETRACK</h1>
                 </div>
                 <button id="toggle-sidebar" class="toggle-sidebar">

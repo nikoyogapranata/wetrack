@@ -86,11 +86,11 @@
                             <input type="text" id="nik" name="nik"  placeholder="Enter National ID number" required>
                         </div>
                         <div class="form-group">
-                            <label for="nrt">Prisoner Registration Number:</label>
+                            <label for="nrt">National Employee Number:</label>
                             <input type="text" id="nrt" name="nrt"  placeholder="Enter Prisoner Registration Number" required>
                         </div>
                         <div class="form-group">
-                            <label for="name">Name:</label>
+                            <label for="name">Full Name:</label>
                             <input type="text" id="nama" name="nama" placeholder="Enter Name" required>
                         </div>
                         <div class="form-group">
@@ -114,33 +114,6 @@
                             <select id="nationality" name="nationality" required>
                                 <option value="" disabled selected>Select Nationality</option>
                             </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="crime">Type of Crime:</label>
-                            <select id="crime" name="crime" required>
-                                <option value="" disabled selected>Select type of crime</option>
-                                <option value="TwA">Theft with Aggravation</option>
-                                <option value="Ot">Ordinary Theft</option>
-                                <option value="Fraud">Fraud</option>
-                                <option value="Assault">Assault</option>
-                                <option value="NO">Narcotics Offenses</option>
-                                <option value="Embezzlement">Embezzlement</option>
-                                <option value="MvT">Motor Vehicle Theft</option>
-                                <option value="Robbery">Robbery</option>
-                                <option value="Brawling">Brawling</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="case">Incident Report:</label>
-                            <textarea name="case" id="case" placeholder="Enter Incident Report" required></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="punishment">Punishment Period:</label>
-                            <input type="text" id="punishment" name="punishment" placeholder="Enter Punishment Period" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="releaseDate">Release Date:</label>
-                            <input type="date" id="releaseDate" name="releaseDate" required>
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
