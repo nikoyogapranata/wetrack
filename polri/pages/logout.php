@@ -20,10 +20,6 @@
       <li><a href="http://localhost/wetrack/polri/pages/alerts.php">Alerts</a></li>
       <li><a href="http://localhost/wetrack/polri/pages/penanganan.php">Penanganan</a></li>
       <li><a href="http://localhost/wetrack/polri/pages/profiles.php">Profile</a></li>
-      <li><a href="/polri/html/index.html">Dashboard</a></li>
-      <li><a href="/polri/html/alerts.html">Alerts</a></li>
-      <li><a href="/polri/html/penanganan.html">Penanganan</a></li>
-      <li><a href="/polri/html/profiles.html">Profile</a></li>
       <li class="active" onclick="logout()">Logout</li>
     </ul>
   </div>
