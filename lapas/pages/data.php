@@ -202,7 +202,7 @@ if (isset($_POST["submit"])) {
         window.location.href = "dataNapi.php?id=" + id;
     }
     </script>
-    <script src="http://localhost/wetrack/frontend/pages/lapas/js/delete-functionality.js"></script>
+    <script src="http://localhost/wetrack/lapas/js/delete-functionality.js"></script>
 </body>
 
 </html>
