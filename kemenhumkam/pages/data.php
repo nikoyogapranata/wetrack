@@ -33,19 +33,10 @@
                             <span>Dashboard</span></a></li>
                     <li class="active"><a href="/wetrack/kemenhumkam/pages/data.php"><i class="fas fa-database"></i>
                             <span>Database</span></a></li>
-                    <li><a href="/wetrack/kemenhumkam/pages/Laporan.php"><i class="fas fa-file-invoice"></i><span>Final
-                                Report</span></a></li>
                     <li><a href="/wetrack//kemenhumkam/pages/setting.php"><i class="fas fa-cog"></i>
                             <span>Settings</span></a></li>
                 </ul>
             </nav>
-            <div class="user-profile">
-                <img src="/wetrack/kemenhumkam/Image/kemenkumham.png" alt="Profile picture" width="40" height="40">
-                <div class="user-info">
-                    <h2>Serdy Fambo</h2>
-                    <p>kemenhumkamistrative Staff</p>
-                </div>
-            </div>
         </aside>
         <main class="content">
             <div class="content-container">

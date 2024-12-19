@@ -34,7 +34,6 @@
                 <ul>
                     <li><a href="/wetrack/kemenhumkam/pages/home.php"><i class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a></li>
                     <li><a href="/wetrack/kemenhumkam/pages/data.php"><i class="fas fa-database"></i> <span>Database</span></a></li>
-                    <li><a href="/wetrack/kemenhumkam/pages/Laporan.php"><i class="fas fa-file-invoice"></i> <span>Final Report</span></a></li>
                     <li class="active"><a href="/wetrack/kemenhumkam/pages/setting.php"><i class="fas fa-cog"></i> <span>Settings</span></a></li>
                 </ul>
             </nav>
@@ -49,20 +48,6 @@
         <main class="content">
             <div class="settings-container">
                 <h1>Settings</h1>
-                <div class="setting-element">
-                    <h2><i class="fas fa-user"></i>Profile</h2>
-                    <a href="/wetrack/kemenhumkam/pages/profile.php" class="element-button">
-                        <i class="fas fa-chevron-right"></i>
-                    </a>
-                </div>
-                <hr>
-                <div class="setting-element">
-                    <h2><i class="fas fa-lock"></i>Privacy</h2>
-                    <button class="element-button">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
-                </div>
-                <hr>
                 <div class="setting-element">
                     <h2><i class="fas fa-question-circle"></i>FAQ</h2>
                     <button class="element-button">

@@ -22,7 +22,7 @@
         <aside class="sidebar">
             <div class="sidebar-header">
                 <div class="logo">
-                    <img src=/wetrack/kemenhumkam/Images/wetrack-logo-white.png" alt="WETRACK Logo">
+                    <img src="/wetrack/kemenhumkam/Images/wetrack-logo-white.png" alt="WETRACK Logo">
                     <h1 class="logo-text">WETRACK</h1>
                 </div>
                 <button id="toggle-sidebar" class="toggle-sidebar">
@@ -33,66 +33,61 @@
                 <ul>
                     <li class="active"><a href="/wetrack/kemenhumkam/pages/home.php"><i class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a></li>
                     <li><a href="/wetrack/kemenhumkam/pages/data.php"><i class="fas fa-database"></i> <span>Database</span></a></li>
-                    <li><a href="/wetrack/kemenhumkam/pages/Laporan.php"><i class="fas fa-file-invoice"></i> <span>Final Report</span></a></li>
                     <li><a href="/wetrack/kemenhumkam/pages/setting.php"><i class="fas fa-cog"></i> <span>Settings</span></a></li>
                 </ul>
             </nav>
-            <div class="user-profile">
-                <img src="/wetrack/frontend/pages/kemenhumkam/Images/kemenkumham.png" alt="Profile picture" width="40" height="40">
-                <div class="user-info">
-                    <h2>Serdy Fambo</h2>
-                    <p>kemenhumkamistrative Staff</p>
-                </div>
-            </div>
         </aside>
         <main class="content">
+            <?php
+            // Static data for demonstration
+            $totalLapasAccounts = 25;
+            $totalBapasAccounts = 18;
+            $totalPolriAccounts = 32;
+
+            $activities = [
+                ['time' => '09:45', 'activity' => 'New Lapas account added'],
+                ['time' => '08:30', 'activity' => 'Bapas account updated'],
+                ['time' => '07:15', 'activity' => 'New Polri account created'],
+                ['time' => 'Yesterday', 'activity' => 'Monthly account report generated'],
+                ['time' => '2 days ago', 'activity' => 'System maintenance completed'],
+            ];
+            ?>
             <div class="dashboard-grid">
                 <section class="card summary-card">
-                    <h3><i class="fas fa-users"></i>Total Individuals Registered</h3>
+                    <h3><i class="fas fa-building"></i>Total Lapas Accounts</h3>
                     <div class="card-content">
-                        <span class="number">1,365</span>
+                        <span class="number"><?php echo $totalLapasAccounts; ?></span>
                     </div>
                     <p class="trend positive">+5% from last month</p>
-                    <div class="chart-container">
-                        <canvas id="summaryChart"></canvas>
-                    </div>
                 </section>
-                <section class="card alert-card">
-                    <h3><i class="fas fa-file-invoice"></i>Total Final Report</h3>
+                <section class="card summary-card">
+                    <h3><i class="fas fa-users"></i>Total Bapas Accounts</h3>
                     <div class="card-content">
-                        <span class="number">7</span>
+                        <span class="number"><?php echo $totalBapasAccounts; ?></span>
                     </div>
-                    <p class="trend negative">Requires immediate attention</p>
+                    <p class="trend positive">+2% from last month</p>
+                </section>
+                <section class="card summary-card">
+                    <h3><i class="fas fa-shield-alt"></i>Total Polri Accounts</h3>
+                    <div class="card-content">
+                        <span class="number"><?php echo $totalPolriAccounts; ?></span>
+                    </div>
+                    <p class="trend negative">-1% from last month</p>
                 </section>
                 <section class="card activity-card">
                     <h3><i class="fas fa-history"></i>Recent Activities</h3>
                     <ul class="activity-list">
-                        <li>
-                            <span class="time">09:45</span>
-                            <span class="activity">New registration added</span>
-                        </li>
-                        <li>
-                            <span class="time">08:30</span>
-                            <span class="activity">Alert triggered in Zone B</span>
-                        </li>
-                        <li>
-                            <span class="time">07:15</span>
-                            <span class="activity">System update completed</span>
-                        </li>
-                        <li>
-                            <span class="time">Yesterday</span>
-                            <span class="activity">Monthly report generated</span>
-                        </li>
-                        <li>
-                            <span class="time">2 days ago</span>
-                            <span class="activity">New user account created</span>
-                        </li>
+                        <?php foreach ($activities as $activity): ?>
+                            <li>
+                                <span class="time"><?php echo $activity['time']; ?></span>
+                                <span class="activity"><?php echo $activity['activity']; ?></span>
+                            </li>
+                        <?php endforeach; ?>
                     </ul>
                 </section>
             </div>
         </main>
     </div>
-
 </body>
 
 </html>
