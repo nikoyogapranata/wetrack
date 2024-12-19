@@ -1,72 +1,84 @@
+<?php
+session_start();
+require_once "../config/database.php";
+
+$page = isset($_GET['page']) ? $_GET['page'] : 'dashboard';
+
+// Validasi page yang diperbolehkan
+$allowed_pages = ['dashboard', 'alerts', 'penanganan', 'database', 'profiles', 'logout'];
+if (!in_array($page, $allowed_pages)) {
+    $page = 'dashboard';
+}
+define('BASE_PATH', dirname(__FILE__));
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>POLRI Admin Dashboard</title>
-  <link rel="stylesheet" href="/wetrack/polri/css/styles.css">
-  <!-- Tambahkan Chart.js Library -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POLRI Admin System</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/wetrack/polri/assets/css/styles.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- jQuery (diperlukan untuk beberapa fitur Bootstrap) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
+    <!-- Sidebar -->
     <div class="sidebar">
         <h2>Admin POLRI</h2>
         <ul>
-          <li class="active"><a href="/wetrack/polri/pages/index.php" style="color: inherit; text-decoration: none;">Dashboard</a></li>
-          <li><a href="/wetrack/polri/pages/alerts.php" style="color: inherit; text-decoration: none;">Alerts</a></li>
-          <li><a href="/wetrack/polri/pages/penanganan.php" style="color: inherit; text-decoration: none;">Penanganan</a></li>
-          <li><a href="/wetrack/polri/pages/database.php" style="color: inherit; text-decoration: none;">Database</a></li>
-          <li><a href="/wetrack/polri/pages/profiles.php" style="color: inherit; text-decoration: none;">Profile</a></li>
-          <li><a href="/wetrack/polri/pages/logout.php" style="color: inherit; text-decoration: none;">Log Out</a></li>
-
+            <li class="<?php echo ($page === 'dashboard') ? 'active' : ''; ?>">
+                <a href="/wetrack/polri/pages/index.php?page=dashboard">Dashboard</a>
+            </li>
+            <li class="<?php echo ($page === 'alerts') ? 'active' : ''; ?>">
+                <a href="/wetrack/polri/pages/index.php?page=alerts">Alerts</a>
+            </li>
+            <li class="<?php echo ($page === 'penanganan') ? 'active' : ''; ?>">
+                <a href="/wetrack/polri/pages/index.php?page=penanganan">Penanganan</a>
+            </li>
+            <li class="<?php echo ($page === 'database') ? 'active' : ''; ?>">
+                <a href="/wetrack/polri/pages/index.php?page=database">Database</a>
+            </li>
+            <li class="<?php echo ($page === 'profiles') ? 'active' : ''; ?>">
+                <a href="/wetrack/polri/pages/index.php?page=profiles">Profile</a>
+            </li>
+            <li>
+                <a href="/wetrack/public/landing-page/index.php">Log Out</a>
+            </li>
         </ul>
-      </div>
-      
-
-  <!-- Main Dashboard -->
-  <div class="main-content">
-    <div class="header">
-      <h1>Dashboard</h1>
-      <input type="text" placeholder="Search...">
     </div>
 
-    <!-- Cards -->
-    <div class="cards">
-      <div class="card">
-        <h3>Total Tracked Individuals</h3>
-        <h2>1,365</h2>
-        <p class="green">+5% from last month</p>
-      </div>
-      <div class="card">
-        <h3>Active Alerts</h3>
-        <h2>7</h2>
-        <p class="red">Requires immediate attention</p>
-      </div>
-      <div class="card">
-        <h3>Successful Registrations</h3>
-        <h2>152</h2>
-        <p class="green">+12% this week</p>
-      </div>
+    <!-- Main Content -->
+    <div class="main-content">
+        <?php 
+        $page_file = "content/{$page}.php";
+        if (file_exists($page_file)) {
+            include $page_file;
+        } else {
+            echo "<h1>Page not found</h1>";
+        }
+        ?>
     </div>
 
-    <!-- Grafik Section -->
-    <div class="charts">
-      <canvas id="myChart" width="400" height="200"></canvas>
-    </div>
-
-    <!-- Recent Activities -->
-    <div class="recent-activities">
-      <h3>Recent Activities</h3>
-      <ul>
-        <li><strong>09:45</strong> New registration added</li>
-        <li><strong>08:30</strong> Alert triggered in Zone B</li>
-        <li><strong>07:15</strong> System update completed</li>
-        <li><strong>Yesterday</strong> Monthly report generated</li>
-      </ul>
-    </div>
-  </div>
-  <script src="/polri/js/scripts.js"></script>
-  <script src="/wetrack/polri/js/scripts.js"></script>
-  <script src="/polri/js/scripts.js"></script>
+    <!-- Bootstrap Bundle JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Popper.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
+    <!-- Custom Scripts -->
+    <script src="/wetrack/polri/assets/js/scripts.js"></script>
+    <!-- Database Specific JS -->
+    <?php if ($page === 'database'): ?>
+    <script src="/wetrack/polri/assets/js/database.js"></script>
+    <?php endif; ?>
+    <!-- Alerts Specific JS -->
+    <?php if ($page === 'alerts'): ?>
+    <script src="/wetrack/polri/assets/js/alerts.js"></script>
+    <?php endif; ?>
 </body>
 </html>
