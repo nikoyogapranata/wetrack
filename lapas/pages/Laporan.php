@@ -58,8 +58,8 @@
                     </div>
                 </div>
                 <div class="button-group">
-                    <button class="btn btn-primary" id="showTableBtn">All</button>
-                    <button class="btn btn-secondary" id="showInputBtn" onclick="showInput()">Input Data</button>
+                <button class="btn btn-primary" id="showTableBtn">All</button>
+                <button class="btn btn-secondary" id="showInputBtn">Input Data</button>
                 </div>
                 <div class="table-container">
                     <table>

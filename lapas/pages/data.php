@@ -90,8 +90,8 @@ if (isset($_POST["submit"])) {
                 <div class="content-header">
                     <h1>Database</h1>
                     <div class="search-bar">
+                    <i class="fas fa-search"></i>
                         <input type="text" id="searchInput" placeholder="Search...">
-                        <i class="fas fa-search"></i>
                     </div>
                 </div>
                 <div class="button-group">
