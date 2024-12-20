@@ -1,6 +1,61 @@
+<?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+require 'connection.php';
+
+if (isset($_POST["submit"])) {
+    $nik = $_POST["nik"];
+    $nrt = $_POST["nrt"];
+
+    // Check if the nik and nrt exist in mantan_narapidana table
+    $check_query = "SELECT * FROM mantan_narapidana WHERE nik = ? AND nrt = ?";
+    $check_stmt = $conn->prepare($check_query);
+    $check_stmt->bind_param("ss", $nik, $nrt);
+    $check_stmt->execute();
+    $result = $check_stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        // nik and nrt exist, proceed with file upload and database insertion
+        $docInput = $_FILES["docInput"]["name"];
+        $target_dir = "uploads/";
+        if (!file_exists($target_dir)) {
+            mkdir($target_dir, 0777, true);
+        }
+        $target_file = $target_dir . basename($_FILES["docInput"]["name"]);
+        
+        if (move_uploaded_file($_FILES["docInput"]["tmp_name"], $target_file)) {
+            // File upload successful, proceed with database insertion
+            $query = "INSERT INTO final_report (nik, nrt, docInput) VALUES (?, ?, ?)";
+            $stmt = $conn->prepare($query);
+            $stmt->bind_param("sss", $nik, $nrt, $target_file);
+            
+            if ($stmt->execute()) {
+                echo "
+                <script>
+                alert('Final report added successfully');
+                document.location.href = '/wetrack/lapas/pages/Laporan.php';
+                </script>
+                ";
+            } else {
+                echo "Error: " . $stmt->error;
+            }
+        } else {
+            echo "Sorry, there was an error uploading your file. Error: " . error_get_last()['message'];
+        }
+    } else {
+        echo "
+        <script>
+        alert('Invalid NIK or NRT. Please check and try again.');
+        document.location.href = '/wetrack/lapas/pages/Laporan.php';
+        </script>
+        ";
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,7 +70,6 @@
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-
 <body>
     <div class="container">
         <aside class="sidebar">
@@ -58,7 +112,7 @@
                     </div>
                 </div>
                 <div class="button-group">
-                <button class="btn btn-primary" id="showTableBtn">All</button>
+                    <button class="btn btn-primary" id="showTableBtn">All</button>
                     <button class="btn btn-secondary" id="showInputBtn">Input Data</button>
                     <button class="delete-btn" id="delete-btn">Delete</button>
                 </div>
@@ -68,20 +122,26 @@
                             <tr>
                                 <th>No.</th>
                                 <th>Name</th>
+                                <th>NIK</th>
+                                <th>NRT</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>John Doe</td>
-                                <td><button class="btn btn-action">Details</button></td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Jane Smith</td>
-                                <td><button class="btn btn-action">Details</button></td>
-                            </tr>
+                            <?php
+                            $result = mysqli_query($conn, "SELECT fr.id, mn.nama, fr.nik, fr.nrt, fr.docInput FROM final_report fr JOIN mantan_narapidana mn ON fr.nik = mn.nik AND fr.nrt = mn.nrt ORDER BY fr.id DESC");
+                            $i = 1;
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                echo "<tr>";
+                                echo "<td>" . $i . "</td>";
+                                echo "<td>" . $row['nama'] . "</td>";
+                                echo "<td>" . $row['nik'] . "</td>";
+                                echo "<td>" . $row['nrt'] . "</td>";
+                                echo "<td><button class='btn btn-action' data-id='" . $row['id'] . "' data-doc='" . $row['docInput'] . "'>Details</button></td>";
+                                echo "</tr>";
+                                $i++;
+                            }
+                            ?>
                         </tbody>
                     </table>
                 </div>
@@ -93,8 +153,7 @@
                         </div>
                         <div class="form-group">
                             <label for="nrt">Prisoner Registration Number:</label>
-                            <input type="text" id="nrt" name="nrt" placeholder="Enter Prisoner Registration Number"
-                                readonly>
+                            <input type="text" id="nrt" name="nrt" placeholder="Enter Prisoner Registration Number" required>
                         </div>
                         <div class="form-group">
                             <label for="docInput">Upload Final Report:</label>
@@ -129,6 +188,40 @@
             });
         });
     </script>
-</body>
+    <script src="delete-functionality.js"></script>
+    <script>
+        document.querySelector('table').addEventListener('click', function(e) {
+            if (e.target.classList.contains('btn-action')) {
+                const id = e.target.getAttribute('data-id');
+                const docPath = e.target.getAttribute('data-doc');
+                if (deleteMode) {
+                    if (confirm('Are you sure you want to delete this record?')) {
+                        deleteRecord(id);
+                    }
+                } else {
+                    window.open(docPath, '_blank');
+                }
+            }
+        });
 
+        function deleteRecord(id) {
+            fetch(`delete-final-report.php?id=${id}`, {
+                method: 'DELETE'
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Record deleted successfully');
+                    location.reload();
+                } else {
+                    alert('Error deleting record');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error deleting record');
+            });
+        }
+    </script>
+</body>
 </html>
