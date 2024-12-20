@@ -112,13 +112,17 @@ if (isset($_POST["submit"])) {
                         </thead>
                         <tbody>
                             <?php
-                            $result = mysqli_query($conn, "SELECT id, nama FROM mantan_narapidana ORDER BY id DESC");
+                            $result = mysqli_query($conn, "SELECT mn.id, mn.nama 
+                               FROM mantan_narapidana mn 
+                               LEFT JOIN final_report fr ON mn.nik = fr.nik AND mn.nrt = fr.nrt 
+                               WHERE fr.id IS NULL 
+                               ORDER BY mn.id ASC");
                             $i = 1;
                             while ($row = mysqli_fetch_assoc($result)) {
                                 echo "<tr>";
                                 echo "<td>" . $i . "</td>";
                                 echo "<td>" . $row['nama'] . "</td>";
-                                echo "<td><button class='btn btn-action' data-id='" . $row['id'] . "'>Details</button></td>";
+                                echo "<td><button class='btn btn-action' data-id='" . $row['id'] . "'>Details</button> </td>";
                                 echo "</tr>";
                                 $i++;
                             }
@@ -130,7 +134,7 @@ if (isset($_POST["submit"])) {
                     <form id="inputForm" method="post" enctype="multipart/form-data" autocomplete="off">
                         <div class="form-group">
                             <label for="photo">Photo:</label>
-                            <input type="file" name="fileInput" id="fileInput" accept=".png, .jpg, .jpeg" required>
+                            <input type="file" name="fileInput" id="fileInput" accept=".png, .jpg, .jpeg, .webp" required>
                         </div>
                         <div class="form-group">
                             <label for="nik">National ID Number:</label>
@@ -200,11 +204,10 @@ if (isset($_POST["submit"])) {
         </main>
     </div>
     <script>
-        function showDetails(id) {
-            window.location.href = "dataNapi.php?id=" + id;
-        }
+        
     </script>
     <script src="/wetrack/lapas/js/delete-functionality.js"></script>
 </body>
 
 </html>
+
