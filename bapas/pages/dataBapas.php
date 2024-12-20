@@ -1,20 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WETRACK | Database</title>
     <link rel="icon" href="/wetrack/bapas/Image/wetrack-logo-white.png" type="Image/x-icon">
     <link rel="stylesheet" href="/wetrack/bapas/css/data.css">
-    <script src="/frontend/pages/bapas/js/data.js" defer></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="/wetrack/bapas/js/data.js" defer></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-
 <body>
     <div class="container">
         <aside class="sidebar">
@@ -33,7 +32,7 @@
                             <span>Dashboard</span></a></li>
                     <li><a href="/wetrack/bapas/pages/tracking.php"><i class="fas fa-map-marker-alt"></i><span>
                                 Tracking Map</span></a></li>
-                    <li class="active"><a href="/wetrack/bapas/pages/data.php"><i class="fas fa-database"></i>
+                    <li class="active"><a href="/wetrack/bapas/pages/dataBapas.php"><i class="fas fa-database"></i>
                             <span>Database</span></a></li>
 
                     <li><a href="/wetrack/bapas/pages/setting.php"><i class="fas fa-cog"></i>
@@ -86,73 +85,47 @@
                     </table>
                 </div>
                 <div class="input-container" style="display: none;">
-                    <form id="inputForm">
-                        <div class="form-group">
-                            <label for="photo">Photo:</label>
-                            <input type="file" name="fileInput" id="fileInput" accept=".png, .jpg, .jpeg" required>
-                        </div>
+                    <form id="inputForm" action="save_prisoner.php" method="POST">
                         <div class="form-group">
                             <label for="nik">National ID Number:</label>
                             <input type="text" id="nik" name="nik" placeholder="Enter National ID number" required>
                         </div>
                         <div class="form-group">
                             <label for="nrt">Prisoner Registration Number:</label>
-                            <input type="text" id="nrt" name="nrt" placeholder="Enter Prisoner Registration Number"
-                                required>
+                            <input type="text" id="nrt" name="nrt" placeholder="Enter Prisoner Registration Number" required>
                         </div>
                         <div class="form-group">
-                            <label for="name">Name:</label>
-                            <input type="text" id="nama" name="nama" placeholder="Enter Name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="dateBirth">Date of Birth:</label>
-                            <input type="date" id="dateBirth" name="dateBirth" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="address">Address:</label>
-                            <textarea name="address" id="address" placeholder="Enter Address" required></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="gender">Gender:</label>
-                            <select id="gender" name="gender" required>
-                                <option value="" disabled selected>Select gender</option>
-                                <option value="male">Male</option>
-                                <option value="female">Female</option>
+                            <label for="typePrisoner">Prisoner Type:</label>
+                            <select id="typePrisoner" name="typePrisoner" required onchange="togglePrisonerTypeFields()">
+                                <option value="" disabled selected>Select Prisoner Type</option>
+                                <option value="houseArrest">House Arrest</option>
+                                <option value="cityPrisoner">City Prisoner</option>
                             </select>
                         </div>
-                        <div class="form-group">
-                            <label for="nationality">Nationality:</label>
-                            <select id="nationality" name="nationality" required>
-                                <option value="" disabled selected>Select Nationality</option>
-                            </select>
+                        <div id="houseArrestFields" style="display: none;">
+                            <div class="form-group">
+                                <label for="radiusFence">Input Geo-Fence Radius (km):</label>
+                                <input type="number" id="radiusFence" name="radiusFence" step="0.1" min="0" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="map">Select Center Point:</label>
+                                <div id="map" style="height: 400px;"></div>
+                                <input type="hidden" id="centerLat" name="centerLat">
+                                <input type="hidden" id="centerLng" name="centerLng">
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="crime">Type of Crime:</label>
-                            <select id="crime" name="crime" required>
-                                <option value="" disabled selected>Select type of crime</option>
-                                <option value="TwA">Theft with Aggravation</option>
-                                <option value="Ot">Ordinary Theft</option>
-                                <option value="Fraud">Fraud</option>
-                                <option value="Assault">Assault</option>
-                                <option value="NO">Narcotics Offenses</option>
-                                <option value="Embezzlement">Embezzlement</option>
-                                <option value="MvT">Motor Vehicle Theft</option>
-                                <option value="Robbery">Robbery</option>
-                                <option value="Brawling">Brawling</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="case">Incident Report:</label>
-                            <textarea name="case" id="case" placeholder="Enter Incident Report" required></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="punishment">Punishment Period:</label>
-                            <input type="text" id="punishment" name="punishment" placeholder="Enter Punishment Period"
-                                required>
-                        </div>
-                        <div class="form-group">
-                            <label for="releaseDate">Release Date:</label>
-                            <input type="date" id="releaseDate" name="releaseDate" required>
+                        <div id="cityPrisonerFields" style="display: none;">
+                            <div class="form-group">
+                                <label for="kotaKab">Choose a city or district:</label>
+                                <select id="kotaKab" name="kotaKab" required>
+                                    <option value="" disabled selected>Select city or district</option>
+                                    <option value="Yogya">Kota Yogyakarta</option>
+                                    <option value="Sleman">Kabupaten Sleman</option>
+                                    <option value="Bantul">Kabupaten Bantul</option>
+                                    <option value="KulonProgo">Kabupaten Kulon Progo</option>
+                                    <option value="GunungKidul">Kabupaten Gunung Kidul</option>
+                                </select>
+                            </div>
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
@@ -160,6 +133,41 @@
             </div>
         </main>
     </div>
-</body>
+    <script>
+        let map;
+        let circle;
 
+        function initMap() {
+            map = L.map('map').setView([-7.7956, 110.3695], 10);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(map);
+
+            map.on('click', function(e) {
+                if (circle) {
+                    map.removeLayer(circle);
+                }
+                const radius = parseFloat(document.getElementById('radiusFence').value) * 1000; // Convert km to meters
+                circle = L.circle(e.latlng, {radius: radius}).addTo(map);
+                document.getElementById('centerLat').value = e.latlng.lat;
+                document.getElementById('centerLng').value = e.latlng.lng;
+            });
+        }
+
+        function togglePrisonerTypeFields() {
+            const prisonerType = document.getElementById('typePrisoner').value;
+            document.getElementById('houseArrestFields').style.display = prisonerType === 'houseArrest' ? 'block' : 'none';
+            document.getElementById('cityPrisonerFields').style.display = prisonerType === 'cityPrisoner' ? 'block' : 'none';
+            if (prisonerType === 'houseArrest' && !map) {
+                setTimeout(initMap, 100);
+            }
+        }
+
+        document.getElementById('radiusFence').addEventListener('input', function() {
+            if (circle) {
+                circle.setRadius(this.value * 1000);
+            }
+        });
+    </script>
+</body>
 </html>

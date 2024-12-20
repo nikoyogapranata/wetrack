@@ -33,7 +33,7 @@
                 <ul>
                     <li class="active"><a href="/wetrack/Bapas/pages/home.php"><i class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a></li>
                     <li><a href="/wetrack/Bapas/pages/tracking.php"><i class="fas fa-map-marker-alt"></i> <span>Tracking Map</span></a></li>
-                    <li><a href="/wetrack/Bapas/pages/data.php"><i class="fas fa-database"></i> <span>Database</span></a>
+                    <li><a href="/wetrack/Bapas/pages/dataBapas.php"><i class="fas fa-database"></i> <span>Database</span></a>
                     </li>
                     <li><a href="/wetrack/Bapas/pages/setting.php"><i class="fas fa-cog"></i> <span>Settings</span></a></li>
                 </ul>

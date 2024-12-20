@@ -36,7 +36,7 @@
                             <span>Dashboard</span></a></li>
                     <li><a href="/wetrack/bapas/pages/tracking.php"><i class="fas fa-map-marker-alt"></i><span>
                                 Tracking Map</span></a></li>
-                    <li class="active"><a href="/wetrack/bapas/pages/data.php"><i class="fas fa-database"></i>
+                    <li class="active"><a href="/wetrack/bapas/pages/dataBapas.php"><i class="fas fa-database"></i>
                             <span>Database</span></a></li>
 
                     <li><a href="/wetrack/bapas/pages/setting.php"><i class="fas fa-cog"></i>
@@ -59,7 +59,7 @@
             ?>
             <div class="profile-card">
                 <div class="path-to-back">
-                    <a href="/wetrack/bapas/pages/data.php"><i class="fas fa-arrow-left"></i></a>
+                    <a href="/wetrack/bapas/pages/dataBapas.php"><i class="fas fa-arrow-left"></i></a>
                 </div>
                 <div class="profile-header">
                     <img src="/wetrack/Bapas/Image/20240305.webp" alt="Profile Image" class="profile-image">
