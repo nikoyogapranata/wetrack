@@ -77,6 +77,8 @@ if (!$profile_picture) {
                         <i class="fas fa-chevron-right"></i>
                     </a>
                 </div>
+                <hr>
+
                 <div class="setting-element">
                     <h2><i class="fas fa-question-circle"></i>FAQ</h2>
                     <button class="element-button">
