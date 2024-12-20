@@ -168,6 +168,10 @@ if (isset($_POST["submit"])) {
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
+            let deleteMode = false;
+            const deleteBtn = document.getElementById('delete-btn');
+            const actionButtons = document.querySelectorAll('.btn-action');
+
             $('#nik').on('input', function() {
                 var nik = $(this).val();
                 if(nik.length > 2) {
@@ -186,42 +190,74 @@ if (isset($_POST["submit"])) {
                     });
                 }
             });
-        });
-    </script>
-    <script src="delete-functionality.js"></script>
-    <script>
-        document.querySelector('table').addEventListener('click', function(e) {
-            if (e.target.classList.contains('btn-action')) {
-                const id = e.target.getAttribute('data-id');
-                const docPath = e.target.getAttribute('data-doc');
-                if (deleteMode) {
-                    if (confirm('Are you sure you want to delete this record?')) {
-                        deleteRecord(id);
-                    }
-                } else {
-                    window.open(docPath, '_blank');
-                }
-            }
-        });
 
-        function deleteRecord(id) {
-            fetch(`delete-final-report.php?id=${id}`, {
-                method: 'DELETE'
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert('Record deleted successfully');
-                    location.reload();
+            deleteBtn.addEventListener('click', function() {
+                deleteMode = !deleteMode;
+                if (deleteMode) {
+                    this.textContent = 'Cancel Delete';
+                    this.classList.add('btn-danger');
+                    actionButtons.forEach(btn => {
+                        btn.textContent = 'Delete Data';
+                        btn.classList.add('btn-danger');
+                    });
                 } else {
-                    alert('Error deleting record');
+                    this.textContent = 'Delete';
+                    this.classList.remove('btn-danger');
+                    actionButtons.forEach(btn => {
+                        btn.textContent = 'Details';
+                        btn.classList.remove('btn-danger');
+                    });
                 }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Error deleting record');
             });
-        }
+
+            document.querySelector('table').addEventListener('click', function(e) {
+                if (e.target.classList.contains('btn-action')) {
+                    const id = e.target.getAttribute('data-id');
+                    const docPath = e.target.getAttribute('data-doc');
+                    if (deleteMode) {
+                        if (confirm('Are you sure you want to delete this record?')) {
+                            deleteRecord(id);
+                        }
+                    } else {
+                        window.open(docPath, '_blank');
+                    }
+                }
+            });
+
+            function deleteRecord(id) {
+                fetch(`delete-final-report.php?id=${id}`, {
+                    method: 'DELETE'
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Record deleted successfully');
+                        location.reload();
+                    } else {
+                        alert('Error deleting record: ' + data.error);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error deleting record');
+                });
+            }
+
+            // Search functionality
+            $('#searchInput').on('input', function() {
+                const searchTerm = $(this).val().toLowerCase();
+                $('table tbody tr').each(function() {
+                    const name = $(this).find('td:nth-child(2)').text().toLowerCase();
+                    const nik = $(this).find('td:nth-child(3)').text().toLowerCase();
+                    const nrt = $(this).find('td:nth-child(4)').text().toLowerCase();
+                    if (name.includes(searchTerm) || nik.includes(searchTerm) || nrt.includes(searchTerm)) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
+            });
+        });
     </script>
 </body>
 </html>
