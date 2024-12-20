@@ -40,6 +40,22 @@ if (!$profile_picture) {
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="/wetrack/kemenkumham/js/script.js"></script>
+    <style>  .change-password-button .btn {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 5px;
+        text-align: center;
+        transition: background-color 0.3s;
+        align-items: center;
+    }
+
+    .change-password-button .btn:hover {
+        background-color: #0056b3;
+        }   
+    </style>
 </head>
 
 <body>

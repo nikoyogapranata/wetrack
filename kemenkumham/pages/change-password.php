@@ -78,6 +78,86 @@ if (!$profile_picture) {
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="/wetrack/kemenkumham/js/script.js"></script>
+    <style>.profile-container {
+        max-width: 50%;
+        margin: 2rem auto;
+        padding: 2rem;
+        background-color: var(--card-color);
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      .profile-container h1 {
+        text-align: center;
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+        color: var(--primary-color);
+      }
+
+      .path-to-back {
+        margin-bottom: 1rem;
+      }
+
+      .path-to-back a {
+        text-decoration: none;
+        color: var(--primary-color);
+        font-size: 1.2rem;
+      }
+
+      .path-to-back a i {
+        margin-right: 0.5rem;
+      }
+
+      .change-password-form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .form-group label {
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+        color: var(--text-color);
+      }
+
+      .form-group input {
+        padding: 0.75rem;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 1rem;
+        color: var(--text-color);
+      }
+
+      .form-group input:focus {
+        outline: none;
+        border-color: var(--secondary-color);
+        box-shadow: 0 0 4px var(--secondary-color);
+      }
+
+      .form-group button {
+        padding: 0.75rem;
+        background-color: var(--secondary-color);
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .form-group button:hover {
+        background-color: var(--accent-color);
+      }
+
+      .message {
+        color: red;
+      }
+    </style>
 </head>
 
 <body>
