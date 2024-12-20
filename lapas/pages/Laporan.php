@@ -86,7 +86,7 @@
                     </table>
                 </div>
                 <div class="input-container" style="display: none;">
-                    <form id="inputForm">
+                    <form id="inputForm" method="post" enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="nik">National ID Number:</label>
                             <input type="text" id="nik" name="nik" placeholder="Enter National ID number" required>
@@ -94,18 +94,41 @@
                         <div class="form-group">
                             <label for="nrt">Prisoner Registration Number:</label>
                             <input type="text" id="nrt" name="nrt" placeholder="Enter Prisoner Registration Number"
-                                required>
+                                readonly>
                         </div>
                         <div class="form-group">
-                            <label for="document">Upload Final Report:</label>
+                            <label for="docInput">Upload Final Report:</label>
                             <input type="file" name="docInput" id="docInput" accept=".pdf, .doc, .docx" required>
                         </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" name="submit" class="btn btn-primary">Submit</button>
                     </form>
                 </div>
             </div>
         </main>
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#nik').on('input', function() {
+                var nik = $(this).val();
+                if(nik.length > 2) {
+                    $.ajax({
+                        url: 'get_nrt.php',
+                        method: 'POST',
+                        data: {nik: nik},
+                        dataType: 'json',
+                        success: function(response) {
+                            if(response.nrt) {
+                                $('#nrt').val(response.nrt);
+                            } else {
+                                $('#nrt').val('');
+                            }
+                        }
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

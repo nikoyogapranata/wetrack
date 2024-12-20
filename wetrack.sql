@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:8889
--- Generation Time: Dec 20, 2024 at 01:19 AM
--- Server version: 8.0.35
--- PHP Version: 8.2.20
+-- Host: 127.0.0.1
+-- Generation Time: Dec 20, 2024 at 02:59 AM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -28,14 +28,14 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `data_polri` (
-  `id` int NOT NULL,
-  `nama` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `nik` varchar(16) COLLATE utf8mb4_general_ci NOT NULL,
-  `id_napi` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
-  `alamat` text COLLATE utf8mb4_general_ci NOT NULL,
-  `unggah_foto` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `isi_laporan` text COLLATE utf8mb4_general_ci NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `id` int(11) NOT NULL,
+  `nama` varchar(100) NOT NULL,
+  `nik` varchar(16) NOT NULL,
+  `id_napi` varchar(20) NOT NULL,
+  `alamat` text NOT NULL,
+  `unggah_foto` varchar(255) NOT NULL,
+  `isi_laporan` text NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `tanggal_laporan` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -52,13 +52,27 @@ INSERT INTO `data_polri` (`id`, `nama`, `nik`, `id_napi`, `alamat`, `unggah_foto
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `final_report`
+--
+
+CREATE TABLE `final_report` (
+  `id` int(11) NOT NULL,
+  `nik` varchar(16) NOT NULL,
+  `nrt` varchar(20) NOT NULL,
+  `docInput` varchar(255) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `kemenkumham_users`
 --
 
 CREATE TABLE `kemenkumham_users` (
-  `id` int NOT NULL,
-  `password` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `profile_picture` varchar(255) COLLATE utf8mb4_general_ci DEFAULT '/wetrack/kemenkumham/image/kemenkumham.png'
+  `id` int(11) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `profile_picture` varchar(255) DEFAULT '/wetrack/kemenkumham/image/kemenkumham.png'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -79,10 +93,10 @@ INSERT INTO `kemenkumham_users` (`id`, `password`, `profile_picture`) VALUES
 --
 
 CREATE TABLE `login_history` (
-  `id` int NOT NULL,
-  `user_id` int NOT NULL,
-  `login_time` datetime DEFAULT CURRENT_TIMESTAMP,
-  `ip_address` varchar(45) COLLATE utf8mb4_general_ci NOT NULL
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `login_time` datetime DEFAULT current_timestamp(),
+  `ip_address` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -92,22 +106,22 @@ CREATE TABLE `login_history` (
 --
 
 CREATE TABLE `mantan_narapidana` (
-  `id` int NOT NULL,
-  `fileInput` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `nik` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `nrt` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `nama` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `id` int(11) NOT NULL,
+  `fileInput` varchar(255) DEFAULT NULL,
+  `nik` varchar(20) DEFAULT NULL,
+  `nrt` varchar(20) DEFAULT NULL,
+  `nama` varchar(100) DEFAULT NULL,
   `dateBirth` date DEFAULT NULL,
-  `address` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
-  `gender` enum('male','female') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `nationality` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `crime` enum('TwA','Ot','Fraud','Assault','NO','Embezzlement','MvT','Robbery','Brawling') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `case` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
-  `punishment` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `address` text DEFAULT NULL,
+  `gender` enum('male','female') DEFAULT NULL,
+  `nationality` varchar(100) DEFAULT NULL,
+  `crime` enum('TwA','Ot','Fraud','Assault','NO','Embezzlement','MvT','Robbery','Brawling') DEFAULT NULL,
+  `case` text DEFAULT NULL,
+  `punishment` varchar(100) DEFAULT NULL,
   `releaseDate` date DEFAULT NULL,
-  `report` text COLLATE utf8mb4_general_ci,
+  `report` text DEFAULT NULL,
   `action` tinyint(1) DEFAULT NULL COMMENT '1 for accept, 0 for reject',
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -131,6 +145,13 @@ ALTER TABLE `data_polri`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `final_report`
+--
+ALTER TABLE `final_report`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `nik` (`nik`,`nrt`);
+
+--
 -- Indexes for table `kemenkumham_users`
 --
 ALTER TABLE `kemenkumham_users`
@@ -147,7 +168,8 @@ ALTER TABLE `login_history`
 -- Indexes for table `mantan_narapidana`
 --
 ALTER TABLE `mantan_narapidana`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `unique_nik_nrt` (`nik`,`nrt`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -157,29 +179,41 @@ ALTER TABLE `mantan_narapidana`
 -- AUTO_INCREMENT for table `data_polri`
 --
 ALTER TABLE `data_polri`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `final_report`
+--
+ALTER TABLE `final_report`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `kemenkumham_users`
 --
 ALTER TABLE `kemenkumham_users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000006;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000006;
 
 --
 -- AUTO_INCREMENT for table `login_history`
 --
 ALTER TABLE `login_history`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `mantan_narapidana`
 --
 ALTER TABLE `mantan_narapidana`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `final_report`
+--
+ALTER TABLE `final_report`
+  ADD CONSTRAINT `final_report_ibfk_1` FOREIGN KEY (`nik`,`nrt`) REFERENCES `mantan_narapidana` (`nik`, `nrt`);
 
 --
 -- Constraints for table `login_history`
