@@ -57,12 +57,38 @@ if (!$profile_picture) {
         rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>.dashboard-grid {
+    <style>
+        .dashboard-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
         gap: 2rem;
-        margin-bottom: 3vh;
-}   </style>
+        margin-bottom: 3vh; }
+
+        .login-history-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .login-history-table th, .login-history-table td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        .login-history-table th {
+            background-color: #f4f4f4;
+            font-weight: bold;
+        }
+
+        .login-history-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .login-history-table tr:hover {
+            background-color: #e0e0e0;
+        }
+  </style>
 </head>
 
 <body>
