@@ -50,7 +50,7 @@
           <div class="hero-subtitle">A comprehensive web-based tracking system designed to monitor and support
             individuals under house or city arrest while ensuring compliance and safety for all.</div>
           <div class="hero-cta">
-            <a href="/frontend/pages/public/login-admin/index.html" class="hero-cta-button wide-cta w-button">I&#x27;m an Admin</a><a href="/frontend/pages/public/login-prisoner/index.html" class="hero-cta-button wide-cta w-button">I&#x27;m a Prisoner</a>
+            <a href="/wetrack/public/login-admin/index.php" class="hero-cta-button wide-cta w-button">I&#x27;m an Admin</a><a href="/wetrack/public/login-prisoner/index.php" class="hero-cta-button wide-cta w-button">I&#x27;m a Prisoner</a>
             </div>
         </div>
         <div id="w-node-_13d1e863-e8b8-9f0d-2e47-6aa50a433998-747a3d49" class="hero-right"><img
@@ -124,8 +124,8 @@
             <h2 class="cta-heading">Access Your Dashboard Effortlessly</h2>
             <div class="cta-description">Admins can manage and monitor, while prisoners can stay updated with their
               profile and reports—log in to proceed.</div>
-            <div class="cta-button-container"><a href="/frontend/pages/public/login-admin/index.html" class="cta-button wide-cta w-button">I&#x27;m an Admin</a><a
-                href="/frontend/pages/public/login-prisoner/index.html" class="cta-button wide-cta w-button">I&#x27;m a Prisoner</a></div>
+            <div class="cta-button-container"><a href="/wetrack/public/login-admin/index.php" class="cta-button wide-cta w-button">I&#x27;m an Admin</a><a
+                href="/wetrack/public/login-prisoner/index.php" class="cta-button wide-cta w-button">I&#x27;m a Prisoner</a></div>
           </div>
         </div>
       </div>

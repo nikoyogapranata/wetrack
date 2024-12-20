@@ -1,14 +1,34 @@
 <?php
 require 'connection.php'; 
+require_once 'utils/activity_logger.php';
 
-$result = mysqli_query($conn, "SELECT COUNT(id) as total FROM mantan_narapidana");
+// Function to log recent activity
+function logRecentActivity($action_type, $action_description) {
+    global $conn;
+    $query = "INSERT INTO recent_activities (action_type, action_description) VALUES (?, ?)";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("ss", $action_type, $action_description);
+    $stmt->execute();
+    $stmt->close();
+}
 
-if ($result) {
-    $row = mysqli_fetch_assoc($result);
+$result_data = mysqli_query($conn, "SELECT COUNT(id) as total FROM mantan_narapidana");
+$result_report =  mysqli_query($conn, "SELECT COUNT(id) as total FROM final_report");
+
+if ($result_data) {
+    $row = mysqli_fetch_assoc($result_data);
     $total = $row['total'];
 } else {
     $total = 0; 
 }
+
+if ($result_report) {
+    $row_report = mysqli_fetch_assoc($result_report);
+    $total_report = $row_report['total'];
+} else {
+    $total_report = 0; 
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -20,7 +40,7 @@ if ($result) {
     <title>WETRACK | Dashboard</title>
     <link rel="stylesheet" href="/wetrack/Lapas/css/style.css">
     <script src="/wetrack/Lapas/js/script.js"></script>
-    <link rel="icon" href="/wetrack/Lapas/Images/wetrack-logo-white.png" type="Image/x-icon">
+    <link rel="icon" href="/wetrack/Lapas/Image/wetrack-logo-white.png" type="Image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -73,33 +93,25 @@ if ($result) {
                 <section class="card alert-card">
                     <h3><i class="fas fa-file-invoice"></i>Total Final Report</h3>
                     <div class="card-content">
-                        <span class="number">7</span>
+                        <span class="number"><?php echo $total_report; ?></span>
                     </div>
                     <p class="trend negative">Requires immediate attention</p>
                 </section>
                 <section class="card activity-card">
                     <h3><i class="fas fa-history"></i>Recent Activities</h3>
                     <ul class="activity-list">
-                        <li>
-                            <span class="time">09:45</span>
-                            <span class="activity">New registration added</span>
-                        </li>
-                        <li>
-                            <span class="time">08:30</span>
-                            <span class="activity">Alert triggered in Zone B</span>
-                        </li>
-                        <li>
-                            <span class="time">07:15</span>
-                            <span class="activity">System update completed</span>
-                        </li>
-                        <li>
-                            <span class="time">Yesterday</span>
-                            <span class="activity">Monthly report generated</span>
-                        </li>
-                        <li>
-                            <span class="time">2 days ago</span>
-                            <span class="activity">New user account created</span>
-                        </li>
+                        <?php
+                        // Fetch recent activities from the database
+                        $activity_query = "SELECT action_type, action_description, created_at FROM recent_activities ORDER BY created_at DESC LIMIT 5";
+                        $activity_result = mysqli_query($conn, $activity_query);
+
+                        while ($activity = mysqli_fetch_assoc($activity_result)) {
+                            echo "<li>";
+                            echo "<span class='time'>" . date('H:i', strtotime($activity['created_at'])) . "</span>";
+                            echo "<span class='activity'>" . htmlspecialchars($activity['action_description']) . "</span>";
+                            echo "</li>";
+                        }
+                        ?>
                     </ul>
                 </section>
             </div>
