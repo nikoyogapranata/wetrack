@@ -27,6 +27,8 @@ define('BASE_PATH', dirname(__FILE__));
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- jQuery (diperlukan untuk beberapa fitur Bootstrap) -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
     <!-- Sidebar -->
