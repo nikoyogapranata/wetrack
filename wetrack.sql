@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 20, 2024 at 02:59 AM
+-- Generation Time: Dec 20, 2024 at 03:46 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -62,6 +62,14 @@ CREATE TABLE `final_report` (
   `docInput` varchar(255) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `final_report`
+--
+
+INSERT INTO `final_report` (`id`, `nik`, `nrt`, `docInput`, `created_at`) VALUES
+(1, '78978979', '123189481', 'uploads/stakeholder-engagement-plan-template.pdf', '2024-12-20 02:04:06'),
+(2, '1234', '1234', 'uploads/WBS-Kelompok 4.xlsx - WBS with Gantt Chart - WETRACK.pdf', '2024-12-20 02:12:56');
 
 -- --------------------------------------------------------
 
@@ -134,6 +142,26 @@ INSERT INTO `mantan_narapidana` (`id`, `fileInput`, `nik`, `nrt`, `nama`, `dateB
 (3, 'uploads/lapas-logo.png', '1234', '1234', 'anjay', '2024-12-18', 'kepo', 'male', 'Indonesia', 'Assault', 'nusuk', '10000', '2024-12-19', NULL, NULL, '2024-12-19 00:00:21'),
 (4, 'uploads/lapas-logo.png', '78978979', '123189481', 'Joko', '2002-02-28', 'Jl. Jakal', 'male', 'Belgium', 'NO', 'Pengedar', '100 Years', '2025-01-22', NULL, NULL, '2024-12-19 03:09:25');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `recent_activities`
+--
+
+CREATE TABLE `recent_activities` (
+  `id` int(11) NOT NULL,
+  `action_type` varchar(50) NOT NULL,
+  `action_description` varchar(255) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `recent_activities`
+--
+
+INSERT INTO `recent_activities` (`id`, `action_type`, `action_description`, `created_at`) VALUES
+(1, 'report', 'Final report created for NRT: 66666', '2024-12-20 02:45:21');
+
 --
 -- Indexes for dumped tables
 --
@@ -172,6 +200,12 @@ ALTER TABLE `mantan_narapidana`
   ADD UNIQUE KEY `unique_nik_nrt` (`nik`,`nrt`);
 
 --
+-- Indexes for table `recent_activities`
+--
+ALTER TABLE `recent_activities`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -185,7 +219,7 @@ ALTER TABLE `data_polri`
 -- AUTO_INCREMENT for table `final_report`
 --
 ALTER TABLE `final_report`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `kemenkumham_users`
@@ -204,6 +238,12 @@ ALTER TABLE `login_history`
 --
 ALTER TABLE `mantan_narapidana`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `recent_activities`
+--
+ALTER TABLE `recent_activities`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables
