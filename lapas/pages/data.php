@@ -1,5 +1,6 @@
 <?php
 require 'connection.php';
+require_once 'utils/activity_logger.php';
 if (isset($_POST["submit"])) {
     $fileInput = $_FILES["fileInput"]["name"];
     $nik = $_POST["nik"];
@@ -24,6 +25,7 @@ if (isset($_POST["submit"])) {
               VALUES ('$target_file', '$nik', '$nrt', '$nama', '$dateBirth', '$address', '$gender', '$nationality', '$crime', '$case', '$punishment', '$releaseDate')";
 
     if (mysqli_query($conn, $query)) {
+        logRecentActivity("create", "New user account created: " . $nama);
         echo "
         <script>
         alert('Data Added Successfully');

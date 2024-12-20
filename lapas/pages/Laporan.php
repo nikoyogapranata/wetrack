@@ -3,6 +3,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 require 'connection.php';
+require_once 'utils/activity_logger.php';
 
 if (isset($_POST["submit"])) {
     $nik = $_POST["nik"];
@@ -31,6 +32,7 @@ if (isset($_POST["submit"])) {
             $stmt->bind_param("sss", $nik, $nrt, $target_file);
             
             if ($stmt->execute()) {
+                logRecentActivity("report", "Final report created for NRT: " . $nrt);
                 echo "
                 <script>
                 alert('Final report added successfully');
