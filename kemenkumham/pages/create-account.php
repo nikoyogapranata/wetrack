@@ -76,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $last_number = 1;
         }
 
-        $new_id = intval($prefix . str_pad($last_number, 6, '0', STR_PAD_LEFT));
+        $new_id = intval($prefix . str_pad($last_number, 5, '0', STR_PAD_LEFT));
 
         // Hash password
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
