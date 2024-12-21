@@ -1,5 +1,5 @@
-Directory Structure for: d:\xampp\htdocs\wetrack
-Scanned on: 2024-12-21 14:28:20
+Directory Structure for: C:\xampp\htdocs\wetrack
+Scanned on: 2024-12-21 15:33:29
 ==================================================
 
 📁 .vscode/
@@ -21,7 +21,7 @@ Scanned on: 2024-12-21 14:28:20
     📁 js/
         📄 data-napi.js (2.8 KB)
         📄 data.js (4.6 KB)
-        📄 map-socket.js (3.5 KB)
+        📄 map-socket.js (1.2 KB)
         📄 map.js (1.4 KB)
         📄 script.js (4.4 KB)
     📁 pages/
@@ -29,11 +29,11 @@ Scanned on: 2024-12-21 14:28:20
             📄 districts.json (23.2 KB)
         📄 connection.php (427.0 B)
         📄 data-napi.php (6.6 KB)
-        📄 dataBapas.php (8.0 KB)
+        📄 dataBapas.php (10.1 KB)
         📄 error.log (933.0 B)
         📄 home.php (4.7 KB)
         📄 profile.php (4.0 KB)
-        📄 save_prisoner.php (2.7 KB)
+        📄 save_prisoner.php (3.0 KB)
         📄 setting.php (4.2 KB)
         📄 tracking.php (2.9 KB)
     📄 geo.txt (23.2 KB)
@@ -197,7 +197,7 @@ Scanned on: 2024-12-21 14:28:20
 📁 public/
     📁 landing-page/
         📁 css/
-            📄 webflow-style.css (129.1 KB)
+            📄 webflow-style.css (122.4 KB)
         📁 images/
             📄 app-icon.png (123.7 KB)
             📄 businessman-using-digital-tablet-20-1-.jpg (722.2 KB)
@@ -205,7 +205,7 @@ Scanned on: 2024-12-21 14:28:20
             📄 clipboard.png (6.6 KB)
             📄 devices.svg (2.4 KB)
             📄 favicon.png (123.7 KB)
-            📄 feature-207-20second.svg (23.1 KB)
+            📄 feature-207-20second.svg (23.0 KB)
             📄 kemenkumham.png (22.5 KB)
             📄 lapas-p-500.png (81.6 KB)
             📄 lapas.png (257.4 KB)
@@ -231,18 +231,17 @@ Scanned on: 2024-12-21 14:28:20
             📄 shield.png (17.7 KB)
             📄 warning-p-500.png (9.4 KB)
             📄 warning.png (12.3 KB)
-            📄 webflow-badge-icon-d2.89e12c322e.svg (424.0 B)
+            📄 webflow-badge-icon-d2.89e12c322e.svg (421.0 B)
             📄 webflow-badge-text-d2.c82cec3b78.svg (9.7 KB)
             📄 wide-20feature.webp (138.8 KB)
             📄 wide-2520feature-p-500.png (30.9 KB)
             📄 wide-2520feature-p-800.png (98.8 KB)
         📁 js/
-            📄 jquery.js (169.5 KB)
-            📄 webflow-script.js (352.8 KB)
-        📄 index.php (15.3 KB)
+            📄 script.js (1.6 KB)
+        📄 index.php (15.2 KB)
     📁 login-admin/
         📁 css/
-            📄 webflow-style.css (46.5 KB)
+            📄 webflow-style.css (43.8 KB)
         📁 images/
             📄 app-icon.png (123.7 KB)
             📄 favicon.png (123.7 KB)
@@ -252,16 +251,15 @@ Scanned on: 2024-12-21 14:28:20
             📄 logo-white-p-500.png (14.1 KB)
             📄 logo-white-p-800.png (23.3 KB)
             📄 logo-white.png (123.7 KB)
-            📄 webflow-badge-icon-d2.89e12c322e.svg (424.0 B)
+            📄 webflow-badge-icon-d2.89e12c322e.svg (421.0 B)
             📄 webflow-badge-text-d2.c82cec3b78.svg (9.7 KB)
         📁 js/
-            📄 jquery.js (169.5 KB)
-            📄 webflow-script.js (88.3 KB)
+            📄 script.js (3.1 KB)
         📄 config.php (331.0 B)
-        📄 index.php (6.7 KB)
+        📄 index.php (6.6 KB)
     📁 login-prisoner/
         📁 css/
-            📄 webflow-style.css (46.5 KB)
+            📄 webflow-style.css (43.8 KB)
         📁 images/
             📄 app-icon.png (123.7 KB)
             📄 favicon.png (123.7 KB)
@@ -271,17 +269,20 @@ Scanned on: 2024-12-21 14:28:20
             📄 logo-white-p-500.png (14.1 KB)
             📄 logo-white-p-800.png (23.3 KB)
             📄 logo-white.png (123.7 KB)
-            📄 webflow-badge-icon-d2.89e12c322e.svg (424.0 B)
+            📄 webflow-badge-icon-d2.89e12c322e.svg (421.0 B)
             📄 webflow-badge-text-d2.c82cec3b78.svg (9.7 KB)
         📁 js/
-            📄 jquery.js (169.5 KB)
-            📄 webflow-script.js (88.3 KB)
+            📄 script.js (3.8 KB)
         📄 index.php (4.5 KB)
 📁 uploads/
     📄 67641c574ce09.jpg (55.6 KB)
+📄 .dockerignore (41.0 B)
 📄 .DS_Store (6.0 KB)
+📄 apache2.conf (22.0 B)
+📄 Dockerfile (534.0 B)
 📄 file_structure.py (3.6 KB)
 📄 password.php (204.0 B)
 📄 README.md (103.0 B)
+📄 vercel.json (116.0 B)
 📄 wetrack (backup database).txt (13.0 KB)
-📄 wetrack.sql (13.0 KB)
+📄 wetrack.sql (13.4 KB)
