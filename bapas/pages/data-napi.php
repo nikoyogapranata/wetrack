@@ -145,6 +145,10 @@ if (isset($_GET['id'])) {
                     <div class="info-section">
                         <h2>Violation History</h2>
                     </div>
+                    <div class="info-section">
+                        <h2>Tracking Map</h2>
+                        <div class="map"></div>
+                    </div>
                 </div>
             </div>
             <?php endforeach; ?>
