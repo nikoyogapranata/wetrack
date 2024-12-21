@@ -8,6 +8,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Check if the NIK and NRT exist and belong to the same person
     $stmt = $conn->prepare("SELECT * FROM mantan_narapidana WHERE nik = ? AND nrt = ?");
+    if (!$stmt) {
+        echo json_encode(["success" => false, "message" => "Database error: " . $conn->error]);
+        exit;
+    }
     $stmt->bind_param("ss", $nik, $nrt);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -22,13 +26,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $radiusFence = $_POST['radiusFence'];
         $centerLat = $_POST['centerLat'];
         $centerLng = $_POST['centerLng'];
-        
-        $stmt = $conn->prepare("UPDATE mantan_narapidana SET prisoner_type = ?, geofence_radius = ?, geofence_lat = ?, geofence_lng = ?, city_district = NULL WHERE nik = ? AND nrt = ?");
+
+        $stmt = $conn->prepare("UPDATE mantan_narapidana SET prisoner_type = ?, geofence_radius = ?, geofence_lat = ?, geofence_lng = ?, city_district = NULL, updated_at = NOW() WHERE nik = ? AND nrt = ?");
         $stmt->bind_param("sdddss", $typePrisoner, $radiusFence, $centerLat, $centerLng, $nik, $nrt);
     } else if ($typePrisoner == 'cityPrisoner') {
         $kotaKab = $_POST['kotaKab'];
-        
-        $stmt = $conn->prepare("UPDATE mantan_narapidana SET prisoner_type = ?, city_district = ?, geofence_radius = NULL, geofence_lat = NULL, geofence_lng = NULL WHERE nik = ? AND nrt = ?");
+
+        $stmt = $conn->prepare("UPDATE mantan_narapidana SET prisoner_type = ?, city_district = ?, geofence_radius = NULL, geofence_lat = NULL, geofence_lng = NULL, updated_at = NOW() WHERE nik = ? AND nrt = ?");
         $stmt->bind_param("ssss", $typePrisoner, $kotaKab, $nik, $nrt);
     } else {
         echo json_encode(["success" => false, "message" => "Invalid prisoner type."]);
@@ -50,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             "data" => [
                 "nik" => $updatedData['nik'],
                 "nrt" => $updatedData['nrt'],
-                "name" => $updatedData['name'],
+                "name" => $updatedData['nama'],
                 "prisoner_type" => $updatedData['prisoner_type'],
                 "geofence_radius" => $updatedData['geofence_radius'],
                 "geofence_lat" => $updatedData['geofence_lat'],

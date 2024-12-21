@@ -197,7 +197,7 @@ include 'connection.php';
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    alert('An error occurred while saving the data.');
+                    alert('An error occurred while saving the data. Please check the console for more information.');
                 });
             });
         });
