@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 20, 2024 at 03:46 AM
+-- Generation Time: Dec 21, 2024 at 05:09 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -69,8 +69,7 @@ CREATE TABLE `final_report` (
 --
 
 INSERT INTO `final_report` (`id`, `nik`, `nrt`, `docInput`, `created_at`) VALUES
-(1, '78978979', '123189481', 'uploads/stakeholder-engagement-plan-template.pdf', '2024-12-20 02:04:06'),
-(2, '1234', '1234', 'uploads/WBS-Kelompok 4.xlsx - WBS with Gantt Chart - WETRACK.pdf', '2024-12-20 02:12:56');
+(1, '78978979', '123189481', 'uploads/stakeholder-engagement-plan-template.pdf', '2024-12-20 02:04:06');
 
 -- --------------------------------------------------------
 
@@ -138,10 +137,9 @@ CREATE TABLE `mantan_narapidana` (
 --
 
 INSERT INTO `mantan_narapidana` (`id`, `fileInput`, `nik`, `nrt`, `nama`, `dateBirth`, `address`, `gender`, `nationality`, `crime`, `case`, `punishment`, `releaseDate`, `report`, `action`, `created_at`) VALUES
-(1, 'uploads/nanti-diganti.png', '892189', '123141', 'yanto', '2024-12-03', 'jakal', 'male', 'Jamaica', 'Embezzlement', 'tersangka', '5 years', '2028-12-06', NULL, NULL, '2024-12-18 15:53:43'),
-(2, 'uploads/nanti-diganti.png', '1245', '66666', 'jokowi', '2013-06-30', 'solo', 'male', 'Indonesia', 'NO', 'pengedar', '100000 years', '2047-05-27', NULL, NULL, '2024-12-18 15:55:37'),
-(3, 'uploads/lapas-logo.png', '1234', '1234', 'anjay', '2024-12-18', 'kepo', 'male', 'Indonesia', 'Assault', 'nusuk', '10000', '2024-12-19', NULL, NULL, '2024-12-19 00:00:21'),
-(4, 'uploads/lapas-logo.png', '78978979', '123189481', 'Joko', '2002-02-28', 'Jl. Jakal', 'male', 'Belgium', 'NO', 'Pengedar', '100 Years', '2025-01-22', NULL, NULL, '2024-12-19 03:09:25');
+(4, 'uploads/lapas-logo.png', '78978979', '123189481', 'Joko', '2002-02-28', 'Jl. Jakal', 'male', 'Belgium', 'NO', 'Pengedar', '100 Years', '2025-01-22', NULL, NULL, '2024-12-19 03:09:25'),
+(5, 'uploads/tahanan1.webp', '1230000000000000000', '0001', 'Ferdy Sambo', '1969-08-29', 'Jakarta Utara', 'male', 'Belgium', 'Brawling', 'Tersangka ', '10 Tahun', '2034-12-21', NULL, NULL, '2024-12-21 00:04:38'),
+(6, 'uploads/tahanan2.jpeg', '10000000000000001', '0002', 'Anthony Santos', '2001-06-06', 'Jakal Km 14', 'male', 'Brazil', 'Robbery', 'Tersangka', '5 tahun', '2029-12-21', NULL, NULL, '2024-12-21 04:08:31');
 
 -- --------------------------------------------------------
 
@@ -161,7 +159,9 @@ CREATE TABLE `recent_activities` (
 --
 
 INSERT INTO `recent_activities` (`id`, `action_type`, `action_description`, `created_at`) VALUES
-(1, 'report', 'Final report created for NRT: 66666', '2024-12-20 02:45:21');
+(1, 'report', 'Final report created for NRT: 66666', '2024-12-20 02:45:21'),
+(2, 'create', 'New user account created: Ferdy Sambo', '2024-12-21 00:04:38'),
+(3, 'create', 'New user account created: Anthony Santos', '2024-12-21 04:08:31');
 
 --
 -- Indexes for dumped tables
@@ -214,7 +214,7 @@ ALTER TABLE `recent_activities`
 -- AUTO_INCREMENT for table `data_polri`
 --
 ALTER TABLE `data_polri`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `final_report`
@@ -238,13 +238,13 @@ ALTER TABLE `login_history`
 -- AUTO_INCREMENT for table `mantan_narapidana`
 --
 ALTER TABLE `mantan_narapidana`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `recent_activities`
 --
 ALTER TABLE `recent_activities`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
