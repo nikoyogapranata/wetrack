@@ -4,7 +4,11 @@
 --
 -- Host: 127.0.0.1
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 -- Generation Time: Dec 21, 2024 at 05:55 AM
+=======
+-- Generation Time: Dec 20, 2024 at 03:26 PM
+>>>>>>> Stashed changes
 =======
 -- Generation Time: Dec 20, 2024 at 03:26 PM
 >>>>>>> Stashed changes
@@ -70,6 +74,7 @@ CREATE TABLE `final_report` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 -- --------------------------------------------------------
 
 --
@@ -93,6 +98,8 @@ INSERT INTO `kemenkumham_users` (`id`, `password`, `profile_picture`) VALUES
 (1000004, '$2y$10$w/r8735TfDv0HBUOz5pkmedxSWYZjq/LDcWe4GzOXy/I5T1LWeLlu', '/wetrack/kemenkumham/image/kemenkumham.png'),
 (1000005, '$2y$10$w/r8735TfDv0HBUOz5pkmedxSWYZjq/LDcWe4GzOXy/I5T1LWeLlu', '/wetrack/kemenkumham/image/kemenkumham.png');
 =======
+=======
+>>>>>>> Stashed changes
 --
 -- Dumping data for table `final_report`
 --
@@ -100,6 +107,9 @@ INSERT INTO `kemenkumham_users` (`id`, `password`, `profile_picture`) VALUES
 INSERT INTO `final_report` (`id`, `nik`, `nrt`, `docInput`, `created_at`) VALUES
 (1, '78978979', '123189481', 'uploads/stakeholder-engagement-plan-template.pdf', '2024-12-19 19:04:06'),
 (2, '1234', '1234', 'uploads/WBS-Kelompok 4.xlsx - WBS with Gantt Chart - WETRACK.pdf', '2024-12-19 19:12:56');
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 
 -- --------------------------------------------------------
@@ -151,6 +161,9 @@ CREATE TABLE `mantan_narapidana` (
   `case` text DEFAULT NULL,
   `punishment` varchar(100) DEFAULT NULL,
   `releaseDate` date DEFAULT NULL,
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -159,6 +172,7 @@ CREATE TABLE `mantan_narapidana` (
 -- Dumping data for table `mantan_narapidana`
 --
 
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
 INSERT INTO `mantan_narapidana` (`id`, `fileInput`, `nik`, `nrt`, `nama`, `dateBirth`, `address`, `gender`, `nationality`, `crime`, `case`, `punishment`, `releaseDate`, `report`, `action`, `created_at`) VALUES
 (4, 'uploads/lapas-logo.png', '78978979', '123189481', 'Joko', '2002-02-28', 'Jl. Jakal', 'male', 'Belgium', 'NO', 'Pengedar', '100 Years', '2025-01-22', '', 0, '2024-12-19 03:09:25'),
@@ -183,11 +197,16 @@ CREATE TABLE `prisoner_locations` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 =======
+=======
+>>>>>>> Stashed changes
 INSERT INTO `mantan_narapidana` (`id`, `fileInput`, `nik`, `nrt`, `nama`, `dateBirth`, `address`, `gender`, `nationality`, `crime`, `case`, `punishment`, `releaseDate`, `created_at`) VALUES
 (1, 'uploads/nanti-diganti.png', '892189', '123141', 'yanto', '2024-12-03', 'jakal', 'male', 'Jamaica', 'Embezzlement', 'tersangka', '5 years', '2028-12-06', '2024-12-18 15:53:43'),
 (2, 'uploads/nanti-diganti.png', '1245', '66666', 'jokowi', '2013-06-30', 'solo', 'male', 'Indonesia', 'NO', 'pengedar', '100000 years', '2047-05-27', '2024-12-18 15:55:37'),
 (3, 'uploads/lapas-logo.png', '1234', '1234', 'anjay', '2024-12-18', 'kepo', 'male', 'Indonesia', 'Assault', 'nusuk', '10000', '2024-12-19', '2024-12-19 00:00:21'),
 (4, 'uploads/lapas-logo.png', '78978979', '123189481', 'Joko', '2002-02-28', 'Jl. Jakal', 'male', 'Belgium', 'NO', 'Pengedar', '100 Years', '2025-01-22', '2024-12-19 03:09:25');
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 
 -- --------------------------------------------------------
@@ -209,10 +228,13 @@ CREATE TABLE `recent_activities` (
 
 INSERT INTO `recent_activities` (`id`, `action_type`, `action_description`, `created_at`) VALUES
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 (1, 'report', 'Final report created for NRT: 66666', '2024-12-20 02:45:21'),
 (2, 'create', 'New user account created: Ferdy Sambo', '2024-12-21 00:04:38'),
 (3, 'create', 'New user account created: Anthony Santos', '2024-12-21 04:08:31');
 =======
+=======
+>>>>>>> Stashed changes
 (1, 'report', 'Final report created for NRT: 66666', '2024-12-19 19:45:21');
 
 -- --------------------------------------------------------
@@ -251,6 +273,9 @@ INSERT INTO `users` (`id`, `profile_picture`, `nip`, `full_name`, `place_of_birt
 (1000003, '/wetrack/kemenkumham/image/kemenkumham.png', NULL, NULL, NULL, NULL, NULL, NULL, 'Kemenkumham', NULL, NULL, NULL, 'Active', NULL, '2024-12-20 14:16:42', NULL, '$2y$10$w/r8735TfDv0HBUOz5pkmedxSWYZjq/LDcWe4GzOXy/I5T1LWeLlu'),
 (1000004, '/wetrack/kemenkumham/image/kemenkumham.png', NULL, NULL, NULL, NULL, NULL, NULL, 'Kemenkumham', NULL, NULL, NULL, 'Active', NULL, '2024-12-20 14:16:42', NULL, '$2y$10$w/r8735TfDv0HBUOz5pkmedxSWYZjq/LDcWe4GzOXy/I5T1LWeLlu'),
 (1000005, '/wetrack/kemenkumham/image/kemenkumham.png', NULL, NULL, NULL, NULL, NULL, NULL, 'Kemenkumham', NULL, NULL, NULL, 'Active', NULL, '2024-12-20 14:16:42', NULL, '$2y$10$w/r8735TfDv0HBUOz5pkmedxSWYZjq/LDcWe4GzOXy/I5T1LWeLlu');
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 
 --
@@ -313,7 +338,11 @@ ALTER TABLE `users`
 --
 ALTER TABLE `data_polri`
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+=======
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+>>>>>>> Stashed changes
 =======
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 >>>>>>> Stashed changes
@@ -323,6 +352,7 @@ ALTER TABLE `data_polri`
 --
 ALTER TABLE `final_report`
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
@@ -330,6 +360,9 @@ ALTER TABLE `final_report`
 --
 ALTER TABLE `kemenkumham_users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000006;
+=======
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+>>>>>>> Stashed changes
 =======
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 >>>>>>> Stashed changes
@@ -367,7 +400,11 @@ ALTER TABLE `recent_activities`
 --
 ALTER TABLE `final_report`
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   ADD CONSTRAINT `fk_final_reports_mantan_narapidana` FOREIGN KEY (`nik`,`nrt`) REFERENCES `mantan_narapidana` (`nik`, `nrt`) ON DELETE CASCADE ON UPDATE CASCADE;
+=======
+  ADD CONSTRAINT `final_report_ibfk_1` FOREIGN KEY (`nik`,`nrt`) REFERENCES `mantan_narapidana` (`nik`, `nrt`) ON DELETE CASCADE ON UPDATE CASCADE;
+>>>>>>> Stashed changes
 =======
   ADD CONSTRAINT `final_report_ibfk_1` FOREIGN KEY (`nik`,`nrt`) REFERENCES `mantan_narapidana` (`nik`, `nrt`) ON DELETE CASCADE ON UPDATE CASCADE;
 >>>>>>> Stashed changes
@@ -377,6 +414,7 @@ ALTER TABLE `final_report`
 --
 ALTER TABLE `login_history`
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   ADD CONSTRAINT `login_history_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `kemenkumham_users` (`id`);
 
 --
@@ -385,6 +423,8 @@ ALTER TABLE `login_history`
 ALTER TABLE `prisoner_locations`
   ADD CONSTRAINT `fk_prisoner_locations_mantan_narapidana` FOREIGN KEY (`nik`,`nrt`) REFERENCES `mantan_narapidana` (`nik`, `nrt`) ON DELETE CASCADE ON UPDATE CASCADE;
 =======
+=======
+>>>>>>> Stashed changes
   ADD CONSTRAINT `fk_user_login_history` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
@@ -392,6 +432,9 @@ ALTER TABLE `prisoner_locations`
 --
 ALTER TABLE `users`
   ADD CONSTRAINT `fk_created_by` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`);
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 COMMIT;
 
