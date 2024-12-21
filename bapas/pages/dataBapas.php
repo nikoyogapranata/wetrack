@@ -1,3 +1,7 @@
+<?php
+include 'connection.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -120,7 +124,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="map">Select Center Point:</label>
-                                <div id="map"><img id="mapAttachment" src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/dataBapas-qLCHCBwEuGREDWH6SfnBrhckoQDwQF.php" style="display: none; max-width: 100%; height: auto;"></div>
+                                <div id="map"></div>
                                 <input type="hidden" id="centerLat" name="centerLat">
                                 <input type="hidden" id="centerLng" name="centerLng">
                             </div>
@@ -130,11 +134,6 @@
                                 <label for="kotaKab">Choose a city or district:</label>
                                 <select id="kotaKab" name="kotaKab" required>
                                     <option value="" disabled selected>Select city or district</option>
-                                    <option value="Kabupaten Sleman">Kabupaten Sleman</option>
-                                    <option value="Kota Yogyakarta">Kota Yogyakarta</option>
-                                    <option value="Kabupaten Gunung Kidul">Kabupaten Gunung Kidul</option>
-                                    <option value="Kabupaten Bantul">Kabupaten Bantul</option>
-                                    <option value="Kabupaten Kulon Progo">Kabupaten Kulon Progo</option>
                                 </select>
                             </div>
                         </div>
@@ -146,6 +145,68 @@
     </div>
 
     <script src="/wetrack/bapas/js/map-socket.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const typePrisonerSelect = document.getElementById('typePrisoner');
+            const houseArrestFields = document.getElementById('houseArrestFields');
+            const cityPrisonerFields = document.getElementById('cityPrisonerFields');
+
+            typePrisonerSelect.addEventListener('change', function() {
+                if (this.value === 'houseArrest') {
+                    houseArrestFields.style.display = 'block';
+                    cityPrisonerFields.style.display = 'none';
+                    setTimeout(initMap, 100);
+                } else if (this.value === 'cityPrisoner') {
+                    houseArrestFields.style.display = 'none';
+                    cityPrisonerFields.style.display = 'block';
+                } else {
+                    houseArrestFields.style.display = 'none';
+                    cityPrisonerFields.style.display = 'none';
+                }
+            });
+
+            fetch('/wetrack/bapas/pages/geojson/districts.json')
+                .then(response => response.json())
+                .then(data => {
+                    const kotaKabSelect = document.getElementById('kotaKab');
+                    data.features.forEach(feature => {
+                        const option = document.createElement('option');
+                        option.value = feature.properties.name;
+                        option.textContent = feature.properties.name;
+                        kotaKabSelect.appendChild(option);
+                    });
+                });
+
+            const inputForm = document.getElementById('inputForm');
+            inputForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const formData = new FormData(this);
+
+                fetch('save_prisoner.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert(data.message);
+                        inputForm.reset();
+                    } else {
+                        alert('Error: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while saving the data.');
+                });
+            });
+        });
+
+        function showInput() {
+            document.querySelector('.table-container').style.display = 'none';
+            document.querySelector('.input-container').style.display = 'block';
+        }
+    </script>
 </body>
 
 </html>

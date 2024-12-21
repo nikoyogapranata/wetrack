@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 21 Des 2024 pada 07.44
--- Versi server: 10.4.32-MariaDB
--- Versi PHP: 8.2.12
+-- Generation Time: Dec 21, 2024 at 08:59 AM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `data_polri`
+-- Table structure for table `data_polri`
 --
 
 CREATE TABLE `data_polri` (
@@ -40,7 +40,7 @@ CREATE TABLE `data_polri` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `data_polri`
+-- Dumping data for table `data_polri`
 --
 
 INSERT INTO `data_polri` (`id`, `nama`, `nik`, `id_napi`, `alamat`, `unggah_foto`, `isi_laporan`, `created_at`, `tanggal_laporan`) VALUES
@@ -54,7 +54,7 @@ INSERT INTO `data_polri` (`id`, `nama`, `nik`, `id_napi`, `alamat`, `unggah_foto
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `final_report`
+-- Table structure for table `final_report`
 --
 
 CREATE TABLE `final_report` (
@@ -66,7 +66,7 @@ CREATE TABLE `final_report` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `final_report`
+-- Dumping data for table `final_report`
 --
 
 INSERT INTO `final_report` (`id`, `nik`, `nrt`, `docInput`, `created_at`) VALUES
@@ -76,7 +76,7 @@ INSERT INTO `final_report` (`id`, `nik`, `nrt`, `docInput`, `created_at`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `login_history`
+-- Table structure for table `login_history`
 --
 
 CREATE TABLE `login_history` (
@@ -87,7 +87,7 @@ CREATE TABLE `login_history` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `login_history`
+-- Dumping data for table `login_history`
 --
 
 INSERT INTO `login_history` (`id`, `user_id`, `login_time`, `ip_address`) VALUES
@@ -110,40 +110,45 @@ INSERT INTO `login_history` (`id`, `user_id`, `login_time`, `ip_address`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `mantan_narapidana`
+-- Table structure for table `mantan_narapidana`
 --
 
 CREATE TABLE `mantan_narapidana` (
   `id` int(11) NOT NULL,
-  `fileInput` varchar(255) DEFAULT NULL,
-  `nik` varchar(20) DEFAULT NULL,
-  `nrt` varchar(20) DEFAULT NULL,
-  `nama` varchar(100) DEFAULT NULL,
-  `dateBirth` date DEFAULT NULL,
-  `address` text DEFAULT NULL,
-  `gender` enum('male','female') DEFAULT NULL,
-  `nationality` varchar(100) DEFAULT NULL,
-  `crime` enum('TwA','Ot','Fraud','Assault','NO','Embezzlement','MvT','Robbery','Brawling') DEFAULT NULL,
-  `case` text DEFAULT NULL,
-  `punishment` varchar(100) DEFAULT NULL,
-  `releaseDate` date DEFAULT NULL,
+  `fileInput` varchar(255) NOT NULL,
+  `nik` varchar(16) NOT NULL,
+  `nrt` varchar(20) NOT NULL,
+  `nama` varchar(100) NOT NULL,
+  `dateBirth` date NOT NULL,
+  `address` text NOT NULL,
+  `gender` enum('male','female') NOT NULL,
+  `nationality` varchar(100) NOT NULL,
+  `crime` enum('TwA','Ot','Fraud','Assault','NO','Embezzlement','MvT','Robbery','Brawling') NOT NULL,
+  `case` text NOT NULL,
+  `punishment` varchar(100) NOT NULL,
+  `releaseDate` date NOT NULL,
+  `prisoner_type` enum('houseArrest','cityPrisoner') NOT NULL,
+  `geofence_radius` float NOT NULL,
+  `geofence_lat` decimal(10,8) NOT NULL,
+  `geofence_lng` decimal(11,8) NOT NULL,
+  `city_district` varchar(100) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `mantan_narapidana`
+-- Dumping data for table `mantan_narapidana`
 --
 
-INSERT INTO `mantan_narapidana` (`id`, `fileInput`, `nik`, `nrt`, `nama`, `dateBirth`, `address`, `gender`, `nationality`, `crime`, `case`, `punishment`, `releaseDate`, `created_at`) VALUES
-(1, 'uploads/nanti-diganti.png', '892189', '123141', 'yanto', '2024-12-03', 'jakal', 'male', 'Jamaica', 'Embezzlement', 'tersangka', '5 years', '2028-12-06', '2024-12-18 15:53:43'),
-(2, 'uploads/nanti-diganti.png', '1245', '66666', 'jokowi', '2013-06-30', 'solo', 'male', 'Indonesia', 'NO', 'pengedar', '100000 years', '2047-05-27', '2024-12-18 15:55:37'),
-(3, 'uploads/lapas-logo.png', '1234', '1234', 'anjay', '2024-12-18', 'kepo', 'male', 'Indonesia', 'Assault', 'nusuk', '10000', '2024-12-19', '2024-12-19 00:00:21'),
-(4, 'uploads/lapas-logo.png', '78978979', '123189481', 'Joko', '2002-02-28', 'Jl. Jakal', 'male', 'Belgium', 'NO', 'Pengedar', '100 Years', '2025-01-22', '2024-12-19 03:09:25');
+INSERT INTO `mantan_narapidana` (`id`, `fileInput`, `nik`, `nrt`, `nama`, `dateBirth`, `address`, `gender`, `nationality`, `crime`, `case`, `punishment`, `releaseDate`, `prisoner_type`, `geofence_radius`, `geofence_lat`, `geofence_lng`, `city_district`, `created_at`) VALUES
+(1, 'uploads/nanti-diganti.png', '892189', '123141', 'yanto', '2024-12-03', 'jakal', 'male', 'Jamaica', 'Embezzlement', 'tersangka', '5 years', '2028-12-06', 'cityPrisoner', 0, 0.00000000, 0.00000000, 'Kabupaten Sleman', '2024-12-18 15:53:43'),
+(2, 'uploads/nanti-diganti.png', '1245', '66666', 'jokowi', '2013-06-30', 'solo', 'male', 'Indonesia', 'NO', 'pengedar', '100000 years', '2047-05-27', 'cityPrisoner', 0, 0.00000000, 0.00000000, 'Kabupaten Sleman', '2024-12-18 15:55:37'),
+(3, 'uploads/lapas-logo.png', '1234', '1234', 'anjay', '2024-12-18', 'kepo', 'male', 'Indonesia', 'Assault', 'nusuk', '10000', '2024-12-19', '', 0, 0.00000000, 0.00000000, '', '2024-12-19 00:00:21'),
+(4, 'uploads/lapas-logo.png', '78978979', '123189481', 'Joko', '2002-02-28', 'Jl. Jakal', 'male', 'Belgium', 'NO', 'Pengedar', '100 Years', '2025-01-22', '', 0, 0.00000000, 0.00000000, '', '2024-12-19 03:09:25');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `recent_activities`
+-- Table structure for table `recent_activities`
 --
 
 CREATE TABLE `recent_activities` (
@@ -154,7 +159,7 @@ CREATE TABLE `recent_activities` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `recent_activities`
+-- Dumping data for table `recent_activities`
 --
 
 INSERT INTO `recent_activities` (`id`, `action_type`, `action_description`, `created_at`) VALUES
@@ -184,7 +189,7 @@ INSERT INTO `recent_activities` (`id`, `action_type`, `action_description`, `cre
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
@@ -209,7 +214,7 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `users`
+-- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `profile_picture`, `nip`, `full_name`, `place_of_birth`, `date_of_birth`, `religion`, `region`, `role`, `email`, `phone`, `address`, `status`, `created_by`, `created_at`, `position`, `password`, `gender`) VALUES
@@ -224,97 +229,97 @@ INSERT INTO `users` (`id`, `profile_picture`, `nip`, `full_name`, `place_of_birt
 --
 
 --
--- Indeks untuk tabel `data_polri`
+-- Indexes for table `data_polri`
 --
 ALTER TABLE `data_polri`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `final_report`
+-- Indexes for table `final_report`
 --
 ALTER TABLE `final_report`
   ADD PRIMARY KEY (`id`),
   ADD KEY `nik_nrt` (`nik`,`nrt`);
 
 --
--- Indeks untuk tabel `login_history`
+-- Indexes for table `login_history`
 --
 ALTER TABLE `login_history`
   ADD PRIMARY KEY (`id`),
   ADD KEY `idx_user_id` (`user_id`);
 
 --
--- Indeks untuk tabel `mantan_narapidana`
+-- Indexes for table `mantan_narapidana`
 --
 ALTER TABLE `mantan_narapidana`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `unique_nik_nrt` (`nik`,`nrt`);
 
 --
--- Indeks untuk tabel `recent_activities`
+-- Indexes for table `recent_activities`
 --
 ALTER TABLE `recent_activities`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fk_created_by` (`created_by`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `data_polri`
+-- AUTO_INCREMENT for table `data_polri`
 --
 ALTER TABLE `data_polri`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT untuk tabel `final_report`
+-- AUTO_INCREMENT for table `final_report`
 --
 ALTER TABLE `final_report`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT untuk tabel `login_history`
+-- AUTO_INCREMENT for table `login_history`
 --
 ALTER TABLE `login_history`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
--- AUTO_INCREMENT untuk tabel `mantan_narapidana`
+-- AUTO_INCREMENT for table `mantan_narapidana`
 --
 ALTER TABLE `mantan_narapidana`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT untuk tabel `recent_activities`
+-- AUTO_INCREMENT for table `recent_activities`
 --
 ALTER TABLE `recent_activities`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
--- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+-- Constraints for dumped tables
 --
 
 --
--- Ketidakleluasaan untuk tabel `final_report`
+-- Constraints for table `final_report`
 --
 ALTER TABLE `final_report`
-  ADD CONSTRAINT `final_report_ibfk_1` FOREIGN KEY (`nik`,`nrt`) REFERENCES `mantan_narapidana` (`nik`, `nrt`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_final_reports_mantan_narapidana` FOREIGN KEY (`nik`,`nrt`) REFERENCES `mantan_narapidana` (`nik`, `nrt`);
 
 --
--- Ketidakleluasaan untuk tabel `login_history`
+-- Constraints for table `login_history`
 --
 ALTER TABLE `login_history`
   ADD CONSTRAINT `fk_user_login_history` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
--- Ketidakleluasaan untuk tabel `users`
+-- Constraints for table `users`
 --
 ALTER TABLE `users`
   ADD CONSTRAINT `fk_created_by` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`);
