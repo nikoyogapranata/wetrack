@@ -60,10 +60,30 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const inputForm = document.getElementById('inputForm');
     if (inputForm) {
-        inputForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            console.log('Form submitted');
-        });
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            const form = event.target;
+            const formData = new FormData(form);
+
+            fetch('save_prisoner.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert(data.message);
+                    form.reset();
+                } else {
+                    alert(data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while saving the data.');
+            });
+        }
+        inputForm.addEventListener('submit', handleFormSubmit);
     }
 
     document.getElementById("btn-details").addEventListener("click",function(){

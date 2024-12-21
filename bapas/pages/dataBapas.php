@@ -130,11 +130,11 @@
                                 <label for="kotaKab">Choose a city or district:</label>
                                 <select id="kotaKab" name="kotaKab" required>
                                     <option value="" disabled selected>Select city or district</option>
-                                    <option value="Yogya">Kota Yogyakarta</option>
-                                    <option value="Sleman">Kabupaten Sleman</option>
-                                    <option value="Bantul">Kabupaten Bantul</option>
-                                    <option value="KulonProgo">Kabupaten Kulon Progo</option>
-                                    <option value="GunungKidul">Kabupaten Gunung Kidul</option>
+                                    <option value="Kabupaten Sleman">Kabupaten Sleman</option>
+                                    <option value="Kota Yogyakarta">Kota Yogyakarta</option>
+                                    <option value="Kabupaten Gunung Kidul">Kabupaten Gunung Kidul</option>
+                                    <option value="Kabupaten Bantul">Kabupaten Bantul</option>
+                                    <option value="Kabupaten Kulon Progo">Kabupaten Kulon Progo</option>
                                 </select>
                             </div>
                         </div>

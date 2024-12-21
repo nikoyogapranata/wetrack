@@ -1,3 +1,5 @@
+import geoJsonData from '../geojson/districts.json';
+
 let map, circle, geocoder;
 
 function initMap() {
@@ -49,6 +51,8 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelector('.input-container').style.display = 'block';
         if (document.getElementById('typePrisoner').value === 'houseArrest') {
             setTimeout(initMap, 100);
+        } else if (document.getElementById('typePrisoner').value === 'cityPrisoner') {
+            setTimeout(initCityMap, 100);
         }
     });
 });
@@ -63,6 +67,32 @@ function togglePrisonerTypeFields() {
 
     if (prisonerType === 'houseArrest' && !map) {
         setTimeout(initMap, 100);
+    } else if (prisonerType === 'cityPrisoner') {
+        initCityMap();
     }
+}
+
+
+function initCityMap() {
+    if (!map) {
+        map = L.map('map').setView([-7.7956, 110.3695], 10);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+    }
+
+    const kotaKabSelect = document.getElementById('kotaKab');
+    kotaKabSelect.addEventListener('change', function() {
+        const selectedDistrict = this.value;
+        const districtFeature = geoJsonData.features.find(feature => feature.properties.name === selectedDistrict);
+        
+        if (districtFeature) {
+            if (map.geoJsonLayer) {
+                map.removeLayer(map.geoJsonLayer);
+            }
+            map.geoJsonLayer = L.geoJSON(districtFeature).addTo(map);
+            map.fitBounds(map.geoJsonLayer.getBounds());
+        }
+    });
 }
 

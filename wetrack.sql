@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 21, 2024 at 05:09 AM
+-- Generation Time: Dec 21, 2024 at 05:25 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -144,6 +144,24 @@ INSERT INTO `mantan_narapidana` (`id`, `fileInput`, `nik`, `nrt`, `nama`, `dateB
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `prisoner_locations`
+--
+
+CREATE TABLE `prisoner_locations` (
+  `id` int(11) NOT NULL,
+  `nik` varchar(16) NOT NULL,
+  `nrt` varchar(20) NOT NULL,
+  `type` enum('houseArrest','cityPrisoner') NOT NULL,
+  `radius` float DEFAULT NULL,
+  `center_lat` decimal(10,8) DEFAULT NULL,
+  `center_lng` decimal(11,8) DEFAULT NULL,
+  `city_district` varchar(100) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `recent_activities`
 --
 
@@ -201,6 +219,13 @@ ALTER TABLE `mantan_narapidana`
   ADD UNIQUE KEY `unique_nik_nrt` (`nik`,`nrt`);
 
 --
+-- Indexes for table `prisoner_locations`
+--
+ALTER TABLE `prisoner_locations`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `unique_nik_nrt` (`nik`,`nrt`);
+
+--
 -- Indexes for table `recent_activities`
 --
 ALTER TABLE `recent_activities`
@@ -241,6 +266,12 @@ ALTER TABLE `mantan_narapidana`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
+-- AUTO_INCREMENT for table `prisoner_locations`
+--
+ALTER TABLE `prisoner_locations`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `recent_activities`
 --
 ALTER TABLE `recent_activities`
@@ -261,6 +292,12 @@ ALTER TABLE `final_report`
 --
 ALTER TABLE `login_history`
   ADD CONSTRAINT `login_history_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `kemenkumham_users` (`id`);
+
+--
+-- Constraints for table `prisoner_locations`
+--
+ALTER TABLE `prisoner_locations`
+  ADD CONSTRAINT `fk_prisoner_locations_mantan_narapidana` FOREIGN KEY (`nik`,`nrt`) REFERENCES `mantan_narapidana` (`nik`, `nrt`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
