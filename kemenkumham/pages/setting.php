@@ -7,7 +7,7 @@ session_start();
 $user_id = $_SESSION['user_id']; // Or any method you're using to store the logged-in user ID
 
 // Fetch user information from the database
-$query = "SELECT id, profile_picture FROM kemenkumham_users WHERE id = ?";
+$query = "SELECT id, profile_picture FROM users WHERE id = ?";
 $stmt = $conn->prepare($query);
 $stmt->bind_param("i", $user_id);
 $stmt->execute();
@@ -17,7 +17,7 @@ $stmt->close();
 
 // Set a default profile picture if none is set
 if (!$profile_picture) {
-    $profile_picture = '/wetrack/kemenkumham/Image/default-profile.png';
+    $profile_picture = '/wetrack/kemenkumham/Image/kemenkumham.png';
 }
 ?>
 
@@ -57,6 +57,7 @@ if (!$profile_picture) {
                 <ul>
                     <li><a href="/wetrack/kemenkumham/pages/home.php"><i class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a></li>
                     <li><a href="/wetrack/kemenkumham/pages/data.php"><i class="fas fa-database"></i> <span>Database</span></a></li>
+                    <li><a href="/wetrack/kemenkumham/pages/create-account.php"><i class="fas fa-user-plus"></i> <span>Create Account</span></a></li>
                     <li class="active"><a href="/wetrack/kemenkumham/pages/setting.php"><i class="fas fa-cog"></i> <span>Settings</span></a></li>
                 </ul>
             </nav>

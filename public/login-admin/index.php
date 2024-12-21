@@ -11,29 +11,54 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($id && $password) {
         try {
             // Prepare SQL statement to find the user by ID
-            $stmt = $pdo->prepare("SELECT * FROM kemenkumham_users WHERE id = ?");
+            $stmt = $pdo->prepare("SELECT * FROM users WHERE id = ?");
             $stmt->execute([$id]); // Execute the query with the provided ID
             $user = $stmt->fetch(); // Fetch the user data
 
             // Check if the user exists and if the password is correct
             if ($user && password_verify($password, $user['password'])) {
-                // Store user ID in session if login is successful
+                // Store user data in session
                 $_SESSION['user_id'] = $user['id'];
+                $_SESSION['role'] = $user['role'];
 
                 // Get the user's IP address
                 $user_ip = $_SERVER['REMOTE_ADDR'];
 
-                // Log the login attempt in the login_history table with the IP address
+                // Log the login attempt
                 $stmt = $pdo->prepare("INSERT INTO login_history (user_id, ip_address) VALUES (?, ?)");
                 $stmt->execute([$user['id'], $user_ip]);
 
-                // Redirect to the home page after successful login
-                header('Location: /wetrack/kemenkumham/pages/home.php');
-                exit();
-            }
+                // Get the first two digits of the ID to determine the redirect
+                $id_prefix = substr($user['id'], 0, 2);
 
-            // If credentials are incorrect
-            $error = 'Invalid credentials';
+                // Determine redirect URL based on ID prefix
+                switch ($id_prefix) {
+                    case '10':
+                        $redirect_url = '/wetrack/kemenkumham/pages/home.php';
+                        break;
+                    case '11':
+                        $redirect_url = '/wetrack/lapas/pages/home.php';
+                        break;
+                    case '12':
+                        $redirect_url = '/wetrack/bapas/pages/home.php';
+                        break;
+                    case '13':
+                        $redirect_url = '/wetrack/polri/pages/index.php';
+                        break;
+                    default:
+                        // If somehow the ID doesn't match any expected prefix
+                        $error = 'Invalid user type';
+                        break;
+                }
+
+                if (isset($redirect_url)) {
+                    header('Location: ' . $redirect_url);
+                    exit();
+                }
+            } else {
+                // If credentials are incorrect
+                $error = 'Invalid credentials';
+            }
         } catch (PDOException $e) {
             // Catch database connection errors
             $error = 'Database error: ' . $e->getMessage();
@@ -44,7 +69,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -73,7 +97,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <div class="logo-text logo-text-footer">WETRACK</div>
                     </a>
                     <div class="content-box">
-                        <h1 class="heading-1">Welcome back, Admin! Please log in to manage accounts, monitor activities, and oversee reports.</h1>
+                        <h1 class="heading-1">Welcome back! Please log in to access your dashboard.</h1>
                     </div>
                     <div class="legal-box _2">
                         <div class="legal-text">© 2024 WETRACK. All rights reserved.</div>
@@ -96,11 +120,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <div class="form-field-wrapper">
                                     <div class="text-field-box _2">
                                         <label for="id" class="field-label-2">ID</label>
-                                        <input class="text-field-2 w-input" maxlength="256" name="id" placeholder="ID" type="text" id="id" required />
+                                        <input class="text-field-2 w-input" maxlength="256" name="id" placeholder="Enter your ID" type="text" id="id" required />
                                     </div>
                                     <div class="text-field-box _2">
                                         <label for="password-2" class="field-label-2">Password</label>
-                                        <input class="text-field-2 w-input" maxlength="256" name="password" placeholder="Password" type="password" id="password-2" required />
+                                        <input class="text-field-2 w-input" maxlength="256" name="password" placeholder="Enter your password" type="password" id="password-2" required />
                                     </div>
                                 </div>
                                 <input type="submit" class="button registration w-button" value="Login" />

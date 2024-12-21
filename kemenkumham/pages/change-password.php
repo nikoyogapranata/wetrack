@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $confirm_password = $_POST['confirm_password'];
 
     // Fetch the current password from the database
-    $query = "SELECT password FROM kemenkumham_users WHERE id = ?";
+    $query = "SELECT password FROM users WHERE id = ?";
     $stmt = $conn->prepare($query);
     $stmt->bind_param("i", $user_id);
     $stmt->execute();
@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $hashed_password = password_hash($new_password, PASSWORD_BCRYPT);
 
             // Update the password in the database
-            $query = "UPDATE kemenkumham_users SET password = ? WHERE id = ?";
+            $query = "UPDATE users SET password = ? WHERE id = ?";
             $stmt = $conn->prepare($query);
             $stmt->bind_param("si", $hashed_password, $user_id);
 
@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 
 // Fetch the profile picture for the user
-$query = "SELECT id, profile_picture FROM kemenkumham_users WHERE id = ?";
+$query = "SELECT id, profile_picture FROM users WHERE id = ?";
 $stmt = $conn->prepare($query);
 $stmt->bind_param("i", $user_id);
 $stmt->execute();
@@ -58,7 +58,7 @@ $stmt->close();
 
 // Set a default profile picture if none is set
 if (!$profile_picture) {
-    $profile_picture = '/wetrack/kemenkumham/Image/default-profile.png';
+    $profile_picture = '/wetrack/kemenkumham/Image/kemenkumham.png';
 }
 ?>
 

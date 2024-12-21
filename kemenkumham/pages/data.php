@@ -1,13 +1,11 @@
 <?php
-// Include database connection
-include('connect.php'); // Adjust the path as needed
-
-// Assuming you have a session that holds the user ID (e.g., from login)
 session_start();
-$user_id = $_SESSION['user_id']; // Or any method you're using to store the logged-in user ID
+include('connect.php');
 
-// Fetch user information from the database
-$query = "SELECT id, profile_picture FROM kemenkumham_users WHERE id = ?";
+$user_id = $_SESSION['user_id'];
+// Fetch user information
+$user_id = $_SESSION['user_id'];
+$query = "SELECT id, profile_picture FROM users WHERE id = ?";
 $stmt = $conn->prepare($query);
 $stmt->bind_param("i", $user_id);
 $stmt->execute();
@@ -15,10 +13,39 @@ $stmt->bind_result($id, $profile_picture);
 $stmt->fetch();
 $stmt->close();
 
-// Set a default profile picture if none is set
 if (!$profile_picture) {
-    $profile_picture = '/wetrack/kemenkumham/Image/default-profile.png';
+    $profile_picture = '/wetrack/kemenkumham/Image/kemenkumham.png';
 }
+
+// Function to fetch users by role
+function fetchUsersByRole($conn, $role, $search = '')
+{
+    $query = "SELECT id, nip, full_name FROM users WHERE role = ?";
+    $params = [$role];
+    $types = "s";
+
+    if ($search) {
+        $query .= " AND (id LIKE ? OR nip LIKE ? OR full_name LIKE ?)";
+        $searchParam = "%$search%";
+        $params = array_merge($params, [$searchParam, $searchParam, $searchParam]);
+        $types .= "sss";
+    }
+
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param($types, ...$params);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    return $result->fetch_all(MYSQLI_ASSOC);
+}
+
+// Get search term if any
+$search = isset($_GET['search']) ? $_GET['search'] : '';
+
+// Fetch users for each role
+$kemenkumhamUsers = fetchUsersByRole($conn, 'Kemenkumham', $search);
+$lapasUsers = fetchUsersByRole($conn, 'Lapas', $search);
+$bapasUsers = fetchUsersByRole($conn, 'Bapas', $search);
+$polriUsers = fetchUsersByRole($conn, 'Polri', $search);
 ?>
 
 <!DOCTYPE html>
@@ -30,16 +57,86 @@ if (!$profile_picture) {
     <title>WETRACK | Database</title>
     <link rel="icon" href="/wetrack/kemenkumham/Image/wetrack-logo-white.png" type="Image/x-icon">
     <link rel="stylesheet" href="/wetrack/kemenkumham/css/data.css">
-    <script src="/wetrack/kemenkumham/js/data.js" defer></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .table-section {
+            margin-bottom: 2rem;
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .table-wrapper {
+            max-height: 300px;
+            /* Scroll height for the table */
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .search-container {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .search-container input {
+            flex: 1;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .search-container button {
+            padding: 0.5rem 1rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .user-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .user-table th,
+        .user-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .user-table th {
+            background: #f5f5f5;
+            font-weight: 600;
+        }
+
+
+        .btn-details {
+            padding: 0.25rem 0.75rem;
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .btn-details:hover {
+            background: var(--primary-color);
+        }
+    </style>
 </head>
 
 <body>
     <div class="container">
+        <!-- Sidebar remains the same -->
         <aside class="sidebar">
             <div class="sidebar-header">
                 <div class="logo">
@@ -52,12 +149,10 @@ if (!$profile_picture) {
             </div>
             <nav class="nav-links">
                 <ul>
-                    <li><a href="/wetrack/kemenkumham/pages/home.php"><i class="fas fa-tachometer-alt"></i>
-                            <span>Dashboard</span></a></li>
-                    <li class="active"><a href="/wetrack/kemenkumham/pages/data.php"><i class="fas fa-database"></i>
-                            <span>Database</span></a></li>
-                    <li><a href="/wetrack//kemenkumham/pages/setting.php"><i class="fas fa-cog"></i>
-                            <span>Settings</span></a></li>
+                    <li class="active"><a href="/wetrack/kemenkumham/pages/home.php"><i class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a></li>
+                    <li><a href="/wetrack/kemenkumham/pages/data.php"><i class="fas fa-database"></i> <span>Database</span></a></li>
+                    <li><a href="/wetrack/kemenkumham/pages/create-account.php"><i class="fas fa-user-plus"></i> <span>Create Account</span></a></li>
+                    <li><a href="/wetrack/kemenkumham/pages/setting.php"><i class="fas fa-cog"></i> <span>Settings</span></a></li>
                 </ul>
             </nav>
             <div class="user-profile">
@@ -68,86 +163,158 @@ if (!$profile_picture) {
                 </div>
             </div>
         </aside>
+
         <main class="content">
             <div class="content-container">
                 <div class="content-header">
-                    <h1>Database</h1>
-                    <div class="search-bar">
-                        <input type="text" placeholder="Search...">
-                        <i class="fas fa-search"></i>
-                    </div>
-                </div>
-                <div class="button-group">
-                    <button class="btn btn-primary" id="showTableBtn">All</button>
-                    <button class="btn btn-secondary" id="showInputBtn" onclick="showInput()">Input Data</button>
-                    <button class="delete-btn" id="delete-btn" class="btn btn-danger">Delete</button>
-                </div>
-                <div class="table-container">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>No.</th>
-                                <th>Name</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Chou Tzuyu</td>
-                                <td><button class="btn btn-action" id="btn-details">Details</button></td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Gita Sekar Andarini</td>
-                                <td><button class="btn btn-action" id="btn-details">Details</button></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="input-container" style="display: none;">
-                    <form id="inputForm">
-                        <div class="form-group">
-                            <label for="photo">Photo:</label>
-                            <input type="file" id="fileInput" accept=".png, .jpg, .jpeg" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="nik">National ID Number:</label>
-                            <input type="text" id="nik" name="nik"  placeholder="Enter National ID number" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="nrt">National Employee Number:</label>
-                            <input type="text" id="nrt" name="nrt"  placeholder="Enter Prisoner Registration Number" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="name">Full Name:</label>
-                            <input type="text" id="nama" name="nama" placeholder="Enter Name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="dateBirth">Date of Birth:</label>
-                            <input type="date" id="dateBirth" name="dateBirth" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="address">Address:</label>
-                            <textarea name="address" id="address" placeholder="Enter Address" required></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="gender">Gender:</label>
-                            <select id="gender" name="gender" required>
-                                <option value="" disabled selected>Select gender</option>
-                                <option value="male">Male</option>
-                                <option value="female">Female</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="nationality">Nationality:</label>
-                            <select id="nationality" name="nationality" required>
-                                <option value="" disabled selected>Select Nationality</option>
-                            </select>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                    <h1>User Database</h1>
+                    <form class="search-container" method="GET">
+                        <input type="text" name="search" placeholder="Search by ID, NIP, or Name..."
+                            value="<?php echo htmlspecialchars($search); ?>">
+                        <button type="submit">Search</button>
                     </form>
                 </div>
+
+                <!-- Kemenkumham Users -->
+                <section class="table-section">
+                    <h2>Kemenkumham</h2>
+                    <form class="search-container" method="GET">
+                        <input type="text" name="search" placeholder="Search in Kemenkumham..."
+                            value="<?php echo htmlspecialchars($search); ?>">
+                        <button type="submit">Search</button>
+                    </form>
+                    <div class="table-wrapper">
+                        <table class="user-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>NIP</th>
+                                    <th>Name</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($kemenkumhamUsers as $user): ?>
+                                    <tr>
+                                        <td><?php echo htmlspecialchars($user['id']); ?></td>
+                                        <td><?php echo htmlspecialchars($user['nip'] ?? '-'); ?></td>
+                                        <td><?php echo htmlspecialchars($user['full_name'] ?? '-'); ?></td>
+                                        <td>
+                                            <a href="user-details.php?id=<?php echo $user['id']; ?>"
+                                                class="btn-details">Details</a>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Lapas Users -->
+                <section class="table-section">
+                    <h2>Lapas</h2>
+                    <form class="search-container" method="GET">
+                        <input type="text" name="search" placeholder="Search in Lapas..."
+                            value="<?php echo htmlspecialchars($search); ?>">
+                        <button type="submit">Search</button>
+                    </form>
+                    <div class="table-wrapper">
+                        <table class="user-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>NIP</th>
+                                    <th>Name</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($lapasUsers as $user): ?>
+                                    <tr>
+                                        <td><?php echo htmlspecialchars($user['id']); ?></td>
+                                        <td><?php echo htmlspecialchars($user['nip'] ?? '-'); ?></td>
+                                        <td><?php echo htmlspecialchars($user['full_name'] ?? '-'); ?></td>
+                                        <td>
+                                            <a href="user-details.php?id=<?php echo $user['id']; ?>"
+                                                class="btn-details">Details</a>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Bapas Users -->
+                <section class="table-section">
+                    <h2>Bapas</h2>
+                    <form class="search-container" method="GET">
+                        <input type="text" name="search" placeholder="Search in Bapas..."
+                            value="<?php echo htmlspecialchars($search); ?>">
+                        <button type="submit">Search</button>
+                    </form>
+                    <div class="table-wrapper">
+                        <table class="user-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>NIP</th>
+                                    <th>Name</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($bapasUsers as $user): ?>
+                                    <tr>
+                                        <td><?php echo htmlspecialchars($user['id']); ?></td>
+                                        <td><?php echo htmlspecialchars($user['nip'] ?? '-'); ?></td>
+                                        <td><?php echo htmlspecialchars($user['full_name'] ?? '-'); ?></td>
+                                        <td>
+                                            <a href="user-details.php?id=<?php echo $user['id']; ?>"
+                                                class="btn-details">Details</a>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Polri Users -->
+                <section class="table-section">
+                    <h2>Polri</h2>
+                    <form class="search-container" method="GET">
+                        <input type="text" name="search" placeholder="Search in Polri..."
+                            value="<?php echo htmlspecialchars($search); ?>">
+                        <button type="submit">Search</button>
+                    </form>
+                    <div class="table-wrapper">
+                        <table class="user-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>NIP</th>
+                                    <th>Name</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($polriUsers as $user): ?>
+                                    <tr>
+                                        <td><?php echo htmlspecialchars($user['id']); ?></td>
+                                        <td><?php echo htmlspecialchars($user['nip'] ?? '-'); ?></td>
+                                        <td><?php echo htmlspecialchars($user['full_name'] ?? '-'); ?></td>
+                                        <td>
+                                            <a href="user-details.php?id=<?php echo $user['id']; ?>"
+                                                class="btn-details">Details</a>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
             </div>
         </main>
     </div>

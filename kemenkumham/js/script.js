@@ -127,3 +127,24 @@ function showInmateDetails(inmateId) {
 function goToHome() {
     window.location.href = "home.html";
 }
+
+// Function to filter login history by search term
+function searchHistory(role) {
+    var input, filter, table, rows, td, i, txtValue;
+    input = document.getElementById(role + 'Search');
+    filter = input.value.toUpperCase();
+    table = document.getElementById(role + 'Table');
+    rows = table.getElementsByTagName('tr');
+
+    for (i = 1; i < rows.length; i++) {  // Skipping the header row
+        td = rows[i].getElementsByTagName('td')[0]; // Check the User ID column
+        if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                rows[i].style.display = "";
+            } else {
+                rows[i].style.display = "none";
+            }
+        }
+    }
+}
