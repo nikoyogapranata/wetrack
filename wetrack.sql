@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 21, 2024 at 08:59 AM
+-- Generation Time: Dec 21, 2024 at 10:04 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -65,14 +65,6 @@ CREATE TABLE `final_report` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `final_report`
---
-
-INSERT INTO `final_report` (`id`, `nik`, `nrt`, `docInput`, `created_at`) VALUES
-(1, '78978979', '123189481', 'uploads/stakeholder-engagement-plan-template.pdf', '2024-12-19 19:04:06'),
-(2, '1234', '1234', 'uploads/WBS-Kelompok 4.xlsx - WBS with Gantt Chart - WETRACK.pdf', '2024-12-19 19:12:56');
-
 -- --------------------------------------------------------
 
 --
@@ -128,10 +120,10 @@ CREATE TABLE `mantan_narapidana` (
   `punishment` varchar(100) NOT NULL,
   `releaseDate` date NOT NULL,
   `prisoner_type` enum('houseArrest','cityPrisoner') NOT NULL,
-  `geofence_radius` float NOT NULL,
-  `geofence_lat` decimal(10,8) NOT NULL,
-  `geofence_lng` decimal(11,8) NOT NULL,
-  `city_district` varchar(100) NOT NULL,
+  `geofence_radius` float DEFAULT NULL,
+  `geofence_lat` decimal(10,8) DEFAULT NULL,
+  `geofence_lng` decimal(11,8) DEFAULT NULL,
+  `city_district` varchar(100) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -142,8 +134,8 @@ CREATE TABLE `mantan_narapidana` (
 INSERT INTO `mantan_narapidana` (`id`, `fileInput`, `nik`, `nrt`, `nama`, `dateBirth`, `address`, `gender`, `nationality`, `crime`, `case`, `punishment`, `releaseDate`, `prisoner_type`, `geofence_radius`, `geofence_lat`, `geofence_lng`, `city_district`, `created_at`) VALUES
 (1, 'uploads/nanti-diganti.png', '892189', '123141', 'yanto', '2024-12-03', 'jakal', 'male', 'Jamaica', 'Embezzlement', 'tersangka', '5 years', '2028-12-06', 'cityPrisoner', 0, 0.00000000, 0.00000000, 'Kabupaten Sleman', '2024-12-18 15:53:43'),
 (2, 'uploads/nanti-diganti.png', '1245', '66666', 'jokowi', '2013-06-30', 'solo', 'male', 'Indonesia', 'NO', 'pengedar', '100000 years', '2047-05-27', 'cityPrisoner', 0, 0.00000000, 0.00000000, 'Kabupaten Sleman', '2024-12-18 15:55:37'),
-(3, 'uploads/lapas-logo.png', '1234', '1234', 'anjay', '2024-12-18', 'kepo', 'male', 'Indonesia', 'Assault', 'nusuk', '10000', '2024-12-19', '', 0, 0.00000000, 0.00000000, '', '2024-12-19 00:00:21'),
-(4, 'uploads/lapas-logo.png', '78978979', '123189481', 'Joko', '2002-02-28', 'Jl. Jakal', 'male', 'Belgium', 'NO', 'Pengedar', '100 Years', '2025-01-22', '', 0, 0.00000000, 0.00000000, '', '2024-12-19 03:09:25');
+(3, 'uploads/lapas-logo.png', '1234', '1234', 'anjay', '2024-12-18', 'kepo', 'male', 'Indonesia', 'Assault', 'nusuk', '10000', '2024-12-19', 'houseArrest', 1, -7.78637727, 110.38466743, NULL, '2024-12-19 00:00:21'),
+(4, 'uploads/lapas-logo.png', '78978979', '123189481', 'Joko', '2002-02-28', 'Jl. Jakal', 'male', 'Belgium', 'NO', 'Pengedar', '100 Years', '2025-01-22', 'cityPrisoner', 0, 0.00000000, 0.00000000, 'Kabupaten Sleman', '2024-12-19 03:09:25');
 
 -- --------------------------------------------------------
 

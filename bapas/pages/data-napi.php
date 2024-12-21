@@ -1,3 +1,15 @@
+<?php
+require 'connection.php';
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+    $result = mysqli_query($conn, "SELECT * FROM mantan_narapidana WHERE id = $id");
+    $row = mysqli_fetch_assoc($result);
+} else {
+    header("Location: dataBapas.php");
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -132,6 +144,10 @@
                     </div>
                     <div class="info-section">
                         <h2>Violation History</h2>
+                    </div>
+                    <div class="info-section">
+                        <h2>Tracking Map</h2>
+                        <div class="map"></div>
                     </div>
                 </div>
             </div>

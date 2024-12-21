@@ -1,0 +1,17 @@
+POST Data: Array
+(
+    [nik] => 1234
+    [nrt] => 1234
+    [typePrisoner] => houseArrest
+    [radiusFence] => 1
+    [centerLat] => -7.786377273826725
+    [centerLng] => 110.38466742828633
+)
+
+
+NIK: 1234
+NRT: 1234
+Type: houseArrest
+House Arrest - Radius: 1, Lat: -7.7863772738267, Lng: 110.38466742829
+Data saved successfully
+Data saved successfully

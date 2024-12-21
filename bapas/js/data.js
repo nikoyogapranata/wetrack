@@ -80,7 +80,28 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
 
-        inputForm.addEventListener('submit', handleFormSubmit);
+        inputForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+
+            fetch('save_prisoner.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert(data.message);
+                    inputForm.reset();
+                } else {
+                    alert('Error: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while saving the data. Please check the console for more information.');
+            });
+        });
     }
 
     document.getElementById("btn-details").addEventListener("click",function(){
@@ -88,31 +109,3 @@ document.addEventListener('DOMContentLoaded', function () {
     })
 });
 
-function handleFormSubmit(event) {
-    event.preventDefault();
-    const form = event.target;
-    const formData = new FormData(form);
-
-    fetch('save_prisoner.php', {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json();
-    })
-    .then(data => {
-        if (data.success) {
-            alert(data.message);
-            form.reset();
-        } else {
-            alert('Error: ' + data.message);
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('An error occurred while saving the data. Please check the console for more information.');
-    });
-}

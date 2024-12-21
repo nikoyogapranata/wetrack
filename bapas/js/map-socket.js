@@ -34,8 +34,9 @@ function updateGeofence(latlng) {
 
     circle = L.circle(latlng, {radius: radius}).addTo(map);
     
-    document.getElementById('centerLat').value = latlng.lat.toFixed(6);
-    document.getElementById('centerLng').value = latlng.lng.toFixed(6);
+    // Update hidden form fields with more precise values
+    document.getElementById('centerLat').value = latlng.lat;
+    document.getElementById('centerLng').value = latlng.lng;
 
     map.setView(latlng);
 }
