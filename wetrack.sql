@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 21, 2024 at 05:25 AM
+-- Generation Time: Dec 21, 2024 at 05:55 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -64,13 +64,6 @@ CREATE TABLE `final_report` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `final_report`
---
-
-INSERT INTO `final_report` (`id`, `nik`, `nrt`, `docInput`, `created_at`) VALUES
-(1, '78978979', '123189481', 'uploads/stakeholder-engagement-plan-template.pdf', '2024-12-20 02:04:06');
-
 -- --------------------------------------------------------
 
 --
@@ -115,20 +108,20 @@ CREATE TABLE `login_history` (
 
 CREATE TABLE `mantan_narapidana` (
   `id` int(11) NOT NULL,
-  `fileInput` varchar(255) DEFAULT NULL,
-  `nik` varchar(20) DEFAULT NULL,
-  `nrt` varchar(20) DEFAULT NULL,
-  `nama` varchar(100) DEFAULT NULL,
-  `dateBirth` date DEFAULT NULL,
-  `address` text DEFAULT NULL,
-  `gender` enum('male','female') DEFAULT NULL,
-  `nationality` varchar(100) DEFAULT NULL,
-  `crime` enum('TwA','Ot','Fraud','Assault','NO','Embezzlement','MvT','Robbery','Brawling') DEFAULT NULL,
-  `case` text DEFAULT NULL,
-  `punishment` varchar(100) DEFAULT NULL,
-  `releaseDate` date DEFAULT NULL,
-  `report` text DEFAULT NULL,
-  `action` tinyint(1) DEFAULT NULL COMMENT '1 for accept, 0 for reject',
+  `fileInput` varchar(255) NOT NULL,
+  `nik` varchar(16) NOT NULL,
+  `nrt` varchar(20) NOT NULL,
+  `nama` varchar(100) NOT NULL,
+  `dateBirth` date NOT NULL,
+  `address` text NOT NULL,
+  `gender` enum('male','female') NOT NULL,
+  `nationality` varchar(100) NOT NULL,
+  `crime` enum('TwA','Ot','Fraud','Assault','NO','Embezzlement','MvT','Robbery','Brawling') NOT NULL,
+  `case` text NOT NULL,
+  `punishment` varchar(100) NOT NULL,
+  `releaseDate` date NOT NULL,
+  `report` text NOT NULL,
+  `action` tinyint(1) NOT NULL COMMENT '1 for accept, 0 for reject',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -137,9 +130,9 @@ CREATE TABLE `mantan_narapidana` (
 --
 
 INSERT INTO `mantan_narapidana` (`id`, `fileInput`, `nik`, `nrt`, `nama`, `dateBirth`, `address`, `gender`, `nationality`, `crime`, `case`, `punishment`, `releaseDate`, `report`, `action`, `created_at`) VALUES
-(4, 'uploads/lapas-logo.png', '78978979', '123189481', 'Joko', '2002-02-28', 'Jl. Jakal', 'male', 'Belgium', 'NO', 'Pengedar', '100 Years', '2025-01-22', NULL, NULL, '2024-12-19 03:09:25'),
-(5, 'uploads/tahanan1.webp', '1230000000000000000', '0001', 'Ferdy Sambo', '1969-08-29', 'Jakarta Utara', 'male', 'Belgium', 'Brawling', 'Tersangka ', '10 Tahun', '2034-12-21', NULL, NULL, '2024-12-21 00:04:38'),
-(6, 'uploads/tahanan2.jpeg', '10000000000000001', '0002', 'Anthony Santos', '2001-06-06', 'Jakal Km 14', 'male', 'Brazil', 'Robbery', 'Tersangka', '5 tahun', '2029-12-21', NULL, NULL, '2024-12-21 04:08:31');
+(4, 'uploads/lapas-logo.png', '78978979', '123189481', 'Joko', '2002-02-28', 'Jl. Jakal', 'male', 'Belgium', 'NO', 'Pengedar', '100 Years', '2025-01-22', '', 0, '2024-12-19 03:09:25'),
+(5, 'uploads/tahanan1.webp', '1230000000000000', '0001', 'Ferdy Sambo', '1969-08-29', 'Jakarta Utara', 'male', 'Belgium', 'Brawling', 'Tersangka ', '10 Tahun', '2034-12-21', '', 0, '2024-12-21 00:04:38'),
+(6, 'uploads/tahanan2.jpeg', '1000000000000000', '0002', 'Anthony Santos', '2001-06-06', 'Jakal Km 14', 'male', 'Brazil', 'Robbery', 'Tersangka', '5 tahun', '2029-12-21', '', 0, '2024-12-21 04:08:31');
 
 -- --------------------------------------------------------
 
@@ -245,7 +238,7 @@ ALTER TABLE `data_polri`
 -- AUTO_INCREMENT for table `final_report`
 --
 ALTER TABLE `final_report`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `kemenkumham_users`
@@ -269,7 +262,7 @@ ALTER TABLE `mantan_narapidana`
 -- AUTO_INCREMENT for table `prisoner_locations`
 --
 ALTER TABLE `prisoner_locations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `recent_activities`
@@ -285,7 +278,7 @@ ALTER TABLE `recent_activities`
 -- Constraints for table `final_report`
 --
 ALTER TABLE `final_report`
-  ADD CONSTRAINT `final_report_ibfk_1` FOREIGN KEY (`nik`,`nrt`) REFERENCES `mantan_narapidana` (`nik`, `nrt`);
+  ADD CONSTRAINT `fk_final_reports_mantan_narapidana` FOREIGN KEY (`nik`,`nrt`) REFERENCES `mantan_narapidana` (`nik`, `nrt`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `login_history`

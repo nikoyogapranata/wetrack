@@ -44,7 +44,11 @@ function updateGeofence(latlng) {
 
 document.addEventListener('DOMContentLoaded', function() {
     const typePrisonerSelect = document.getElementById('typePrisoner');
-    typePrisonerSelect.addEventListener('change', togglePrisonerTypeFields);
+    typePrisonerSelect.addEventListener('change', function() {
+        if (this.value === 'houseArrest') {
+            setTimeout(initMap, 100);
+        }
+    });
 
     const showInputBtn = document.getElementById('showInputBtn');
     showInputBtn.addEventListener('click', function() {
@@ -95,4 +99,3 @@ function initCityMap() {
         }
     });
 }
-

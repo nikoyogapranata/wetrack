@@ -120,7 +120,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="map">Select Center Point:</label>
-                                <div id="map"> <img id="mapAttachment" src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/dataBapas-qLCHCBwEuGREDWH6SfnBrhckoQDwQF.php" style="display: none; max-width: 100%; height: auto;"></div>
+                                <div id="map"><img id="mapAttachment" src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/dataBapas-qLCHCBwEuGREDWH6SfnBrhckoQDwQF.php" style="display: none; max-width: 100%; height: auto;"></div>
                                 <input type="hidden" id="centerLat" name="centerLat">
                                 <input type="hidden" id="centerLng" name="centerLng">
                             </div>
