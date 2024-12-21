@@ -346,6 +346,11 @@ textarea{
     background-color: #c0392b;
 }
 
+#map {
+    height: 400px;
+    width: 100%;
+}
+
 @media (max-width: 1024px) {
     .sidebar {
         width: 200px;

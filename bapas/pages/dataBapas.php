@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,7 +14,17 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+
+    <style>
+        #map {
+            height: 400px;
+            width: 100%;
+        }
+    </style>
 </head>
+
 <body>
     <div class="container">
         <aside class="sidebar">
@@ -96,7 +107,7 @@
                         </div>
                         <div class="form-group">
                             <label for="typePrisoner">Prisoner Type:</label>
-                            <select id="typePrisoner" name="typePrisoner" required onchange="togglePrisonerTypeFields()">
+                            <select id="typePrisoner" name="typePrisoner" required>
                                 <option value="" disabled selected>Select Prisoner Type</option>
                                 <option value="houseArrest">House Arrest</option>
                                 <option value="cityPrisoner">City Prisoner</option>
@@ -105,11 +116,11 @@
                         <div id="houseArrestFields" style="display: none;">
                             <div class="form-group">
                                 <label for="radiusFence">Input Geo-Fence Radius (km):</label>
-                                <input type="number" id="radiusFence" name="radiusFence" step="0.1" min="0" required>
+                                <input type="number" id="radiusFence" name="radiusFence" step="0.1" min="0" value="1" required>
                             </div>
                             <div class="form-group">
                                 <label for="map">Select Center Point:</label>
-                                <div id="map" style="height: 400px;"></div>
+                                <div id="map"> <img id="mapAttachment" src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/dataBapas-qLCHCBwEuGREDWH6SfnBrhckoQDwQF.php" style="display: none; max-width: 100%; height: auto;"></div>
                                 <input type="hidden" id="centerLat" name="centerLat">
                                 <input type="hidden" id="centerLng" name="centerLng">
                             </div>
@@ -133,41 +144,8 @@
             </div>
         </main>
     </div>
-    <script>
-        let map;
-        let circle;
 
-        function initMap() {
-            map = L.map('map').setView([-7.7956, 110.3695], 10);
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '© OpenStreetMap contributors'
-            }).addTo(map);
-
-            map.on('click', function(e) {
-                if (circle) {
-                    map.removeLayer(circle);
-                }
-                const radius = parseFloat(document.getElementById('radiusFence').value) * 1000; // Convert km to meters
-                circle = L.circle(e.latlng, {radius: radius}).addTo(map);
-                document.getElementById('centerLat').value = e.latlng.lat;
-                document.getElementById('centerLng').value = e.latlng.lng;
-            });
-        }
-
-        function togglePrisonerTypeFields() {
-            const prisonerType = document.getElementById('typePrisoner').value;
-            document.getElementById('houseArrestFields').style.display = prisonerType === 'houseArrest' ? 'block' : 'none';
-            document.getElementById('cityPrisonerFields').style.display = prisonerType === 'cityPrisoner' ? 'block' : 'none';
-            if (prisonerType === 'houseArrest' && !map) {
-                setTimeout(initMap, 100);
-            }
-        }
-
-        document.getElementById('radiusFence').addEventListener('input', function() {
-            if (circle) {
-                circle.setRadius(this.value * 1000);
-            }
-        });
-    </script>
+    <script src="/wetrack/bapas/js/map-socket.js"></script>
 </body>
+
 </html>
