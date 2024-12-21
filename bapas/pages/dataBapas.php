@@ -86,16 +86,22 @@ include 'connection.php';
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Chou Tzuyu</td>
-                                <td><button class="btn btn-action" id="btn-details">Details</button></td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Gita Sekar Andarini</td>
-                                <td><button class="btn btn-action" id="btn-details">Details</button></td>
-                            </tr>
+                        <?php
+                            $result = mysqli_query($conn, "SELECT mn.id, mn.nama 
+                               FROM mantan_narapidana mn 
+                               LEFT JOIN final_report fr ON mn.nik = fr.nik AND mn.nrt = fr.nrt 
+                               WHERE fr.id IS NULL 
+                               ORDER BY mn.id ASC");
+                            $i = 1;
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                echo "<tr>";
+                                echo "<td>" . $i . "</td>";
+                                echo "<td>" . $row['nama'] . "</td>";
+                                echo "<td><button class='btn btn-action' data-id='" . $row['id'] . "'>Details</button> </td>";
+                                echo "</tr>";
+                                $i++;
+                            }
+                            ?>
                         </tbody>
                     </table>
                 </div>
@@ -103,11 +109,11 @@ include 'connection.php';
                     <form id="inputForm" action="save_prisoner.php" method="POST">
                         <div class="form-group">
                             <label for="nik">National ID Number:</label>
-                            <input type="text" id="nik" name="nik" placeholder="Enter National ID number" required>
+                            <input type="text" id="nik" name="nik" required>
                         </div>
                         <div class="form-group">
                             <label for="nrt">Prisoner Registration Number:</label>
-                            <input type="text" id="nrt" name="nrt" placeholder="Enter Prisoner Registration Number" required>
+                            <input type="text" id="nrt" name="nrt" required>
                         </div>
                         <div class="form-group">
                             <label for="typePrisoner">Prisoner Type:</label>
@@ -119,25 +125,23 @@ include 'connection.php';
                         </div>
                         <div id="houseArrestFields" style="display: none;">
                             <div class="form-group">
-                                <label for="radiusFence">Input Geo-Fence Radius (km):</label>
-                                <input type="number" id="radiusFence" name="radiusFence" step="0.1" min="0" value="1" required>
+                                <label for="radiusFence">Geo-Fence Radius (km):</label>
+                                <input type="number" id="radiusFence" name="radiusFence" step="0.1" min="0" value="1">
                             </div>
-                            <div class="form-group">
-                                <label for="map">Select Center Point:</label>
-                                <div id="map"></div>
-                                <input type="hidden" id="centerLat" name="centerLat">
-                                <input type="hidden" id="centerLng" name="centerLng">
-                            </div>
+                            <div class="form-group"></div>
+                            <input type="hidden" id="centerLat" name="centerLat">
+                            <input type="hidden" id="centerLng" name="centerLng">
+                            <div id="map" class="form-group"></div>
                         </div>
                         <div id="cityPrisonerFields" style="display: none;">
                             <div class="form-group">
-                                <label for="kotaKab">Choose a city or district:</label>
-                                <select id="kotaKab" name="kotaKab" required>
-                                    <option value="" disabled selected>Select city or district</option>
+                                <label for="kotaKab">City/District:</label>
+                                <select id="kotaKab" name="kotaKab">
+                                    <option value="" disabled selected>Select City/District</option>
                                 </select>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-primary" style="margin-top: 20px;">Submit</button>
                     </form>
                 </div>
             </div>
@@ -177,28 +181,37 @@ include 'connection.php';
                     });
                 });
 
-            const inputForm = document.getElementById('inputForm');
-            inputForm.addEventListener('submit', function(e) {
+            // In data.js or the script section of dataBapas.php
+            document.getElementById('inputForm').addEventListener('submit', function(e) {
                 e.preventDefault();
+
                 const formData = new FormData(this);
 
+                // Log form data before sending
+                console.log('Form data before sending:');
+                for (let pair of formData.entries()) {
+                    console.log(pair[0] + ': ' + pair[1]);
+                }
+
                 fetch('save_prisoner.php', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        alert(data.message);
-                        inputForm.reset();
-                    } else {
-                        alert('Error: ' + data.message);
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('An error occurred while saving the data. Please check the console for more information.');
-                });
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Server response:', data);
+                        if (data.success) {
+                            alert('Data saved successfully');
+                            this.reset();
+                        } else {
+                            alert('Error: ' + data.message);
+                            console.error('Error details:', data);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Fetch error:', error);
+                        alert('An error occurred while saving the data');
+                    });
             });
         });
 
