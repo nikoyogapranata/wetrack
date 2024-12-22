@@ -1,5 +1,29 @@
 <?php
-require __DIR__ . '/../../config/connection.php';  // Corrected path
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+session_start();
+require __DIR__ . '/../../config/connection.php';
+
+// Check if user is logged in
+if (!isset($_SESSION['user_id'])) {
+    header('Location: /wetrack/public/login-admin/index.php');
+    exit();
+}
+
+$user_id = $_SESSION['user_id'];
+
+// Fetch user information
+$query = "SELECT id, profile_picture FROM users WHERE id = ?";
+$stmt = $conn->prepare($query);
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$stmt->bind_result($id, $profile_picture);
+$stmt->fetch();
+$stmt->close();
+
+if (!$profile_picture) {
+    $profile_picture = '/wetrack/kemenkumham/Image/kemenkumham.png';
+}
 ?>
 
 <!DOCTYPE html>
@@ -55,9 +79,9 @@ require __DIR__ . '/../../config/connection.php';  // Corrected path
                 </ul>
             </nav>
             <div class="user-profile">
-                <img src="/wetrack/bapas/Image/bapas-logo.png" alt="Profile picture" width="40" height="40">
+                <img src="<?php echo $profile_picture; ?>" alt="Profile picture" width="40" height="40">
                 <div class="user-info">
-                    <h2>Serdy Fambo</h2>
+                    <h2><?php echo htmlspecialchars($id); ?></h2>
                     <p>Administrative Staff</p>
                 </div>
             </div>
@@ -80,24 +104,31 @@ require __DIR__ . '/../../config/connection.php';  // Corrected path
                     <table>
                         <thead>
                             <tr>
+                                <th></th>
                                 <th>No.</th>
                                 <th>Name</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                        <?php
-                            $result = mysqli_query($conn, "SELECT mn.id, mn.nama 
-                               FROM mantan_narapidana mn 
-                               LEFT JOIN final_report fr ON mn.nik = fr.nik AND mn.nrt = fr.nrt 
-                               WHERE fr.id IS NULL 
-                               ORDER BY mn.id ASC");
+                            <?php
+                            $result = mysqli_query($conn, "SELECT mn.id, mn.nama, mn.prisoner_type, 
+                            CASE 
+                                WHEN mn.prisoner_type = 'houseArrest' THEN CONCAT(mn.geofence_radius, ' km radius')
+                                WHEN mn.prisoner_type = 'cityPrisoner' THEN mn.city_district
+                                ELSE 'Not set'
+                            END AS geofence_info
+                            FROM mantan_narapidana mn 
+                            LEFT JOIN final_report fr ON mn.nik = fr.nik AND mn.nrt = fr.nrt 
+                            WHERE fr.id IS NULL AND mn.prisoner_type IS NOT NULL
+                            ORDER BY mn.id ASC");
                             $i = 1;
                             while ($row = mysqli_fetch_assoc($result)) {
                                 echo "<tr>";
+                                echo "<td><input type='checkbox' class='row-checkbox' data-id='" . $row['id'] . "'></td>";
                                 echo "<td>" . $i . "</td>";
                                 echo "<td>" . $row['nama'] . "</td>";
-                                echo "<td><button class='btn btn-action' data-id='" . $row['id'] . "'>Details</button> </td>";
+                                echo "<td><a href='data-napi.php?id=" . $row['id'] . "' class='btn btn-action'>Details</a></td>";
                                 echo "</tr>";
                                 $i++;
                             }
@@ -128,9 +159,10 @@ require __DIR__ . '/../../config/connection.php';  // Corrected path
                                 <label for="radiusFence">Geo-Fence Radius (km):</label>
                                 <input type="number" id="radiusFence" name="radiusFence" step="0.1" min="0" value="1">
                             </div>
-                            <div class="form-group"></div>
-                            <input type="hidden" id="centerLat" name="centerLat">
-                            <input type="hidden" id="centerLng" name="centerLng">
+                            <div class="form-group">
+                                <input type="hidden" id="centerLat" name="centerLat">
+                                <input type="hidden" id="centerLng" name="centerLng">
+                            </div>
                             <div id="map" class="form-group"></div>
                         </div>
                         <div id="cityPrisonerFields" style="display: none;">
@@ -154,6 +186,7 @@ require __DIR__ . '/../../config/connection.php';  // Corrected path
             const typePrisonerSelect = document.getElementById('typePrisoner');
             const houseArrestFields = document.getElementById('houseArrestFields');
             const cityPrisonerFields = document.getElementById('cityPrisonerFields');
+            const deleteBtn = document.getElementById('delete-btn');
 
             typePrisonerSelect.addEventListener('change', function() {
                 if (this.value === 'houseArrest') {
@@ -181,13 +214,18 @@ require __DIR__ . '/../../config/connection.php';  // Corrected path
                     });
                 });
 
-            // In data.js or the script section of dataBapas.php
             document.getElementById('inputForm').addEventListener('submit', function(e) {
                 e.preventDefault();
 
                 const formData = new FormData(this);
 
-                // Log form data before sending
+                // Add geofence data to formData
+                if (formData.get('typePrisoner') === 'houseArrest') {
+                    formData.append('centerLat', document.getElementById('centerLat').value);
+                    formData.append('centerLng', document.getElementById('centerLng').value);
+                    formData.append('radiusFence', document.getElementById('radiusFence').value);
+                }
+
                 console.log('Form data before sending:');
                 for (let pair of formData.entries()) {
                     console.log(pair[0] + ': ' + pair[1]);
@@ -203,6 +241,8 @@ require __DIR__ . '/../../config/connection.php';  // Corrected path
                         if (data.success) {
                             alert('Data saved successfully');
                             this.reset();
+                            // Refresh the page to show updated table
+                            window.location.reload();
                         } else {
                             alert('Error: ' + data.message);
                             console.error('Error details:', data);
@@ -212,6 +252,42 @@ require __DIR__ . '/../../config/connection.php';  // Corrected path
                         console.error('Fetch error:', error);
                         alert('An error occurred while saving the data');
                     });
+            });
+
+            // Add event listener for the delete button
+            deleteBtn.addEventListener('click', function() {
+                const selectedRows = document.querySelectorAll('.row-checkbox:checked');
+                if (selectedRows.length === 0) {
+                    alert('Please select at least one row to delete.');
+                    return;
+                }
+
+                if (confirm('Are you sure you want to delete the selected records?')) {
+                    const ids = Array.from(selectedRows).map(checkbox => checkbox.getAttribute('data-id'));
+
+                    fetch('delete_prisoner.php', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                ids: ids
+                            })
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                alert('Selected records deleted successfully');
+                                selectedRows.forEach(checkbox => checkbox.closest('tr').remove());
+                            } else {
+                                alert('Error: ' + data.message);
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            alert('An error occurred while deleting the records');
+                        });
+                }
             });
         });
 

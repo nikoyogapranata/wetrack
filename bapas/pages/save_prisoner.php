@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . '/../../config/connection.php';  // Corrected path
+require __DIR__ . '/../../config/connection.php';
 
 // Enable error reporting
 error_reporting(E_ALL);
@@ -45,9 +45,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $query = "UPDATE mantan_narapidana SET 
                  prisoner_type = ?,
-                 geofence_radius = ?,
-                 geofence_lat = ?,
-                 geofence_lng = ?,
+                 radiusFence = ?,
+                 centerLat = ?,
+                 centerLng = ?,
                  city_district = NULL
                  WHERE nik = ? AND nrt = ?";
                  
@@ -68,9 +68,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $query = "UPDATE mantan_narapidana SET 
                  prisoner_type = ?,
                  city_district = ?,
-                 geofence_radius = NULL,
-                 geofence_lat = NULL,
-                 geofence_lng = NULL
+                 radiusFence = NULL,
+                 centerLat = NULL,
+                 centerLng = NULL
                  WHERE nik = ? AND nrt = ?";
                  
         $stmt = $conn->prepare($query);
