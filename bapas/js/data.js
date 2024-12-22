@@ -57,55 +57,5 @@ document.addEventListener('DOMContentLoaded', function () {
     showInputBtn.addEventListener('click', showInput);
 
     showTable();
-
-    const inputForm = document.getElementById('inputForm');
-    const typePrisonerSelect = document.getElementById('typePrisoner');
-    const houseArrestFields = document.getElementById('houseArrestFields');
-    const cityPrisonerFields = document.getElementById('cityPrisonerFields');
-
-    if (inputForm && typePrisonerSelect) {
-        typePrisonerSelect.addEventListener('change', function() {
-            const selectedType = this.value;
-            console.log('Selected prisoner type:', selectedType);
-
-            if (selectedType === 'houseArrest') {
-                houseArrestFields.style.display = 'block';
-                cityPrisonerFields.style.display = 'none';
-            } else if (selectedType === 'cityPrisoner') {
-                houseArrestFields.style.display = 'none';
-                cityPrisonerFields.style.display = 'block';
-            } else {
-                houseArrestFields.style.display = 'none';
-                cityPrisonerFields.style.display = 'none';
-            }
-        });
-
-        inputForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const formData = new FormData(this);
-
-            fetch('save_prisoner.php', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert(data.message);
-                    inputForm.reset();
-                } else {
-                    alert('Error: ' + data.message);
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('An error occurred while saving the data. Please check the console for more information.');
-            });
-        });
-    }
-
-    document.getElementById("btn-details").addEventListener("click",function(){
-        window.location.href ="data-napi.html";
-    })
 });
 

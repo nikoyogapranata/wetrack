@@ -107,8 +107,6 @@ if (!$profile_picture) {
                                 <th></th>
                                 <th>No.</th>
                                 <th>Name</th>
-                                <th>Prisoner Type</th>
-                                <th>Geofence Info</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -131,8 +129,6 @@ if (!$profile_picture) {
                                 echo "<td><input type='checkbox' class='row-checkbox' data-id='" . $row['id'] . "'></td>";
                                 echo "<td>" . $i . "</td>";
                                 echo "<td>" . $row['nama'] . "</td>";
-                                echo "<td>" . $row['prisoner_type'] . "</td>";
-                                echo "<td>" . $row['geofence_info'] . "</td>";
                                 echo "<td><a href='data-napi.php?id=" . $row['id'] . "' class='btn btn-action'>Details</a></td>";
                                 echo "</tr>";
                                 $i++;

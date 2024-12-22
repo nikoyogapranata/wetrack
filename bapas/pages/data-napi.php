@@ -174,7 +174,10 @@ if (isset($_GET['id'])) {
                         </div>
                     </div>
                     <div class="info-section">
-                        <h2>Geofence Information</h2>
+                        <h2>Violation Report</h2>
+                    </div>
+                    <div class="info-section">
+                        <h2>Tracking Map</h2>
                         <div class="info-grid">
                             <div class="info-item">
                                 <label>Prisoner Type:</label>
@@ -192,13 +195,10 @@ if (isset($_GET['id'])) {
                                 </div>
                             <?php endif; ?>
                         </div>
-                    </div>
-                    <div class="info-section">
-                        <h2>Tracking Map</h2>
                         <div id="map" style="height: 400px;"></div>
+                        <button class="report-btn" id="report-btn" class="btn btn-danger">Report</button>
                     </div>
                 </div>
-            </div>
         </main>
     </div>
     <script>
@@ -211,23 +211,51 @@ if (isset($_GET['id'])) {
         var centerLng = <?php echo $prisoner_data['centerLng']; ?>;
         var radiusFence = <?php echo isset($prisoner_data['radiusFence']) ? $prisoner_data['radiusFence'] : 'null'; ?>;
 
-        if (centerLat && centerLng && radiusFence) {
-            var circle = L.circle([centerLat, centerLng], {
-                color: 'red',
-                fillColor: '#f03',
-                fillOpacity: 0.2,
-                radius: radiusFence * 1000 // Convert km to meters
-            }).addTo(map);
+        var circle, marker;
 
-            // Add a marker for the center point
-            var marker = L.marker([centerLat, centerLng]).addTo(map);
-            marker.bindPopup("Center of Geofence").openPopup();
+        function initMap() {
+            if (centerLat && centerLng && radiusFence) {
+                circle = L.circle([centerLat, centerLng], {
+                    color: 'red',
+                    fillColor: '#f03',
+                    fillOpacity: 0.2,
+                    radius: radiusFence * 1000 // Convert km to meters
+                }).addTo(map);
 
-            map.fitBounds(circle.getBounds());
-        } else {
-            console.log('No geofence data available for this prisoner');
-            map.setView([0, 0], 2); // Set a default view if no geofence data
+                marker = L.marker([centerLat, centerLng]).addTo(map);
+                marker.bindPopup("Current Location").openPopup();
+
+                map.fitBounds(circle.getBounds());
+            } else {
+                console.log('No geofence data available for this prisoner');
+                map.setView([0, 0], 2); // Set a default view if no geofence data
+            }
         }
+
+        function updateMarkerPosition(lat, lng) {
+            if (marker) {
+                marker.setLatLng([lat, lng]);
+                map.panTo([lat, lng]);
+            } else {
+                marker = L.marker([lat, lng]).addTo(map);
+            }
+            marker.bindPopup("Current Location").openPopup();
+        }
+
+        initMap();
+
+        // Socket.IO connection
+        const socket = io('http://localhost:3000');
+
+        socket.on('connect', () => {
+            console.log('Connected to Socket.IO server');
+            socket.emit('join', { nik: '<?php echo $prisoner_data["nik"]; ?>', nrt: '<?php echo $prisoner_data["nrt"]; ?>' });
+        });
+
+        socket.on('locationUpdate', (data) => {
+            console.log('Received location update:', data);
+            updateMarkerPosition(data.lat, data.lng);
+        });
     </script>
     <script src="/wetrack/bapas/js/map-socket.js"></script>
 </body>

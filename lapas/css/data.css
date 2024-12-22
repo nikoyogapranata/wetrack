@@ -295,6 +295,7 @@ body {
     background-color: #c82333;
 }
 
+
 .table-container {
     overflow-x: auto;
 }
@@ -362,12 +363,12 @@ textarea{
     padding-right: 2.5rem;
 }
 
-.delete-btn {
+.delete-btn, .report-btn {
     background-color: var(--danger-color);
     color: white;
 }
 
-.delete-btn:hover {
+.delete-btn, .report-btn:hover {
     background-color: #c0392b;
 }
 

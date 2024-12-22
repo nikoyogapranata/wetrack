@@ -312,6 +312,25 @@ body {
     letter-spacing: 1px;
 }
 
+.btn-danger, .report-btn {
+    background-color: #dc3545;
+    color: white;
+}
+
+.report-btn:hover {
+    background-color: #c82333;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    color: white;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+}
+
+
 /* Responsive Design */
 @media (max-width: 1024px) {
     .sidebar {
