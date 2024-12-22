@@ -15,3 +15,35 @@ Type: houseArrest
 House Arrest - Radius: 1, Lat: -7.7863772738267, Lng: 110.38466742829
 Data saved successfully
 Data saved successfully
+POST Data: Array
+(
+    [nik] => 00001
+    [nrt] => 00001
+    [typePrisoner] => houseArrest
+    [radiusFence] => 1
+    [centerLat] => -7.771274017735523
+    [centerLng] => 110.37333130158096
+)
+
+
+NIK: 00001
+NRT: 00001
+Type: houseArrest
+House Arrest - Radius: 1, Lat: -7.7712740177355, Lng: 110.37333130158
+Data saved successfully
+POST Data: Array
+(
+    [nik] => 00001
+    [nrt] => 00001
+    [typePrisoner] => houseArrest
+    [radiusFence] => 1
+    [centerLat] => -7.771274017735523
+    [centerLng] => 110.37333130158096
+)
+
+
+NIK: 00001
+NRT: 00001
+Type: houseArrest
+House Arrest - Radius: 1, Lat: -7.7712740177355, Lng: 110.37333130158
+Data saved successfully

@@ -1,12 +1,46 @@
 <?php
-require __DIR__ . '/../../config/connection.php';  // Corrected path
-if (isset($_GET['id'])) {
-    $id = $_GET['id'];
-    $result = mysqli_query($conn, "SELECT * FROM mantan_narapidana WHERE id = $id");
-    $row = mysqli_fetch_assoc($result);
-} else {
-    header("Location: dataBapas.php");
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+session_start();
+require __DIR__ . '/../../config/connection.php';
+
+// Check if user is logged in
+if (!isset($_SESSION['user_id'])) {
+    header('Location: /wetrack/public/login-admin/index.php');
     exit();
+}
+
+$user_id = $_SESSION['user_id'];
+
+// Fetch user information
+$query = "SELECT id, profile_picture FROM users WHERE id = ?";
+$stmt = $conn->prepare($query);
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$stmt->bind_result($id, $profile_picture);
+$stmt->fetch();
+$stmt->close();
+
+if (!$profile_picture) {
+    $profile_picture = '/wetrack/kemenkumham/Image/kemenkumham.png';
+}
+
+// Fetch ex-prisoner data
+if (isset($_GET['id'])) {
+    $prisoner_id = $_GET['id'];
+    $query = "SELECT * FROM mantan_narapidana WHERE id = ?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("i", $prisoner_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $prisoner_data = $result->fetch_assoc();
+    $stmt->close();
+
+    if (!$prisoner_data) {
+        die("No data found for this ID.");
+    }
+} else {
+    die("No ID provided.");
 }
 ?>
 
@@ -56,34 +90,29 @@ if (isset($_GET['id'])) {
                 </ul>
             </nav>
             <div class="user-profile">
-                <img src="/wetrack/bapas/Image/bapas-logo.png" alt="Profile picture" width="40" height="40">
+                <img src="<?php echo $profile_picture; ?>" alt="Profile picture" width="40" height="40">
                 <div class="user-info">
-                    <h2>Serdy Fambo</h2>
+                    <h2><?php echo htmlspecialchars($id); ?></h2>
                     <p>Administrative Staff</p>
                 </div>
             </div>
         </aside>
         <main class="content">
-            <?php
-            require 'connection.php';
-            $rows = mysqli_query($conn, "SELECT * FROM mantan_narapidana ORDER BY id DESC");
-            foreach ($rows as $row) :
-            ?>
             <div class="profile-card">
                 <div class="path-to-back">
                     <a href="/wetrack/bapas/pages/dataBapas.php"><i class="fas fa-arrow-left"></i></a>
                 </div>
                 <div class="profile-header">
-                    <img src="/wetrack/Bapas/Image/20240305.webp" alt="Profile Image" class="profile-image">
+                    <img src="<?php echo $prisoner_data['fileInput']; ?>" alt="Profile Image" class="profile-image">
                     <div class="profile-title">
                         <h1>
-                            <?php echo $row["nama"]; ?>
+                            <?php echo $prisoner_data["nama"]; ?>
                         </h1>
                         <p class="id-text">National ID Number:
-                            <?php echo $row["nik"]; ?>
+                            <?php echo $prisoner_data["nik"]; ?>
                         </p>
                         <p class="id-text">Prisoner Registration Number:
-                            <?php echo $row["nrt"]; ?>
+                            <?php echo $prisoner_data["nrt"]; ?>
                         </p>
                     </div>
                 </div>
@@ -95,65 +124,113 @@ if (isset($_GET['id'])) {
                             <div class="info-item">
                                 <label>Date of Birth:</label>
                                 <span>
-                                    <?php echo $row["dateBirth"]; ?>
+                                    <?php echo $prisoner_data["dateBirth"]; ?>
                                 </span>
                             </div>
                             <div class="info-item">
                                 <label>Address:</label>
                                 <span>
-                                    <?php echo $row["address"]; ?>
+                                    <?php echo $prisoner_data["address"]; ?>
                                 </span>
                             </div>
                             <div class="info-item">
                                 <label>Gender:</label>
                                 <span>
-                                    <?php echo $row["gender"]; ?>
+                                    <?php echo $prisoner_data["gender"]; ?>
                                 </span>
                             </div>
                             <div class="info-item">
                                 <label>Nationality:</label>
                                 <span>
-                                    <?php echo $row["nationality"]; ?>
+                                    <?php echo $prisoner_data["nationality"]; ?>
                                 </span>
                             </div>
                             <div class="info-item">
                                 <label>Type of Crime:</label>
                                 <span>
-                                    <?php echo $row["crime"]; ?>
+                                    <?php echo $prisoner_data["crime"]; ?>
                                 </span>
                             </div>
                             <div class="info-item">
                                 <label>Incident Report:</label>
                                 <span>
-                                    <?php echo $row["case"]; ?>
+                                    <?php echo $prisoner_data["case"]; ?>
                                 </span>
                             </div>
                             <div class="info-item">
                                 <label>Punishment Period:</label>
                                 <span>
-                                    <?php echo $row["punishment"]; ?>
+                                    <?php echo $prisoner_data["punishment"]; ?>
                                 </span>
                             </div>
                             <div class="info-item">
                                 <label>Release Date:</label>
                                 <span>
-                                    <?php echo $row["releaseDate"]; ?>
+                                    <?php echo $prisoner_data["releaseDate"]; ?>
                                 </span>
                             </div>
                         </div>
                     </div>
                     <div class="info-section">
                         <h2>Violation History</h2>
+                        <!-- Add violation history content here if available -->
+                    </div>
+                    <div class="info-section">
+                        <h2>Geofence Information</h2>
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <label>Prisoner Type:</label>
+                                <span><?php echo $prisoner_data["prisoner_type"]; ?></span>
+                            </div>
+                            <?php if ($prisoner_data["prisoner_type"] == "houseArrest"): ?>
+                                <div class="info-item">
+                                    <label>Geofence Radius:</label>
+                                    <span><?php echo isset($prisoner_data["radiusFence"]) ? $prisoner_data["radiusFence"] . " km" : "Not set"; ?></span>
+                                </div>
+                            <?php elseif ($prisoner_data["prisoner_type"] == "cityPrisoner"): ?>
+                                <div class="info-item">
+                                    <label>City/District:</label>
+                                    <span><?php echo $prisoner_data["city_district"]; ?></span>
+                                </div>
+                            <?php endif; ?>
+                        </div>
                     </div>
                     <div class="info-section">
                         <h2>Tracking Map</h2>
-                        <div class="map"></div>
+                        <div id="map" style="height: 400px;"></div>
                     </div>
                 </div>
             </div>
-            <?php endforeach; ?>
         </main>
     </div>
+    <script>
+        var map = L.map('map').setView([0, 0], 13);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        var centerLat = <?php echo $prisoner_data['centerLat']; ?>;
+        var centerLng = <?php echo $prisoner_data['centerLng']; ?>;
+        var radiusFence = <?php echo isset($prisoner_data['radiusFence']) ? $prisoner_data['radiusFence'] : 'null'; ?>;
+
+        if (centerLat && centerLng && radiusFence) {
+            var circle = L.circle([centerLat, centerLng], {
+                color: 'red',
+                fillColor: '#f03',
+                fillOpacity: 0.2,
+                radius: radiusFence * 1000 // Convert km to meters
+            }).addTo(map);
+
+            // Add a marker for the center point
+            var marker = L.marker([centerLat, centerLng]).addTo(map);
+            marker.bindPopup("Center of Geofence").openPopup();
+
+            map.fitBounds(circle.getBounds());
+        } else {
+            console.log('No geofence data available for this prisoner');
+            map.setView([0, 0], 2); // Set a default view if no geofence data
+        }
+    </script>
 </body>
 
 </html>
