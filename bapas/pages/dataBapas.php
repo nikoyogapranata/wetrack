@@ -1,5 +1,5 @@
 <?php
-include 'connection.php';
+require __DIR__ . '/../../config/connection.php';  // Corrected path
 ?>
 
 <!DOCTYPE html>

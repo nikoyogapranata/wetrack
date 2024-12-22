@@ -1,5 +1,5 @@
 <?php
-require 'connection.php';
+require __DIR__ . '/../../config/connection.php';  // Corrected path
 
 if(isset($_POST['nik'])) {
     $nik = $_POST['nik'];

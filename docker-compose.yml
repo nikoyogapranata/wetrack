@@ -1,5 +1,6 @@
+version: '3.8'
 services:
-  webserver:
+  web:
     build:
       context: .
       dockerfile: Dockerfile
@@ -8,23 +9,31 @@ services:
     volumes:
       - .:/var/www/html
     depends_on:
-      - database
+      db:
+        condition: service_healthy  # Ensure the DB is ready before starting the web server
     networks:
       - wetrack-network
-
-  database:
+    extra_hosts:
+      - "mywebsite.local:172.18.0.2"  # Replace this with the correct IP of the web container, dynamically obtained.
+  
+  db:
     image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password
     environment:
-      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"  # Allows empty root password
+      MYSQL_ROOT_PASSWORD: ''
       MYSQL_DATABASE: wetrack
-    ports:
-      - "3306:3306"  # Expose MySQL port
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
     volumes:
       - mysql_data:/var/lib/mysql
-      - ./wetrack.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./wetrack.sql:/docker-entrypoint-initdb.d/wetrack.sql
+    ports:
+      - "3306:3306"
     networks:
       - wetrack-network
-    command: --default-authentication-plugin=mysql_native_password  # Allows root user with empty password
+    healthcheck:  # Adding health check to ensure DB is ready before the web starts
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 5s
+      retries: 10
 
 networks:
   wetrack-network:

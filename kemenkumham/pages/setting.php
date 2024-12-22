@@ -1,9 +1,10 @@
 <?php
-// Include database connection
-include('connect.php'); // Adjust the path as needed
-
-// Assuming you have a session that holds the user ID (e.g., from login)
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 session_start();
+
+// Use an absolute path based on the server's document root
+require __DIR__ . '/../../config/connection.php';  // Corrected path
 $user_id = $_SESSION['user_id']; // Or any method you're using to store the logged-in user ID
 
 // Fetch user information from the database

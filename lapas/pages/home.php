@@ -1,5 +1,5 @@
 <?php
-require 'connection.php'; 
+require __DIR__ . '/../../config/connection.php';  // Corrected path
 require_once 'utils/activity_logger.php';
 
 // Function to log recent activity

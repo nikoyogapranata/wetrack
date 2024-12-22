@@ -1,5 +1,5 @@
 <?php
-require_once 'database.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/wetrack/config/connection.php';
 
 // SQL untuk membuat tabel mantan_narapidana
 $sql = "CREATE TABLE IF NOT EXISTS `mantan_narapidana` (

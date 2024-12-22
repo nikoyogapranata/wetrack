@@ -1,8 +1,9 @@
 <?php
-$servername = "localhost";
+$servername = "db";
 $username = "root";
-$password = "";
 $dbname = "wetrack";
+$password = "";
+
 
 // Create connection
 $conn = mysqli_connect($servername, $username, $password, $dbname);
@@ -17,4 +18,3 @@ if (!mysqli_select_db($conn, $dbname)) {
     die("Database selection failed: " . mysqli_error($conn));
 }
 ?>
-

@@ -124,8 +124,8 @@
             <h2 class="cta-heading">Access Your Dashboard Effortlessly</h2>
             <div class="cta-description">Admins can manage and monitor, while prisoners can stay updated with their
               profile and reports—log in to proceed.</div>
-            <div class="cta-button-container"><a href="/wetrack/public/login-admin/index.php" class="cta-button wide-cta w-button">I&#x27;m an Admin</a><a
-                href="/wetrack/public/login-prisoner/index.php" class="cta-button wide-cta w-button">I&#x27;m a Prisoner</a></div>
+            <div class="cta-button-container"><a href="/wetrack/public/login-admin" class="cta-button wide-cta w-button">I&#x27;m an Admin</a><a
+                href="/wetrack/public/login-prisoner" class="cta-button wide-cta w-button">I&#x27;m a Prisoner</a></div>
           </div>
         </div>
       </div>

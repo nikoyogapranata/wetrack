@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 21, 2024 at 10:04 AM
+-- Generation Time: Dec 21, 2024 at 02:26 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -65,6 +65,14 @@ CREATE TABLE `final_report` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `final_report`
+--
+
+INSERT INTO `final_report` (`id`, `nik`, `nrt`, `docInput`, `created_at`) VALUES
+(1, '78978979', '123189481', 'uploads/stakeholder-engagement-plan-template.pdf', '2024-12-19 19:04:06'),
+(2, '1234', '1234', 'uploads/WBS-Kelompok 4.xlsx - WBS with Gantt Chart - WETRACK.pdf', '2024-12-19 19:12:56');
+
 -- --------------------------------------------------------
 
 --
@@ -97,7 +105,16 @@ INSERT INTO `login_history` (`id`, `user_id`, `login_time`, `ip_address`) VALUES
 (17, 1000001, '2024-12-20 17:59:09', '::1'),
 (18, 1000001, '2024-12-21 04:16:05', '::1'),
 (19, 1000001, '2024-12-21 06:11:37', '::1'),
-(20, 1000001, '2024-12-21 06:39:34', '::1');
+(20, 1000001, '2024-12-21 06:39:34', '::1'),
+(21, 1000001, '2024-12-21 07:23:10', '::1'),
+(22, 1000001, '2024-12-21 10:29:43', '::1'),
+(23, 1000001, '2024-12-21 10:35:22', '::1'),
+(24, 1000001, '2024-12-21 11:00:29', '::1'),
+(25, 1300001, '2024-12-21 11:00:51', '::1'),
+(26, 1200001, '2024-12-21 11:01:32', '::1'),
+(27, 1200001, '2024-12-21 11:06:26', '::1'),
+(28, 1000001, '2024-12-21 11:08:16', '::1'),
+(29, 1100001, '2024-12-21 11:10:19', '::1');
 
 -- --------------------------------------------------------
 
@@ -107,23 +124,20 @@ INSERT INTO `login_history` (`id`, `user_id`, `login_time`, `ip_address`) VALUES
 
 CREATE TABLE `mantan_narapidana` (
   `id` int(11) NOT NULL,
-  `fileInput` varchar(255) NOT NULL,
-  `nik` varchar(16) NOT NULL,
-  `nrt` varchar(20) NOT NULL,
-  `nama` varchar(100) NOT NULL,
-  `dateBirth` date NOT NULL,
-  `address` text NOT NULL,
-  `gender` enum('male','female') NOT NULL,
-  `nationality` varchar(100) NOT NULL,
-  `crime` enum('TwA','Ot','Fraud','Assault','NO','Embezzlement','MvT','Robbery','Brawling') NOT NULL,
-  `case` text NOT NULL,
-  `punishment` varchar(100) NOT NULL,
-  `releaseDate` date NOT NULL,
-  `prisoner_type` enum('houseArrest','cityPrisoner') NOT NULL,
-  `geofence_radius` float DEFAULT NULL,
-  `geofence_lat` decimal(10,8) DEFAULT NULL,
-  `geofence_lng` decimal(11,8) DEFAULT NULL,
-  `city_district` varchar(100) DEFAULT NULL,
+  `fileInput` varchar(255) DEFAULT NULL,
+  `nik` varchar(20) DEFAULT NULL,
+  `nrt` varchar(20) DEFAULT NULL,
+  `nama` varchar(100) DEFAULT NULL,
+  `dateBirth` date DEFAULT NULL,
+  `address` text DEFAULT NULL,
+  `gender` enum('male','female') DEFAULT NULL,
+  `nationality` varchar(100) DEFAULT NULL,
+  `crime` enum('TwA','Ot','Fraud','Assault','NO','Embezzlement','MvT','Robbery','Brawling') DEFAULT NULL,
+  `case` text DEFAULT NULL,
+  `punishment` varchar(100) DEFAULT NULL,
+  `releaseDate` date DEFAULT NULL,
+  `report` text DEFAULT NULL,
+  `action` tinyint(1) DEFAULT NULL COMMENT '1 for accept, 0 for reject',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -131,11 +145,11 @@ CREATE TABLE `mantan_narapidana` (
 -- Dumping data for table `mantan_narapidana`
 --
 
-INSERT INTO `mantan_narapidana` (`id`, `fileInput`, `nik`, `nrt`, `nama`, `dateBirth`, `address`, `gender`, `nationality`, `crime`, `case`, `punishment`, `releaseDate`, `prisoner_type`, `geofence_radius`, `geofence_lat`, `geofence_lng`, `city_district`, `created_at`) VALUES
-(1, 'uploads/nanti-diganti.png', '892189', '123141', 'yanto', '2024-12-03', 'jakal', 'male', 'Jamaica', 'Embezzlement', 'tersangka', '5 years', '2028-12-06', 'cityPrisoner', 0, 0.00000000, 0.00000000, 'Kabupaten Sleman', '2024-12-18 15:53:43'),
-(2, 'uploads/nanti-diganti.png', '1245', '66666', 'jokowi', '2013-06-30', 'solo', 'male', 'Indonesia', 'NO', 'pengedar', '100000 years', '2047-05-27', 'cityPrisoner', 0, 0.00000000, 0.00000000, 'Kabupaten Sleman', '2024-12-18 15:55:37'),
-(3, 'uploads/lapas-logo.png', '1234', '1234', 'anjay', '2024-12-18', 'kepo', 'male', 'Indonesia', 'Assault', 'nusuk', '10000', '2024-12-19', 'houseArrest', 1, -7.78637727, 110.38466743, NULL, '2024-12-19 00:00:21'),
-(4, 'uploads/lapas-logo.png', '78978979', '123189481', 'Joko', '2002-02-28', 'Jl. Jakal', 'male', 'Belgium', 'NO', 'Pengedar', '100 Years', '2025-01-22', 'cityPrisoner', 0, 0.00000000, 0.00000000, 'Kabupaten Sleman', '2024-12-19 03:09:25');
+INSERT INTO `mantan_narapidana` (`id`, `fileInput`, `nik`, `nrt`, `nama`, `dateBirth`, `address`, `gender`, `nationality`, `crime`, `case`, `punishment`, `releaseDate`, `report`, `action`, `created_at`) VALUES
+(1, 'uploads/nanti-diganti.png', '892189', '123141', 'yanto', '2024-12-03', 'jakal', 'male', 'Jamaica', 'Embezzlement', 'tersangka', '5 years', '2028-12-06', NULL, NULL, '2024-12-18 15:53:43'),
+(2, 'uploads/nanti-diganti.png', '1245', '66666', 'jokowi', '2013-06-30', 'solo', 'male', 'Indonesia', 'NO', 'pengedar', '100000 years', '2047-05-27', NULL, NULL, '2024-12-18 15:55:37'),
+(3, 'uploads/lapas-logo.png', '1234', '1234', 'anjay', '2024-12-18', 'kepo', 'male', 'Indonesia', 'Assault', 'nusuk', '10000', '2024-12-19', NULL, NULL, '2024-12-19 00:00:21'),
+(4, 'uploads/lapas-logo.png', '78978979', '123189481', 'Joko', '2002-02-28', 'Jl. Jakal', 'male', 'Belgium', 'NO', 'Pengedar', '100 Years', '2025-01-22', NULL, NULL, '2024-12-19 03:09:25');
 
 -- --------------------------------------------------------
 
@@ -156,27 +170,16 @@ CREATE TABLE `recent_activities` (
 
 INSERT INTO `recent_activities` (`id`, `action_type`, `action_description`, `created_at`) VALUES
 (1, 'report', 'Final report created for NRT: 66666', '2024-12-19 19:45:21'),
-(2, 'account_creation', 'New Lapas account created: Ardel', '2024-12-20 15:27:39'),
-(3, 'account_creation', 'New Lapas account created: Ardel', '2024-12-20 15:32:11'),
-(4, 'account_creation', 'New Lapas account created: Ardel', '2024-12-20 15:32:20'),
-(5, 'account_creation', 'New Lapas account created: Ardel', '2024-12-20 15:35:19'),
-(6, 'account_creation', 'New Lapas account created: abdul', '2024-12-20 15:36:33'),
-(7, 'account_creation', 'New Bapas account created: Ardel', '2024-12-20 15:42:19'),
-(8, 'account_creation', 'New Polri account created: Ardel', '2024-12-20 15:42:44'),
-(9, 'account_creation', 'New Polri account created: Ardel', '2024-12-20 16:19:10'),
-(10, 'account_creation', 'New Polri account created: Ardel', '2024-12-20 16:20:20'),
-(11, 'account_creation', 'New Polri account created: Ardel', '2024-12-20 16:20:31'),
-(12, 'account_creation', 'New Bapas account created: abdul', '2024-12-20 16:21:21'),
-(13, 'account_creation', 'New Bapas account created: abdul', '2024-12-20 16:21:25'),
-(14, 'account_creation', 'New Bapas account created: abdul', '2024-12-20 16:23:28'),
-(15, 'account_creation', 'New Bapas account created: abdul', '2024-12-20 16:23:54'),
-(16, 'account_creation', 'New Bapas account created: awiawko', '2024-12-20 16:24:46'),
-(17, 'account_creation', 'New Polri account created: awiawko', '2024-12-20 16:29:07'),
-(18, 'account_creation', 'New Polri account created: abdul', '2024-12-20 16:31:50'),
-(19, 'account_creation', 'New Polri account created: awikwik', '2024-12-20 17:08:07'),
-(20, 'account_creation', 'New Polri account created: abdul qadir', '2024-12-20 18:00:14'),
-(21, 'account_creation', 'New Polri account created: King ABDUL', '2024-12-21 03:38:25'),
-(22, 'account_creation', 'New Polri account created: Ardel', '2024-12-21 06:30:34');
+(23, 'account_creation', 'New Lapas account created: Ardelia Putri Eka Rahmawati', '2024-12-21 06:48:42'),
+(24, 'account_creation', 'New Bapas account created: Abdul Qadir Abdurrahman Mahrus', '2024-12-21 06:49:51'),
+(25, 'account_creation', 'New Polri account created: Mohammad Rafi Hendryansyah', '2024-12-21 06:51:53'),
+(26, 'account_creation', 'New Lapas account created: Ardelia Putri Eka Rahmawati', '2024-12-21 11:10:03'),
+(27, 'alert_rejected', 'Alert ID #3 () was rejected - Subject: rafi', '2024-12-21 13:17:56'),
+(28, 'alert_rejected', 'Alert ID #6 () was rejected - Subject: ardel ganteng 20 dec', '2024-12-21 13:18:11'),
+(29, 'alert_accepted', 'Alert ID #5 for Ardel ganteng was accepted', '2024-12-21 13:22:29'),
+(30, 'alert_rejected', 'Alert ID #2 for niko was rejected', '2024-12-21 13:22:40'),
+(31, 'alert_accepted', 'Alert ID #1 for nama was accepted', '2024-12-21 13:22:42'),
+(32, 'alert_rejected', 'Alert ID #4 for nama was rejected', '2024-12-21 13:24:15');
 
 -- --------------------------------------------------------
 
@@ -214,7 +217,10 @@ INSERT INTO `users` (`id`, `profile_picture`, `nip`, `full_name`, `place_of_birt
 (1000002, '/wetrack/kemenkumham/image/kemenkumham.png', NULL, NULL, NULL, NULL, NULL, NULL, 'Kemenkumham', NULL, NULL, NULL, 'Active', NULL, '2024-12-20 14:16:42', NULL, '$2y$10$w/r8735TfDv0HBUOz5pkmedxSWYZjq/LDcWe4GzOXy/I5T1LWeLlu', NULL),
 (1000003, '/wetrack/kemenkumham/image/kemenkumham.png', NULL, NULL, NULL, NULL, NULL, NULL, 'Kemenkumham', NULL, NULL, NULL, 'Active', NULL, '2024-12-20 14:16:42', NULL, '$2y$10$w/r8735TfDv0HBUOz5pkmedxSWYZjq/LDcWe4GzOXy/I5T1LWeLlu', NULL),
 (1000004, '/wetrack/kemenkumham/image/kemenkumham.png', NULL, NULL, NULL, NULL, NULL, NULL, 'Kemenkumham', NULL, NULL, NULL, 'Active', NULL, '2024-12-20 14:16:42', NULL, '$2y$10$w/r8735TfDv0HBUOz5pkmedxSWYZjq/LDcWe4GzOXy/I5T1LWeLlu', NULL),
-(1000005, '/wetrack/kemenkumham/image/kemenkumham.png', NULL, NULL, NULL, NULL, NULL, NULL, 'Kemenkumham', NULL, NULL, NULL, 'Active', NULL, '2024-12-20 14:16:42', NULL, '$2y$10$w/r8735TfDv0HBUOz5pkmedxSWYZjq/LDcWe4GzOXy/I5T1LWeLlu', NULL);
+(1000005, '/wetrack/kemenkumham/image/kemenkumham.png', NULL, NULL, NULL, NULL, NULL, NULL, 'Kemenkumham', NULL, NULL, NULL, 'Active', NULL, '2024-12-20 14:16:42', NULL, '$2y$10$w/r8735TfDv0HBUOz5pkmedxSWYZjq/LDcWe4GzOXy/I5T1LWeLlu', NULL),
+(1100001, '/wetrack/kemenkumham/uploads/6766a20b55102.jpg', '199008172020041001', 'Ardelia Putri Eka Rahmawati', 'Sleman, Yogyakarta', '2005-03-22', 'Islam', 'Condongcatur', 'Lapas', 'ardel@gmail.com', '081111111111', 'Sleman, Yogyakarta', 'Active', 1000001, '2024-12-21 11:10:03', 'Head of Administrator', '$2y$10$5xrUGidtFUKUtKSUYqoeC.gQ7QmrFKOLUhMkUMshDsNPlo.Tda2Ki', 'Female'),
+(1200001, '/wetrack/kemenkumham/uploads/6766650f98ba2.webp', '199008172020041001	', 'Abdul Qadir Abdurrahman Mahrus', 'Sleman, Yogyakarta', '2005-01-01', 'Islam', 'Condongcatur', 'Bapas', 'abdul@gmail.com', '081111111111', 'Sleman, Yogyakarta', 'Active', 1000001, '2024-12-21 06:49:51', 'Head of Administrator', '$2y$10$.qg3t61xFN1Z598thzY0D.rxr.uXvNwnN4QuaxWRS2nO6JyogipJ6', 'Male'),
+(1300001, '/wetrack/kemenkumham/uploads/6766658938907.webp', '199008172020041001', 'Mohammad Rafi Hendryansyah', 'Sleman, Yogyakarta', '2005-01-01', 'Islam', 'Condongcatur', 'Polri', 'rafi@gmail.com', '081111111111', 'Sleman, Yogyakarta', 'Active', 1000001, '2024-12-21 06:51:53', 'Head of Administrator', '$2y$10$xcYWDrCf7.wJI1E2e0O.XOOkj1yZ7fkZJyHeYPkwAEFzw4rochlXm', 'Male');
 
 --
 -- Indexes for dumped tables
@@ -274,13 +280,13 @@ ALTER TABLE `data_polri`
 -- AUTO_INCREMENT for table `final_report`
 --
 ALTER TABLE `final_report`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `login_history`
 --
 ALTER TABLE `login_history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `mantan_narapidana`
@@ -292,7 +298,7 @@ ALTER TABLE `mantan_narapidana`
 -- AUTO_INCREMENT for table `recent_activities`
 --
 ALTER TABLE `recent_activities`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- Constraints for dumped tables
@@ -302,7 +308,7 @@ ALTER TABLE `recent_activities`
 -- Constraints for table `final_report`
 --
 ALTER TABLE `final_report`
-  ADD CONSTRAINT `fk_final_reports_mantan_narapidana` FOREIGN KEY (`nik`,`nrt`) REFERENCES `mantan_narapidana` (`nik`, `nrt`);
+  ADD CONSTRAINT `final_report_ibfk_1` FOREIGN KEY (`nik`,`nrt`) REFERENCES `mantan_narapidana` (`nik`, `nrt`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `login_history`

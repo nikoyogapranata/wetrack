@@ -1,6 +1,9 @@
 <?php
 session_start(); // Start the session
-require_once 'config.php'; // Include your database configuration
+require __DIR__ . '/../../config/connection.php';  // Corrected path
+
+
+
 
 // Check if the form is submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -11,9 +14,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($id && $password) {
         try {
             // Prepare SQL statement to find the user by ID
-            $stmt = $pdo->prepare("SELECT * FROM users WHERE id = ?");
-            $stmt->execute([$id]); // Execute the query with the provided ID
-            $user = $stmt->fetch(); // Fetch the user data
+            $stmt = mysqli_prepare($conn, "SELECT * FROM users WHERE id = ?");
+            mysqli_stmt_bind_param($stmt, "i", $id); // Bind parameter
+            mysqli_stmt_execute($stmt); // Execute the query
+
+            // Fetch user data
+            $result = mysqli_stmt_get_result($stmt);
+            $user = mysqli_fetch_assoc($result);
 
             // Check if the user exists and if the password is correct
             if ($user && password_verify($password, $user['password'])) {
@@ -25,8 +32,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $user_ip = $_SERVER['REMOTE_ADDR'];
 
                 // Log the login attempt
-                $stmt = $pdo->prepare("INSERT INTO login_history (user_id, ip_address) VALUES (?, ?)");
-                $stmt->execute([$user['id'], $user_ip]);
+                $stmt = mysqli_prepare($conn, "INSERT INTO login_history (user_id, ip_address) VALUES (?, ?)");
+                mysqli_stmt_bind_param($stmt, "is", $user['id'], $user_ip);
+                mysqli_stmt_execute($stmt);
 
                 // Get the first two digits of the ID to determine the redirect
                 $id_prefix = substr($user['id'], 0, 2);
@@ -59,9 +67,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // If credentials are incorrect
                 $error = 'Invalid credentials';
             }
-        } catch (PDOException $e) {
+        } catch (Exception $e) {
             // Catch database connection errors
-            $error = 'Database error: ' . $e->getMessage();
+            $error = 'Error: ' . $e->getMessage();
         }
     } else {
         // If either ID or password is missing

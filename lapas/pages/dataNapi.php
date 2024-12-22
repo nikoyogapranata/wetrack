@@ -1,5 +1,5 @@
 <?php
-require 'connection.php';
+require __DIR__ . '/../../config/connection.php';  // Corrected path
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
     $result = mysqli_query($conn, "SELECT * FROM mantan_narapidana WHERE id = $id");

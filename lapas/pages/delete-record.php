@@ -1,5 +1,6 @@
 <?php
-require 'connection.php';
+require __DIR__ . '/../../config/connection.php';  // Corrected path
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
     $id = $_GET['id'];

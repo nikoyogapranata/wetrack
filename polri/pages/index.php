@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once "../config/database.php";
+require __DIR__ . '/../../config/connection.php';  // Corrected path
 
 $page = isset($_GET['page']) ? $_GET['page'] : 'dashboard';
 
@@ -72,8 +72,6 @@ define('BASE_PATH', dirname(__FILE__));
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Popper.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
-    <!-- Custom Scripts -->
-    <script src="/wetrack/polri/assets/js/scripts.js"></script>
     <!-- Database Specific JS -->
     <?php if ($page === 'database'): ?>
     <script src="/wetrack/polri/assets/js/database.js"></script>

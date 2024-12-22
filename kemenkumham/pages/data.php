@@ -1,6 +1,10 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 session_start();
-include('connect.php');
+
+// Use an absolute path based on the server's document root
+require __DIR__ . '/../../config/connection.php';  // Corrected path
 
 $user_id = $_SESSION['user_id'];
 // Fetch user information

@@ -1,4 +1,5 @@
 <?php
 session_start();
-require_once "../../config/database.php";
+require __DIR__ . '/../../config/connection.php';  // Corrected path
+
 ?>

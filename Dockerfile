@@ -1,48 +1,47 @@
-FROM php:8.1-apache
+# Use PHP 8.0 with Apache as base image
+FROM php:8.0-apache
 
-# Install system dependencies
+# Install system dependencies and dnsmasq
 RUN apt-get update && apt-get install -y \
     libpng-dev \
     libjpeg-dev \
     libfreetype6-dev \
     zip \
     unzip \
-    git \
-    curl \
-    libxml2-dev \
-    libzip-dev
+    dnsmasq && \
+    rm -rf /var/lib/apt/lists/*  # Clean up unnecessary files to reduce image size
 
-# Install PHP extensions
-RUN docker-php-ext-configure gd --with-freetype --with-jpeg
-RUN docker-php-ext-install -j$(nproc) \
-    gd \
-    mysqli \
-    pdo \
-    pdo_mysql \
-    zip \
-    xml
+# Install PHP extensions for GD, PDO, and MySQL support
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg && \
+    docker-php-ext-install pdo pdo_mysql mysqli gd
 
 # Enable Apache modules
-RUN a2enmod rewrite
-RUN a2enmod headers
+RUN a2enmod rewrite env
 
-# Set working directory
+# Set working directory for the application
 WORKDIR /var/www/html
 
-# Copy application files
-COPY . /var/www/html/
-
-# Set permissions
-RUN chown -R www-data:www-data /var/www/html
-RUN chmod -R 755 /var/www/html
-RUN chmod -R 777 /var/www/html/uploads
-
-# Configure Apache
-COPY apache2.conf /etc/apache2/sites-available/000-default.conf
+# Copy custom Apache configuration
+COPY apache-config.conf /etc/apache2/sites-available/000-default.conf
 RUN a2ensite 000-default.conf
 
+# Copy application files into the container
+COPY . /var/www/html/
 
+# Set proper permissions for the web files
+RUN chown -R www-data:www-data /var/www/html && \
+    chmod -R 755 /var/www/html
 
-# Configure PHP
-RUN echo "upload_max_filesize = 64M" > /usr/local/etc/php/conf.d/uploads.ini
-RUN echo "post_max_size = 64M" >> /usr/local/etc/php/conf.d/uploads.ini
+# Copy dnsmasq configuration file (assuming you have this file ready)
+COPY dnsmasq.conf /etc/dnsmasq.conf
+
+# Copy custom entrypoint script
+COPY start.sh /usr/local/bin/start.sh
+RUN chmod +x /usr/local/bin/start.sh
+
+# Set entrypoint to start dnsmasq and Apache
+ENTRYPOINT ["/usr/local/bin/start.sh"]
+
+# Expose necessary ports (HTTP and DNS)
+EXPOSE 80 53/udp
+

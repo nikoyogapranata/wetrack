@@ -1,9 +1,10 @@
 <?php
-// Include database connection
-include('connect.php'); // Adjust the path as needed
-
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 session_start();
-$user_id = $_SESSION['user_id'];
+
+// Use an absolute path based on the server's document root
+require __DIR__ . '/../../config/connection.php';  // Corrected path
 
 // Check if the form is submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {

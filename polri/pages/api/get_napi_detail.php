@@ -1,11 +1,14 @@
 <?php
-require_once '../../config/database.php';
+require __DIR__ . '/../../config/connection.php';  // Corrected path
+
 
 // Set header as JSON
 header('Content-Type: application/json');
 
 if (isset($_GET['id'])) {
     $id = mysqli_real_escape_string($conn, $_GET['id']);
+
+
     
     $query = "SELECT * FROM data_polri WHERE id = '$id'";
     $result = mysqli_query($conn, $query);

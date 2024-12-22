@@ -1,5 +1,5 @@
 <?php
-include 'connection.php';
+require __DIR__ . '/../../config/connection.php';  // Corrected path
 
 // Enable error reporting
 error_reporting(E_ALL);
