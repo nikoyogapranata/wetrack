@@ -107,20 +107,23 @@ if (!$profile_picture) {
                                 <th></th>
                                 <th>No.</th>
                                 <th>Name</th>
+                                <th>Prisoner Type</th>
+                                <th>Geofence Info</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php
-                            $result = mysqli_query($conn, "SELECT mn.id, mn.nama, mn.prisoner_type, 
+                            $result = mysqli_query($conn, "SELECT mn.id, mn.nama, pg.prisoner_type, 
                             CASE 
-                                WHEN mn.prisoner_type = 'houseArrest' THEN CONCAT(mn.geofence_radius, ' km radius')
-                                WHEN mn.prisoner_type = 'cityPrisoner' THEN mn.city_district
+                                WHEN pg.prisoner_type = 'houseArrest' THEN CONCAT(pg.radiusFence, ' km radius')
+                                WHEN pg.prisoner_type = 'cityPrisoner' THEN pg.city_district
                                 ELSE 'Not set'
                             END AS geofence_info
                             FROM mantan_narapidana mn 
+                            INNER JOIN prisoner_geofence pg ON mn.nik = pg.nik AND mn.nrt = pg.nrt 
                             LEFT JOIN final_report fr ON mn.nik = fr.nik AND mn.nrt = fr.nrt 
-                            WHERE fr.id IS NULL AND mn.prisoner_type IS NOT NULL
+                            WHERE fr.id IS NULL
                             ORDER BY mn.id ASC");
                             $i = 1;
                             while ($row = mysqli_fetch_assoc($result)) {
@@ -128,6 +131,8 @@ if (!$profile_picture) {
                                 echo "<td><input type='checkbox' class='row-checkbox' data-id='" . $row['id'] . "'></td>";
                                 echo "<td>" . $i . "</td>";
                                 echo "<td>" . $row['nama'] . "</td>";
+                                echo "<td>" . $row['prisoner_type'] . "</td>";
+                                echo "<td>" . $row['geofence_info'] . "</td>";
                                 echo "<td><a href='data-napi.php?id=" . $row['id'] . "' class='btn btn-action'>Details</a></td>";
                                 echo "</tr>";
                                 $i++;
@@ -226,22 +231,15 @@ if (!$profile_picture) {
                     formData.append('radiusFence', document.getElementById('radiusFence').value);
                 }
 
-                console.log('Form data before sending:');
-                for (let pair of formData.entries()) {
-                    console.log(pair[0] + ': ' + pair[1]);
-                }
-
                 fetch('save_prisoner.php', {
                         method: 'POST',
                         body: formData
                     })
                     .then(response => response.json())
                     .then(data => {
-                        console.log('Server response:', data);
                         if (data.success) {
                             alert('Data saved successfully');
                             this.reset();
-                            // Refresh the page to show updated table
                             window.location.reload();
                         } else {
                             alert('Error: ' + data.message);

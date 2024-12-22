@@ -5,22 +5,14 @@ require __DIR__ . '/../../config/connection.php';
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// Log incoming data
-$logFile = "debug_log.txt";
-file_put_contents($logFile, "POST Data: " . print_r($_POST, true) . "\n\n", FILE_APPEND);
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nik = $_POST['nik'];
     $nrt = $_POST['nrt'];
     $typePrisoner = $_POST['typePrisoner'];
 
-    // Log the received values
-    file_put_contents($logFile, "NIK: $nik\nNRT: $nrt\nType: $typePrisoner\n", FILE_APPEND);
-
-    // Check if NIK and NRT exist
+    // Check if NIK and NRT exist in mantan_narapidana table
     $stmt = $conn->prepare("SELECT * FROM mantan_narapidana WHERE nik = ? AND nrt = ?");
     if (!$stmt) {
-        file_put_contents($logFile, "Prepare Error: " . $conn->error . "\n", FILE_APPEND);
         echo json_encode(["success" => false, "message" => "Database error: " . $conn->error]);
         exit;
     }
@@ -30,65 +22,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $result = $stmt->get_result();
 
     if ($result->num_rows == 0) {
-        file_put_contents($logFile, "No matching record found\n", FILE_APPEND);
-        echo json_encode(["success" => false, "message" => "No matching record found"]);
+        echo json_encode(["success" => false, "message" => "No matching record found in mantan_narapidana"]);
         exit;
     }
 
-    if ($typePrisoner == 'houseArrest') {
-        $radiusFence = isset($_POST['radiusFence']) ? floatval($_POST['radiusFence']) : null;
-        $centerLat = isset($_POST['centerLat']) ? floatval($_POST['centerLat']) : null;
-        $centerLng = isset($_POST['centerLng']) ? floatval($_POST['centerLng']) : null;
+    // Check if a record already exists in prisoner_geofence
+    $stmt = $conn->prepare("SELECT * FROM prisoner_geofence WHERE nik = ? AND nrt = ?");
+    $stmt->bind_param("ss", $nik, $nrt);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-        // Log house arrest values
-        file_put_contents($logFile, "House Arrest - Radius: $radiusFence, Lat: $centerLat, Lng: $centerLng\n", FILE_APPEND);
-
-        $query = "UPDATE mantan_narapidana SET 
-                 prisoner_type = ?,
-                 radiusFence = ?,
-                 centerLat = ?,
-                 centerLng = ?,
-                 city_district = NULL
-                 WHERE nik = ? AND nrt = ?";
-                 
-        $stmt = $conn->prepare($query);
-        if (!$stmt) {
-            file_put_contents($logFile, "Prepare Error: " . $conn->error . "\n", FILE_APPEND);
-            echo json_encode(["success" => false, "message" => "Prepare error: " . $conn->error]);
-            exit;
-        }
-
-        $stmt->bind_param("sdddss", $typePrisoner, $radiusFence, $centerLat, $centerLng, $nik, $nrt);
-    } else if ($typePrisoner == 'cityPrisoner') {
-        $kotaKab = $_POST['kotaKab'];
-        
-        // Log city prisoner values
-        file_put_contents($logFile, "City Prisoner - City: $kotaKab\n", FILE_APPEND);
-
-        $query = "UPDATE mantan_narapidana SET 
-                 prisoner_type = ?,
-                 city_district = ?,
-                 radiusFence = NULL,
-                 centerLat = NULL,
-                 centerLng = NULL
-                 WHERE nik = ? AND nrt = ?";
-                 
-        $stmt = $conn->prepare($query);
-        $stmt->bind_param("ssss", $typePrisoner, $kotaKab, $nik, $nrt);
-    }
-
-    if (!$stmt->execute()) {
-        file_put_contents($logFile, "Execute Error: " . $stmt->error . "\n", FILE_APPEND);
-        echo json_encode([
-            "success" => false,
-            "message" => "Execute error: " . $stmt->error,
-            "debug" => $_POST
-        ]);
+    if ($result->num_rows > 0) {
+        echo json_encode(["success" => false, "message" => "Geofence data already exists for this prisoner"]);
         exit;
     }
 
-    echo json_encode(["success" => true, "message" => "Data saved successfully"]);
-    file_put_contents($logFile, "Data saved successfully\n", FILE_APPEND);
+    // Prepare data for insertion
+    $radiusFence = ($typePrisoner == 'houseArrest') ? floatval($_POST['radiusFence']) : null;
+    $centerLat = ($typePrisoner == 'houseArrest') ? floatval($_POST['centerLat']) : null;
+    $centerLng = ($typePrisoner == 'houseArrest') ? floatval($_POST['centerLng']) : null;
+    $city_district = ($typePrisoner == 'cityPrisoner') ? $_POST['kotaKab'] : null;
+
+    // Insert new record
+    $query = "INSERT INTO prisoner_geofence (nik, nrt, prisoner_type, radiusFence, centerLat, centerLng, city_district) 
+              VALUES (?, ?, ?, ?, ?, ?, ?)";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("sssddds", $nik, $nrt, $typePrisoner, $radiusFence, $centerLat, $centerLng, $city_district);
+
+    if ($stmt->execute()) {
+        echo json_encode(["success" => true, "message" => "Data saved successfully"]);
+    } else {
+        echo json_encode(["success" => false, "message" => "Error saving data: " . $stmt->error]);
+    }
 
     $stmt->close();
     $conn->close();

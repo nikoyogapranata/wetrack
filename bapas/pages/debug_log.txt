@@ -240,3 +240,25 @@ NIK: 2
 NRT: 2
 Type: cityPrisoner
 City Prisoner - City: Kabupaten Sleman
+POST Data: Array
+(
+    [nik] => 1
+    [nrt] => 1
+    [typePrisoner] => cityPrisoner
+    [radiusFence] => 1
+    [centerLat] => 
+    [centerLng] => 
+    [kotaKab] => Kabupaten Sleman
+)
+
+
+NIK: 1
+NRT: 1
+Type: cityPrisoner
+NIK: 1
+NRT: 1
+Type: cityPrisoner
+City Prisoner - City: Kabupaten Sleman
+City Prisoner - City: Kabupaten Sleman
+Data saved successfully
+Data saved successfully

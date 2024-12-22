@@ -1,42 +1,28 @@
-let map, circle, geocoder;
+// Establish Socket.IO connection
+const socket = io('http://localhost:3000');
 
-function initMap() {
-    map = L.map('map').setView([-7.7956, 110.3695], 10);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© OpenStreetMap contributors'
-    }).addTo(map);
+socket.on('connect', () => {
+  console.log('Connected to Socket.IO server');
+});
 
-    geocoder = L.Control.geocoder({
-        defaultMarkGeocode: false,
-        placeholder: 'Search address...',
-        geocoder: L.Control.Geocoder.nominatim()
-    }).on('markgeocode', function(e) {
-        updateGeofence(e.geocode.center);
-    }).addTo(map);
-
-    map.on('click', function(e) {
-        updateGeofence(e.latlng);
-    });
-
-    document.getElementById('radiusFence').addEventListener('input', function() {
-        if (circle) {
-            updateGeofence(circle.getLatLng());
-        }
-    });
+// Function to send location update
+function sendLocationUpdate(lat, lng, nik, nrt) {
+  socket.emit('sendLocation', { lat, lng, nik, nrt });
 }
 
-function updateGeofence(latlng) {
-    const radius = parseFloat(document.getElementById('radiusFence').value) * 1000; // Convert km to meters
+// Listen for location updates
+socket.on('locationUpdate', (data) => {
+  // Update the map with the new location
+  if (typeof updateMarkerPosition === 'function') {
+    updateMarkerPosition(data.lat, data.lng);
+  }
+});
 
-    if (circle) {
-        map.removeLayer(circle);
-    }
+// Example usage (you would call this function when you have a new location)
+// sendLocationUpdate(-6.2088, 106.8456, '1234567890', 'NRT12345');
 
-    circle = L.circle(latlng, {radius: radius}).addTo(map);
-    
-    // Update hidden form fields with more precise values
-    document.getElementById('centerLat').value = latlng.lat;
-    document.getElementById('centerLng').value = latlng.lng;
+// You can call this function whenever you need to update the prisoner's location
+// For example, you might call it periodically or when receiving GPS data from a tracking device
 
-    map.setView(latlng);
-}
+// Make sure to replace the latitude, longitude, NIK, and NRT with actual values
+

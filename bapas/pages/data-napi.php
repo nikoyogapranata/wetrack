@@ -28,7 +28,10 @@ if (!$profile_picture) {
 // Fetch ex-prisoner data
 if (isset($_GET['id'])) {
     $prisoner_id = $_GET['id'];
-    $query = "SELECT * FROM mantan_narapidana WHERE id = ?";
+    $query = "SELECT mn.*, pg.prisoner_type, pg.radiusFence, pg.centerLat, pg.centerLng, pg.city_district 
+              FROM mantan_narapidana mn 
+              LEFT JOIN prisoner_geofence pg ON mn.nik = pg.nik AND mn.nrt = pg.nrt 
+              WHERE mn.id = ?";
     $stmt = $conn->prepare($query);
     $stmt->bind_param("i", $prisoner_id);
     $stmt->execute();
@@ -56,12 +59,11 @@ if (isset($_GET['id'])) {
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="icon" href="/wetrack/bapas/Image/wetrack-logo-white.png" type="Image/x-icon">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Parkinsans:wght@300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300..700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
 </head>
 
 <body>
@@ -172,10 +174,6 @@ if (isset($_GET['id'])) {
                         </div>
                     </div>
                     <div class="info-section">
-                        <h2>Violation History</h2>
-                        <!-- Add violation history content here if available -->
-                    </div>
-                    <div class="info-section">
                         <h2>Geofence Information</h2>
                         <div class="info-grid">
                             <div class="info-item">
@@ -231,6 +229,7 @@ if (isset($_GET['id'])) {
             map.setView([0, 0], 2); // Set a default view if no geofence data
         }
     </script>
+    <script src="/wetrack/bapas/js/map-socket.js"></script>
 </body>
 
 </html>
