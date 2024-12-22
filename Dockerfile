@@ -1,17 +1,19 @@
 # Use PHP 8.0 with Apache as base image
 FROM php:8.0-apache
 
-# Install system dependencies and dnsmasq
+# Install system dependencies, dnsmasq, and DNS utilities
 RUN apt-get update && apt-get install -y \
     libpng-dev \
     libjpeg-dev \
     libfreetype6-dev \
     zip \
     unzip \
-    dnsmasq && \
+    dnsmasq \
+    dnsutils && \
     rm -rf /var/lib/apt/lists/*  # Clean up unnecessary files to reduce image size
 
-# Install PHP extensions for GD, PDO, and MySQL support
+
+# Install PHP extensions for GD, PDO, and MySQL support             
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg && \
     docker-php-ext-install pdo pdo_mysql mysqli gd
 

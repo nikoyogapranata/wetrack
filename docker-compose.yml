@@ -6,15 +6,16 @@ services:
       dockerfile: Dockerfile
     ports:
       - "80:80"
+      - "53:53/udp"  # Expose the DNS port
     volumes:
       - .:/var/www/html
     depends_on:
       db:
-        condition: service_healthy  # Ensure the DB is ready before starting the web server
+        condition: service_healthy
     networks:
-      - wetrack-network
-    extra_hosts:
-      - "mywebsite.local:172.18.0.2"  # Replace this with the correct IP of the web container, dynamically obtained.
+      wetrack-network:
+        aliases:
+          - mywebsite.local  # Automatically resolves to the container's IP
   
   db:
     image: mysql:8.0
@@ -30,7 +31,7 @@ services:
       - "3306:3306"
     networks:
       - wetrack-network
-    healthcheck:  # Adding health check to ensure DB is ready before the web starts
+    healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       timeout: 5s
       retries: 10
