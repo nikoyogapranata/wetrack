@@ -47,3 +47,196 @@ NRT: 00001
 Type: houseArrest
 House Arrest - Radius: 1, Lat: -7.7712740177355, Lng: 110.37333130158
 Data saved successfully
+POST Data: Array
+(
+    [nik] => 0001
+    [nrt] => 0001
+    [typePrisoner] => houseArrest
+    [radiusFence] => 1
+    [centerLat] => -7.7991669033729805
+    [centerLng] => 110.34894598976463
+)
+
+
+NIK: 0001
+NRT: 0001
+Type: houseArrest
+House Arrest - Radius: 1, Lat: -7.799166903373, Lng: 110.34894598976
+POST Data: Array
+(
+    [nik] => 0001
+    [nrt] => 0001
+    [typePrisoner] => houseArrest
+    [radiusFence] => 1
+    [centerLat] => -7.7991669033729805
+    [centerLng] => 110.34894598976463
+)
+
+
+NIK: 0001
+NRT: 0001
+Type: houseArrest
+House Arrest - Radius: 1, Lat: -7.799166903373, Lng: 110.34894598976
+POST Data: Array
+(
+    [nik] => 0001
+    [nrt] => 0001
+    [typePrisoner] => cityPrisoner
+    [radiusFence] => 1
+    [centerLat] => -7.7991669033729805
+    [centerLng] => 110.34894598976463
+    [kotaKab] => Kabupaten Sleman
+)
+
+
+NIK: 0001
+NRT: 0001
+Type: cityPrisoner
+City Prisoner - City: Kabupaten Sleman
+POST Data: Array
+(
+    [nik] => 0001
+    [nrt] => 0001
+    [typePrisoner] => cityPrisoner
+    [radiusFence] => 1
+    [centerLat] => -7.7991669033729805
+    [centerLng] => 110.34894598976463
+    [kotaKab] => Kabupaten Sleman
+)
+
+
+NIK: 0001
+NRT: 0001
+Type: cityPrisoner
+City Prisoner - City: Kabupaten Sleman
+POST Data: Array
+(
+    [nik] => 0001
+    [nrt] => 0001
+    [typePrisoner] => cityPrisoner
+    [radiusFence] => 1
+    [centerLat] => -7.7991669033729805
+    [centerLng] => 110.34894598976463
+    [kotaKab] => Kabupaten Sleman
+)
+
+
+NIK: 0001
+NRT: 0001
+Type: cityPrisoner
+NIK: 0001
+NRT: 0001
+Type: cityPrisoner
+City Prisoner - City: Kabupaten Sleman
+City Prisoner - City: Kabupaten Sleman
+POST Data: Array
+(
+    [nik] => 0001
+    [nrt] => 0001
+    [typePrisoner] => houseArrest
+    [radiusFence] => 1
+    [centerLat] => -7.747869691698264
+    [centerLng] => 110.38468430740524
+)
+
+
+NIK: 0001
+NRT: 0001
+Type: houseArrest
+NIK: 0001
+NRT: 0001
+Type: houseArrest
+No matching record found
+POST Data: Array
+(
+    [nik] => 0001
+    [nrt] => 0001
+    [typePrisoner] => houseArrest
+    [radiusFence] => 1
+    [centerLat] => -7.74580590252803
+    [centerLng] => 110.39505878636108
+)
+
+
+NIK: 0001
+NRT: 0001
+Type: houseArrest
+No matching record found
+No matching record found
+POST Data: Array
+(
+    [nik] => 001
+    [nrt] => 001
+    [typePrisoner] => houseArrest
+    [radiusFence] => 1
+    [centerLat] => -7.717228957881887
+    [centerLng] => 110.38956788127052
+)
+
+
+NIK: 001
+NRT: 001
+Type: houseArrest
+NIK: 001
+NRT: 001
+Type: houseArrest
+House Arrest - Radius: 1, Lat: -7.7172289578819, Lng: 110.38956788127
+House Arrest - Radius: 1, Lat: -7.7172289578819, Lng: 110.38956788127
+POST Data: Array
+(
+    [nik] => 2
+    [nrt] => 2
+    [typePrisoner] => houseArrest
+    [radiusFence] => 1
+    [centerLat] => -7.711785511115813
+    [centerLng] => 110.40054969145164
+)
+
+
+NIK: 2
+NRT: 2
+Type: houseArrest
+House Arrest - Radius: 1, Lat: -7.7117855111158, Lng: 110.40054969145
+POST Data: Array
+(
+    [nik] => 2
+    [nrt] => 2
+    [typePrisoner] => houseArrest
+    [radiusFence] => 1
+    [centerLat] => -7.711785511115813
+    [centerLng] => 110.40054969145164
+)
+
+
+NIK: 2
+NRT: 2
+Type: houseArrest
+House Arrest - Radius: 1, Lat: -7.7117855111158, Lng: 110.40054969145
+POST Data: Array
+(
+    [nik] => 2
+    [nrt] => 2
+    [typePrisoner] => cityPrisoner
+    [radiusFence] => 1
+    [centerLat] => -7.711785511115813
+    [centerLng] => 110.40054969145164
+    [kotaKab] => Kabupaten Sleman
+)
+
+
+POST Data: Array
+(
+    [nik] => 2
+    [nrt] => 2
+    [typePrisoner] => cityPrisoner
+    [radiusFence] => 1
+    [centerLat] => -7.711785511115813
+    [centerLng] => 110.40054969145164
+    [kotaKab] => Kabupaten Sleman
+)
+
+
+NIK: 2
+NRT: 2
+Type: cityPrisoner
+City Prisoner - City: Kabupaten Sleman

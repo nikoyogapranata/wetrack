@@ -111,12 +111,17 @@ if (!$profile_picture) {
                             </tr>
                         </thead>
                         <tbody>
-                        <?php
-                            $result = mysqli_query($conn, "SELECT mn.id, mn.nama 
-                               FROM mantan_narapidana mn 
-                               LEFT JOIN final_report fr ON mn.nik = fr.nik AND mn.nrt = fr.nrt 
-                               WHERE fr.id IS NULL 
-                               ORDER BY mn.id ASC");
+                            <?php
+                            $result = mysqli_query($conn, "SELECT mn.id, mn.nama, mn.prisoner_type, 
+                            CASE 
+                                WHEN mn.prisoner_type = 'houseArrest' THEN CONCAT(mn.geofence_radius, ' km radius')
+                                WHEN mn.prisoner_type = 'cityPrisoner' THEN mn.city_district
+                                ELSE 'Not set'
+                            END AS geofence_info
+                            FROM mantan_narapidana mn 
+                            LEFT JOIN final_report fr ON mn.nik = fr.nik AND mn.nrt = fr.nrt 
+                            WHERE fr.id IS NULL AND mn.prisoner_type IS NOT NULL
+                            ORDER BY mn.id ASC");
                             $i = 1;
                             while ($row = mysqli_fetch_assoc($result)) {
                                 echo "<tr>";
@@ -127,7 +132,7 @@ if (!$profile_picture) {
                                 echo "</tr>";
                                 $i++;
                             }
-                        ?>
+                            ?>
                         </tbody>
                     </table>
                 </div>
@@ -177,115 +182,119 @@ if (!$profile_picture) {
 
     <script src="/wetrack/bapas/js/map-socket.js"></script>
     <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const typePrisonerSelect = document.getElementById('typePrisoner');
-    const houseArrestFields = document.getElementById('houseArrestFields');
-    const cityPrisonerFields = document.getElementById('cityPrisonerFields');
-    const deleteBtn = document.getElementById('delete-btn');
+        document.addEventListener('DOMContentLoaded', function() {
+            const typePrisonerSelect = document.getElementById('typePrisoner');
+            const houseArrestFields = document.getElementById('houseArrestFields');
+            const cityPrisonerFields = document.getElementById('cityPrisonerFields');
+            const deleteBtn = document.getElementById('delete-btn');
 
-    typePrisonerSelect.addEventListener('change', function() {
-        if (this.value === 'houseArrest') {
-            houseArrestFields.style.display = 'block';
-            cityPrisonerFields.style.display = 'none';
-            setTimeout(initMap, 100);
-        } else if (this.value === 'cityPrisoner') {
-            houseArrestFields.style.display = 'none';
-            cityPrisonerFields.style.display = 'block';
-        } else {
-            houseArrestFields.style.display = 'none';
-            cityPrisonerFields.style.display = 'none';
-        }
-    });
+            typePrisonerSelect.addEventListener('change', function() {
+                if (this.value === 'houseArrest') {
+                    houseArrestFields.style.display = 'block';
+                    cityPrisonerFields.style.display = 'none';
+                    setTimeout(initMap, 100);
+                } else if (this.value === 'cityPrisoner') {
+                    houseArrestFields.style.display = 'none';
+                    cityPrisonerFields.style.display = 'block';
+                } else {
+                    houseArrestFields.style.display = 'none';
+                    cityPrisonerFields.style.display = 'none';
+                }
+            });
 
-    fetch('/wetrack/bapas/pages/geojson/districts.json')
-        .then(response => response.json())
-        .then(data => {
-            const kotaKabSelect = document.getElementById('kotaKab');
-            data.features.forEach(feature => {
-                const option = document.createElement('option');
-                option.value = feature.properties.name;
-                option.textContent = feature.properties.name;
-                kotaKabSelect.appendChild(option);
+            fetch('/wetrack/bapas/pages/geojson/districts.json')
+                .then(response => response.json())
+                .then(data => {
+                    const kotaKabSelect = document.getElementById('kotaKab');
+                    data.features.forEach(feature => {
+                        const option = document.createElement('option');
+                        option.value = feature.properties.name;
+                        option.textContent = feature.properties.name;
+                        kotaKabSelect.appendChild(option);
+                    });
+                });
+
+            document.getElementById('inputForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                const formData = new FormData(this);
+
+                // Add geofence data to formData
+                if (formData.get('typePrisoner') === 'houseArrest') {
+                    formData.append('centerLat', document.getElementById('centerLat').value);
+                    formData.append('centerLng', document.getElementById('centerLng').value);
+                    formData.append('radiusFence', document.getElementById('radiusFence').value);
+                }
+
+                console.log('Form data before sending:');
+                for (let pair of formData.entries()) {
+                    console.log(pair[0] + ': ' + pair[1]);
+                }
+
+                fetch('save_prisoner.php', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Server response:', data);
+                        if (data.success) {
+                            alert('Data saved successfully');
+                            this.reset();
+                            // Refresh the page to show updated table
+                            window.location.reload();
+                        } else {
+                            alert('Error: ' + data.message);
+                            console.error('Error details:', data);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Fetch error:', error);
+                        alert('An error occurred while saving the data');
+                    });
+            });
+
+            // Add event listener for the delete button
+            deleteBtn.addEventListener('click', function() {
+                const selectedRows = document.querySelectorAll('.row-checkbox:checked');
+                if (selectedRows.length === 0) {
+                    alert('Please select at least one row to delete.');
+                    return;
+                }
+
+                if (confirm('Are you sure you want to delete the selected records?')) {
+                    const ids = Array.from(selectedRows).map(checkbox => checkbox.getAttribute('data-id'));
+
+                    fetch('delete_prisoner.php', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                ids: ids
+                            })
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                alert('Selected records deleted successfully');
+                                selectedRows.forEach(checkbox => checkbox.closest('tr').remove());
+                            } else {
+                                alert('Error: ' + data.message);
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            alert('An error occurred while deleting the records');
+                        });
+                }
             });
         });
 
-    document.getElementById('inputForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-
-        const formData = new FormData(this);
-
-        // Add geofence data to formData
-        if (formData.get('typePrisoner') === 'houseArrest') {
-            formData.append('centerLat', document.getElementById('centerLat').value);
-            formData.append('centerLng', document.getElementById('centerLng').value);
-            formData.append('radiusFence', document.getElementById('radiusFence').value);
+        function showInput() {
+            document.querySelector('.table-container').style.display = 'none';
+            document.querySelector('.input-container').style.display = 'block';
         }
-
-        console.log('Form data before sending:');
-        for (let pair of formData.entries()) {
-            console.log(pair[0] + ': ' + pair[1]);
-        }
-
-        fetch('save_prisoner.php', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Server response:', data);
-                if (data.success) {
-                    alert('Data saved successfully');
-                    this.reset();
-                } else {
-                    alert('Error: ' + data.message);
-                    console.error('Error details:', data);
-                }
-            })
-            .catch(error => {
-                console.error('Fetch error:', error);
-                alert('An error occurred while saving the data');
-            });
-    });
-
-    // Add event listener for the delete button
-    deleteBtn.addEventListener('click', function() {
-        const selectedRows = document.querySelectorAll('.row-checkbox:checked');
-        if (selectedRows.length === 0) {
-            alert('Please select at least one row to delete.');
-            return;
-        }
-
-        if (confirm('Are you sure you want to delete the selected records?')) {
-            const ids = Array.from(selectedRows).map(checkbox => checkbox.getAttribute('data-id'));
-            
-            fetch('delete_prisoner.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ ids: ids })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert('Selected records deleted successfully');
-                    selectedRows.forEach(checkbox => checkbox.closest('tr').remove());
-                } else {
-                    alert('Error: ' + data.message);
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('An error occurred while deleting the records');
-            });
-        }
-    });
-});
-
-function showInput() {
-    document.querySelector('.table-container').style.display = 'none';
-    document.querySelector('.input-container').style.display = 'block';
-}
     </script>
 </body>
 
