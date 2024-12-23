@@ -38,22 +38,29 @@ $conn->close();
                 <img src="<?php echo $user['fileInput']; ?>" alt="Prisoner Photo" class="profile-photo">
                 <h1 class="profile-name"><?php echo $user['nama']; ?></h1>
                 <p class="profile-nik"><strong>NIK:</strong> <?php echo $user['nik']; ?></p>
+                <img src="/wetrack/monitored-individuals/images/Ousmane_Dembele_Barcelona_2021-22.jpg.webp" alt="Prisoner Photo" class="profile-photo">
+                <h1 class="profile-name">Ousamane Dembele</h1>
+                <p class="profile-nik"><strong>ID Number:</strong> 1234567890123456</p>
             </div>
             <div class="profile-info">
                 <p><strong>Gender:</strong> <?php echo $user['gender']; ?></p>
                 <p><strong>Date of Birth:</strong> <?php echo $user['dateBirth']; ?></p>
                 <p><strong>Address:</strong> <?php echo $user['address']; ?></p>
                 <p><strong>Status:</strong> <?php echo $user['prisoner_type']; ?></p>
+                <p><strong>Gender:</strong> Male</p>
+                <p><strong>Date of Birth:</strong> 01/01/1990</p>
+                <p><strong>Address:</strong> 123 Main Street, Jakarta City, 12345</p>
+                <p><strong>Status:</strong> House Arrest</p>
                 <div class="status-pemantauan">
-                    <strong>Status Pemantauan:</strong>
+                    <strong>Monitoring Status:</strong>
                     <span class="badge active">Active</span>
                 </div>
                 <!-- Add more fields as needed -->
             </div>
             <a href="/wetrack/monitored-individuals/pages/final-report.php" class="btn">View Laporan Akhir</a>
+            <button href="/wetrack/monitored-individuals/pages/final-report.php" id="viewReportBtn" class="btn">View Final Report</button>
         </div>
     </div>
     <script src="/wetrack/monitored-individuals/js/profile.js"></script>
 </body>
 </html>
-
