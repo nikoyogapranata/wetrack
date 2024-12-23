@@ -50,6 +50,14 @@ if (!$profile_picture) {
             height: 400px;
             width: 100%;
         }
+        .map-search-container {
+            margin-bottom: 10px;
+        }
+        #map-search {
+            width: 100%;
+            padding: 5px;
+            margin-bottom: 5px;
+        }
     </style>
 </head>
 
@@ -188,6 +196,9 @@ if (!$profile_picture) {
             const houseArrestFields = document.getElementById('houseArrestFields');
             const cityPrisonerFields = document.getElementById('cityPrisonerFields');
             const deleteBtn = document.getElementById('delete-btn');
+            let map;
+            let marker;
+            let circle;
 
             typePrisonerSelect.addEventListener('change', function() {
                 if (this.value === 'houseArrest') {
@@ -283,13 +294,85 @@ if (!$profile_picture) {
                         });
                 }
             });
+
+            function initMap() {
+                if (!map) {
+                    // Initialize the map centered on Yogyakarta
+                    map = L.map('map').setView([-7.7956, 110.3695], 13);
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        attribution: '© OpenStreetMap contributors'
+                    }).addTo(map);
+
+                    // Add search control
+                    const searchControl = L.Control.geocoder({
+                        defaultMarkGeocode: false
+                    }).addTo(map);
+
+                    searchControl.on('markgeocode', function(e) {
+                        const lat = e.geocode.center.lat;
+                        const lng = e.geocode.center.lng;
+                        updateMarkerAndCircle(lat, lng);
+                        map.setView([lat, lng], 13);
+                    });
+
+                    // Add click event to the map
+                    map.on('click', function(e) {
+                        updateMarkerAndCircle(e.latlng.lat, e.latlng.lng);
+                    });
+
+                    // Add event listener for the search input
+                    document.getElementById('map-search').addEventListener('keypress', function(e) {
+                        if (e.key === 'Enter') {
+                            e.preventDefault();
+                            searchControl.geocode(this.value);
+                        }
+                    });
+
+                    document.getElementById('radiusFence').addEventListener('input', updateCircle);
+                }
+            }
+
+            function updateMarkerAndCircle(lat, lng) {
+                document.getElementById('centerLat').value = lat;
+                document.getElementById('centerLng').value = lng;
+
+                if (marker) {
+                    map.removeLayer(marker);
+                }
+                if (circle) {
+                    map.removeLayer(circle);
+                }
+
+                marker = L.marker([lat, lng]).addTo(map);
+                updateCircle();
+            }
+
+            function updateCircle() {
+                const lat = document.getElementById('centerLat').value;
+                const lng = document.getElementById('centerLng').value;
+                const radius = document.getElementById('radiusFence').value * 1000; // Convert km to meters
+
+                if (lat && lng) {
+                    if (circle) {
+                        map.removeLayer(circle);
+                    }
+                    circle = L.circle([lat, lng], {radius: radius}).addTo(map);
+                }
+            }
         });
 
         function showInput() {
             document.querySelector('.table-container').style.display = 'none';
             document.querySelector('.input-container').style.display = 'block';
+            document.querySelector('.search-bar').style.display = 'none';
+            document.getElementById('delete-btn').style.display = 'none';
+            document.getElementById('showInputBtn').classList.add('btn-primary');
+            document.getElementById('showInputBtn').classList.remove('btn-secondary');
+            document.getElementById('showTableBtn').classList.add('btn-secondary');
+            document.getElementById('showTableBtn').classList.remove('btn-primary');
         }
     </script>
 </body>
 
 </html>
+

@@ -28,10 +28,10 @@ if (!$profile_picture) {
 // Fetch ex-prisoner data
 if (isset($_GET['id'])) {
     $prisoner_id = $_GET['id'];
-    $query = "SELECT mn.*, pg.prisoner_type, pg.radiusFence, pg.centerLat, pg.centerLng, pg.city_district 
-              FROM mantan_narapidana mn 
-              LEFT JOIN prisoner_geofence pg ON mn.nik = pg.nik AND mn.nrt = pg.nrt 
-              WHERE mn.id = ?";
+    $query = "SELECT mn.*, pg.prisoner_type, pg.radiusFence, pg.centerLat, pg.centerLng, pg.city_district, pg.first_login 
+            FROM mantan_narapidana mn 
+            LEFT JOIN prisoner_geofence pg ON mn.nik = pg.nik AND mn.nrt = pg.nrt 
+            WHERE mn.id = ?";
     $stmt = $conn->prepare($query);
     $stmt->bind_param("i", $prisoner_id);
     $stmt->execute();
@@ -177,118 +177,125 @@ if (isset($_GET['id'])) {
                         <h2>Violation Report</h2>
                     </div>
                     <div class="info-section">
-                    <h2>Tracking Map</h2>
-                    <div class="info-grid">
-                        <div class="info-item">
-                            <label>Prisoner Type:</label>
-                            <span><?php echo $prisoner_data["prisoner_type"]; ?></span>
+                        <h2>Tracking Map</h2>
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <label>Prisoner Type:</label>
+                                <span><?php echo $prisoner_data["prisoner_type"]; ?></span>
+                            </div>
+                            <?php if ($prisoner_data["prisoner_type"] == "houseArrest"): ?>
+                                <div class="info-item">
+                                    <label>Geofence Radius:</label>
+                                    <span><?php echo isset($prisoner_data["radiusFence"]) ? $prisoner_data["radiusFence"] . " km" : "Not set"; ?></span>
+                                </div>
+                            <?php elseif ($prisoner_data["prisoner_type"] == "cityPrisoner"): ?>
+                                <div class="info-item">
+                                    <label>City/District:</label>
+                                    <span><?php echo $prisoner_data["city_district"]; ?></span>
+                                </div>
+                            <?php endif; ?>
                         </div>
-                        <?php if ($prisoner_data["prisoner_type"] == "houseArrest"): ?>
-                            <div class="info-item">
-                                <label>Geofence Radius:</label>
-                                <span><?php echo isset($prisoner_data["radiusFence"]) ? $prisoner_data["radiusFence"] . " km" : "Not set"; ?></span>
-                            </div>
-                        <?php elseif ($prisoner_data["prisoner_type"] == "cityPrisoner"): ?>
-                            <div class="info-item">
-                                <label>City/District:</label>
-                                <span><?php echo $prisoner_data["city_district"]; ?></span>
-                            </div>
-                        <?php endif; ?>
+                        <div id="map" style="height: 400px;"></div>
+                        <div id="connection-status"></div>
+                        <button class="report-btn" id="report-btn" class="btn btn-danger">Report</button>
                     </div>
-                    <div id="map" style="height: 400px;"></div>
-                    <div id="connection-status"></div>
-                    <button class="report-btn" id="report-btn" class="btn btn-danger">Report</button>
                 </div>
-            </div>
         </main>
     </div>
     <script>
-    var map = L.map('map').setView([0, 0], 13);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© OpenStreetMap contributors'
-    }).addTo(map);
+        var map = L.map('map').setView([0, 0], 13);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
 
-    var centerLat = <?php echo $prisoner_data['centerLat']; ?>;
-    var centerLng = <?php echo $prisoner_data['centerLng']; ?>;
-    var radiusFence = <?php echo isset($prisoner_data['radiusFence']) ? $prisoner_data['radiusFence'] : 'null'; ?>;
+        var geofenceLat = <?php echo $prisoner_data['centerLat']; ?>;
+        var geofenceLng = <?php echo $prisoner_data['centerLng']; ?>;
+        var radiusFence = <?php echo isset($prisoner_data['radiusFence']) ? $prisoner_data['radiusFence'] : 'null'; ?>;
 
-    var circle, prisonerMarker; // Update: Added prisonerMarker variable
+        var circle, prisonerMarker; // Update: Added prisonerMarker variable
 
-    function initMap() {
-        if (centerLat && centerLng) {
-            map.setView([centerLat, centerLng], 13);
+        function initMap() {
+            if (geofenceLat && geofenceLng) {
+                map.setView([geofenceLat, geofenceLng], 13);
 
-            // Inisialisasi geofence
-            if (radiusFence) {
-                circle = L.circle([centerLat, centerLng], {
-                    color: 'red',
-                    fillColor: '#f03',
-                    fillOpacity: 0.2,
-                    radius: radiusFence * 1000 // Convert km to meters
-                }).addTo(map);
-                map.fitBounds(circle.getBounds());
-            }
+                // Inisialisasi geofence
+                if (radiusFence) {
+                    circle = L.circle([geofenceLat, geofenceLng], {
+                        color: 'red',
+                        fillColor: '#f03',
+                        fillOpacity: 0.2,
+                        radius: radiusFence * 1000 // Convert km to meters
+                    }).addTo(map);
+                    map.fitBounds(circle.getBounds());
+                }
 
-            // Inisialisasi marker narapidana
-            prisonerMarker = L.marker([centerLat, centerLng]).addTo(map);
-            prisonerMarker.bindPopup("Prisoner's Last Known Location").openPopup();
-        } else {
-            console.log('No location data available for this prisoner');
-            map.setView([0, 0], 2); // Set a default view if no location data
-        }
-    }
-
-    function updateMarkerPosition(lat, lng) {
-        if (prisonerMarker) {
-            prisonerMarker.setLatLng([lat, lng]);
-        } else {
-            prisonerMarker = L.marker([lat, lng]).addTo(map);
-        }
-        prisonerMarker.bindPopup("Prisoner's Current Location").openPopup();
-        map.panTo([lat, lng]);
-    }
-
-    initMap();
-
-    // Socket.IO connection
-    const socket = io('http://localhost:3000', {
-        reconnection: true,
-        reconnectionAttempts: 5,
-        reconnectionDelay: 1000,
-    });
-
-    const connectionStatus = document.getElementById('connection-status');
-
-    socket.on('connect', () => {
-        console.log('Connected to Socket.IO server');
-        connectionStatus.textContent = 'Connected to real-time tracking';
-        connectionStatus.style.color = 'green';
-        socket.emit('join', { nik: '<?php echo $prisoner_data["nik"]; ?>', nrt: '<?php echo $prisoner_data["nrt"]; ?>' });
-    });
-
-    socket.on('connect_error', (error) => {
-        console.error('Connection error:', error);
-        connectionStatus.textContent = 'Error connecting to real-time tracking';
-        connectionStatus.style.color = 'red';
-    });
-
-    socket.on('locationUpdate', (data) => {
-        console.log('Received location update:', data);
-        updateMarkerPosition(data.lat, data.lng);
-    
-        if (circle) {
-            var distance = map.distance([data.lat, data.lng], [centerLat, centerLng]) / 1000; // in km
-            if (distance > radiusFence) {
-                alert('Prisoner has left the geofence!');
+                // Inisialisasi marker narapidana
+                prisonerMarker = L.marker([geofenceLat, geofenceLng]).addTo(map);
+                prisonerMarker.bindPopup("Prisoner's Last Known Location").openPopup();
+            } else {
+                console.log('No geofence data available for this prisoner');
+                map.setView([0, 0], 2); // Set a default view if no geofence data
             }
         }
-    });
 
-    socket.on('disconnect', () => {
-        console.log('Disconnected from Socket.IO server');
-        connectionStatus.textContent = 'Disconnected from real-time tracking';
-        connectionStatus.style.color = 'orange';
-    });
+        function updateMarkerPosition(lat, lng) {
+            if (prisonerMarker) {
+                prisonerMarker.setLatLng([lat, lng]);
+            } else {
+                prisonerMarker = L.marker([lat, lng]).addTo(map);
+            }
+            prisonerMarker.bindPopup("Prisoner's Current Location").openPopup();
+
+            // Hanya geser peta jika lokasi narapidana berada di luar batas yang terlihat
+            if (!map.getBounds().contains([lat, lng])) {
+                map.panTo([lat, lng]);
+            }
+        }
+
+        initMap();
+
+        // Socket.IO connection
+        const socket = io('http://localhost:3000', {
+            reconnection: true,
+            reconnectionAttempts: 5,
+            reconnectionDelay: 1000,
+        });
+
+        const connectionStatus = document.getElementById('connection-status');
+
+        socket.on('connect', () => {
+            console.log('Connected to Socket.IO server');
+            connectionStatus.textContent = 'Connected to real-time tracking';
+            connectionStatus.style.color = 'green';
+            socket.emit('join', {
+                nik: '<?php echo $prisoner_data["nik"]; ?>',
+                nrt: '<?php echo $prisoner_data["nrt"]; ?>'
+            });
+        });
+
+        socket.on('connect_error', (error) => {
+            console.error('Connection error:', error);
+            connectionStatus.textContent = 'Error connecting to real-time tracking';
+            connectionStatus.style.color = 'red';
+        });
+
+        socket.on('locationUpdate', (data) => {
+            console.log('Received location update:', data);
+            updateMarkerPosition(data.lat, data.lng);
+
+            if (circle) {
+                var distance = map.distance([data.lat, data.lng], [geofenceLat, geofenceLng]) / 1000; // in km
+                if (distance > radiusFence) {
+                    alert('Prisoner has left the geofence!');
+                }
+            }
+        });
+
+        socket.on('disconnect', () => {
+            console.log('Disconnected from Socket.IO server');
+            connectionStatus.textContent = 'Disconnected from real-time tracking';
+            connectionStatus.style.color = 'orange';
+        });
     </script>
 </body>
 
