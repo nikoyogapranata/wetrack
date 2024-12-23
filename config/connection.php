@@ -1,5 +1,5 @@
 <?php
-$servername = "localhost";
+$servername = "db";
 $username = "root";
 $dbname = "wetrack";
 $password = "";
