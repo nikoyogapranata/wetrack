@@ -7,6 +7,8 @@ $error_message = '';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nik = $_POST['id'];
     $nrt = $_POST['password'];
+    $latitude = $_POST['latitude'];
+    $longitude = $_POST['longitude'];
 
     $stmt = $conn->prepare("SELECT * FROM mantan_narapidana WHERE nik = ? AND nrt = ?");
     $stmt->bind_param("ss", $nik, $nrt);
@@ -18,6 +20,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['nik'] = $row['nik'];
         $_SESSION['nrt'] = $row['nrt'];
         $_SESSION['nama'] = $row['nama'];
+        $_SESSION['latitude'] = $latitude;
+        $_SESSION['longitude'] = $longitude;
+
+        // Update location in the database
+        $update_stmt = $conn->prepare("UPDATE prisoner_geofence SET centerLat = ?, centerLng = ? WHERE nik = ? AND nrt = ?");
+        $update_stmt->bind_param("ddss", $latitude, $longitude, $nik, $nrt);
+        $update_stmt->execute();
+        $update_stmt->close();
+
         header("Location: /wetrack/monitored-individuals/pages/profile.php");
         exit();
     } else {
@@ -69,6 +80,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <input class="text-field-2 w-input" maxlength="256" name="password" placeholder="Enter your NRT" type="password" id="password" required />
                   </div>
                 </div>
+                <input type="hidden" id="latitude" name="latitude">
+                <input type="hidden" id="longitude" name="longitude">
                 <input type="submit" class="button registration w-button" value="Login" />
               </form>
               <?php if (!empty($error_message)): ?>
@@ -76,6 +89,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                   <?php echo $error_message; ?>
                 </div>
               <?php endif; ?>
+              <div id="location-message" style="color: red;"></div>
             </div>
           </div>
         </div>
@@ -102,7 +116,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
   </div>
   <script src="js/script.js" type="text/javascript"></script>
+  <script src="js/location-tracking.js"></script>
 </body>
 
 </html>
-

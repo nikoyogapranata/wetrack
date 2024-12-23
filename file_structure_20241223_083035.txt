@@ -1,5 +1,5 @@
 Directory Structure for: d:\xampp\htdocs\wetrack
-Scanned on: 2024-12-22 22:21:10
+Scanned on: 2024-12-23 08:30:35
 ==================================================
 
 📁 .vscode/
@@ -27,7 +27,7 @@ Scanned on: 2024-12-22 22:21:10
     📁 pages/
         📁 geojson/
             📄 districts.json (23.2 KB)
-        📄 data-napi.php (10.5 KB)
+        📄 data-napi.php (11.4 KB)
         📄 dataBapas.php (13.9 KB)
         📄 debug_log.txt (4.9 KB)
         📄 delete_prisoner.php (1.3 KB)
@@ -137,7 +137,7 @@ Scanned on: 2024-12-22 22:21:10
         📄 profile.js (248.0 B)
     📁 pages/
         📄 final-report.php (1.4 KB)
-        📄 profile.php (1.6 KB)
+        📄 profile.php (2.2 KB)
         📄 WETRACK - BYTE ME.pdf (191.0 KB)
 📁 polri/
     📁 assets/
@@ -273,8 +273,9 @@ Scanned on: 2024-12-22 22:21:10
             📄 webflow-badge-icon-d2.89e12c322e.svg (424.0 B)
             📄 webflow-badge-text-d2.c82cec3b78.svg (9.7 KB)
         📁 js/
+            📄 location-tracking.js (1.8 KB)
             📄 script.js (3.8 KB)
-        📄 index.php (4.5 KB)
+        📄 index.php (4.7 KB)
 📁 socket/
     📄 server.js (1.8 KB)
 📁 uploads/
@@ -285,10 +286,10 @@ Scanned on: 2024-12-22 22:21:10
 📄 docker-compose.yml (1010.0 B)
 📄 Dockerfile (1.4 KB)
 📄 file_structure.py (3.6 KB)
-📄 package-lock.json (38.7 KB)
-📄 package.json (316.0 B)
+📄 package-lock.json (43.3 KB)
+📄 package.json (342.0 B)
 📄 password.php (204.0 B)
 📄 README.md (286.0 B)
 📄 start.sh (175.0 B)
 📄 wetrack (backup database).txt (13.0 KB)
-📄 wetrack.sql (13.9 KB)
+📄 wetrack.sql (16.2 KB)
