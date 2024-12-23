@@ -5,57 +5,45 @@ require_once '../../config/connection.php';
 $error_message = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $nik = $_POST['id'];
-    $nrt = $_POST['password'];
-    $latitude = $_POST['latitude'];
-    $longitude = $_POST['longitude'];
+  $nik = $_POST['id'];
+  $nrt = $_POST['password'];
+  $latitude = $_POST['latitude'];
+  $longitude = $_POST['longitude'];
 
-    $stmt = $conn->prepare("SELECT * FROM mantan_narapidana WHERE nik = ? AND nrt = ?");
-    $stmt->bind_param("ss", $nik, $nrt);
-    $stmt->execute();
-    $result = $stmt->get_result();
+  $stmt = $conn->prepare("SELECT * FROM mantan_narapidana WHERE nik = ? AND nrt = ?");
+  $stmt->bind_param("ss", $nik, $nrt);
+  $stmt->execute();
+  $result = $stmt->get_result();
 
-    if ($result->num_rows == 1) {
-        $row = $result->fetch_assoc();
-        $_SESSION['nik'] = $row['nik'];
-        $_SESSION['nrt'] = $row['nrt'];
-        $_SESSION['nama'] = $row['nama'];
-        $_SESSION['latitude'] = $latitude;
-        $_SESSION['longitude'] = $longitude;
+  if ($result->num_rows == 1) {
+    $row = $result->fetch_assoc();
+    $_SESSION['nik'] = $row['nik'];
+    $_SESSION['nrt'] = $row['nrt'];
+    $_SESSION['nama'] = $row['nama'];
+    $_SESSION['latitude'] = $latitude;
+    $_SESSION['longitude'] = $longitude;
 
-        // Update location in the database
-        $update_stmt = $conn->prepare("UPDATE prisoner_geofence SET centerLat = ?, centerLng = ? WHERE nik = ? AND nrt = ?");
-        $update_stmt->bind_param("ddss", $latitude, $longitude, $nik, $nrt);
-        $update_stmt->execute();
-        $update_stmt->close();
+    // Update location in the database
+    $update_stmt = $conn->prepare("UPDATE prisoner_geofence SET centerLat = ?, centerLng = ? WHERE nik = ? AND nrt = ?");
+    $update_stmt->bind_param("ddss", $latitude, $longitude, $nik, $nrt);
+    $update_stmt->execute();
+    $update_stmt->close();
 
-        // Check if it's the first login
-        $check_login_stmt = $conn->prepare("SELECT last_login FROM mantan_narapidana WHERE nik = ? AND nrt = ?");
-        $check_login_stmt->bind_param("ss", $nik, $nrt);
-        $check_login_stmt->execute();
-        $check_login_result = $check_login_stmt->get_result();
-        $check_login_row = $check_login_result->fetch_assoc();
+    // Update last_login time
+    $update_login_stmt = $conn->prepare("UPDATE mantan_narapidana SET last_login = CURRENT_TIMESTAMP WHERE nik = ? AND nrt = ?");
+    $update_login_stmt->bind_param("ss", $nik, $nrt);
+    $update_login_stmt->execute();
+    $update_login_stmt->close();
 
-        if ($check_login_row['last_login'] === null) {
-            // It's the first login, update the last_login timestamp
-            $update_login_stmt = $conn->prepare("UPDATE mantan_narapidana SET last_login = CURRENT_TIMESTAMP WHERE nik = ? AND nrt = ?");
-            $update_login_stmt->bind_param("ss", $nik, $nrt);
-            $update_login_stmt->execute();
-            $update_login_stmt->close();
-        }
+    $_SESSION['has_logged_in'] = true;
 
-        $check_login_stmt->close();
+    header("Location: /wetrack/monitored-individuals/pages/profile.php");
+    exit();
+  } else {
+    $error_message = "Invalid NIK or NRT. Please try again.";
+  }
 
-
-        $_SESSION['has_logged_in'] = true;
-
-        header("Location: /wetrack/monitored-individuals/pages/profile.php");
-        exit();
-    } else {
-        $error_message = "Invalid NIK or NRT. Please try again.";
-    }
-
-    $stmt->close();
+  $stmt->close();
 }
 ?>
 
