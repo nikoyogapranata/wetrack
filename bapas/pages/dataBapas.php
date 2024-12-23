@@ -50,14 +50,6 @@ if (!$profile_picture) {
             height: 400px;
             width: 100%;
         }
-        .map-search-container {
-            margin-bottom: 10px;
-        }
-        #map-search {
-            width: 100%;
-            padding: 5px;
-            margin-bottom: 5px;
-        }
     </style>
 </head>
 
@@ -364,7 +356,7 @@ if (!$profile_picture) {
         function showInput() {
             document.querySelector('.table-container').style.display = 'none';
             document.querySelector('.input-container').style.display = 'block';
-            document.querySelector('.search-bar').style.display = 'none';
+            document.querySelector('.search-bar').style.display= 'none';
             document.getElementById('delete-btn').style.display = 'none';
             document.getElementById('showInputBtn').classList.add('btn-primary');
             document.getElementById('showInputBtn').classList.remove('btn-secondary');
@@ -375,4 +367,3 @@ if (!$profile_picture) {
 </body>
 
 </html>
-

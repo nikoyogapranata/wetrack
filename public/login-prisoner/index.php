@@ -29,22 +29,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $update_stmt->execute();
         $update_stmt->close();
 
-        // Check if this is the first login
-        $check_login_stmt = $conn->prepare("SELECT first_login FROM prisoner_geofence WHERE nik = ? AND nrt = ?");
+        // Check if it's the first login
+        $check_login_stmt = $conn->prepare("SELECT last_login FROM mantan_narapidana WHERE nik = ? AND nrt = ?");
         $check_login_stmt->bind_param("ss", $nik, $nrt);
         $check_login_stmt->execute();
         $check_login_result = $check_login_stmt->get_result();
-        $login_data = $check_login_result->fetch_assoc();
+        $check_login_row = $check_login_result->fetch_assoc();
 
-        if ($login_data['first_login'] === null) {
-            // If it's the first login, update the first_login time
-            $update_login_stmt = $conn->prepare("UPDATE prisoner_geofence SET first_login = NOW() WHERE nik = ? AND nrt = ?");
+        if ($check_login_row['last_login'] === null) {
+            // It's the first login, update the last_login timestamp
+            $update_login_stmt = $conn->prepare("UPDATE mantan_narapidana SET last_login = CURRENT_TIMESTAMP WHERE nik = ? AND nrt = ?");
             $update_login_stmt->bind_param("ss", $nik, $nrt);
             $update_login_stmt->execute();
             $update_login_stmt->close();
         }
 
         $check_login_stmt->close();
+
 
         $_SESSION['has_logged_in'] = true;
 
@@ -139,4 +140,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </body>
 
 </html>
-
