@@ -1,41 +1,90 @@
 <?php
 session_start();
-require __DIR__ . '/../../config/connection.php';  // Corrected path
+require __DIR__ . '/../../../config/connection.php';
 
 header('Content-Type: application/json');
 
-// Get total tracked individuals (total napi)
-$total_query = "SELECT COUNT(*) as total FROM mantan_narapidana";
-$total_result = mysqli_query($conn, $total_query);
-$total_row = mysqli_fetch_assoc($total_result);
-$total_tracked = $total_row['total'];
+try {
+    // Get total tracked individuals
+    $total_query = "SELECT COUNT(*) as total FROM mantan_narapidana";
+    $total_result = mysqli_query($conn, $total_query);
+    if (!$total_result) {
+        throw new Exception(mysqli_error($conn));
+    }
+    $total_row = mysqli_fetch_assoc($total_result);
+    $total_tracked = $total_row['total'];
 
-// Get accepted alerts count
-$accepted_query = "SELECT COUNT(*) as accepted FROM mantan_narapidana WHERE action = 1";
-$accepted_result = mysqli_query($conn, $accepted_query);
-$accepted_row = mysqli_fetch_assoc($accepted_result);
-$alerts_accepted = $accepted_row['accepted'];
+    // Count alerts from recent_activities table instead
+    $alerts_query = "SELECT 
+        SUM(CASE WHEN action_type = 'alert_accepted' THEN 1 ELSE 0 END) as accepted,
+        SUM(CASE WHEN action_type = 'alert_rejected' THEN 1 ELSE 0 END) as rejected
+    FROM recent_activities 
+    WHERE action_type IN ('alert_accepted', 'alert_rejected')";
+    
+    $alerts_result = mysqli_query($conn, $alerts_query);
+    if (!$alerts_result) {
+        throw new Exception(mysqli_error($conn));
+    }
+    $alerts_row = mysqli_fetch_assoc($alerts_result);
 
-// Get rejected alerts count
-$rejected_query = "SELECT COUNT(*) as rejected FROM mantan_narapidana WHERE action = 0";
-$rejected_result = mysqli_query($conn, $rejected_query);
-$rejected_row = mysqli_fetch_assoc($rejected_result);
-$alerts_rejected = $rejected_row['rejected'];
+    // Get recent activities
+    $recent_query = "SELECT 
+        action_type,
+        action_description,
+        created_at 
+    FROM recent_activities 
+    ORDER BY created_at DESC 
+    LIMIT 5";
+    
+    $recent_result = mysqli_query($conn, $recent_query);
+    if (!$recent_result) {
+        throw new Exception(mysqli_error($conn));
+    }
+    
+    $recent_activities = [];
+    while($row = mysqli_fetch_assoc($recent_result)) {
+        $recent_activities[] = [
+            'type' => $row['action_type'],
+            'description' => $row['action_description'],
+            'timestamp' => $row['created_at']
+        ];
+    }
 
-// Get recent activities
-$recent_query = "SELECT nama, action, created_at FROM mantan_narapidana ORDER BY created_at DESC LIMIT 5";
-$recent_result = mysqli_query($conn, $recent_query);
-$recent_activities = [];
-while($row = mysqli_fetch_assoc($recent_result)) {
-    $recent_activities[] = $row;
+    // Get monthly data for chart
+    $monthly_query = "SELECT 
+        DATE_FORMAT(created_at, '%Y-%m') as month,
+        COUNT(*) as count
+    FROM mantan_narapidana
+    GROUP BY DATE_FORMAT(created_at, '%Y-%m')
+    ORDER BY month DESC
+    LIMIT 6";
+    
+    $monthly_result = mysqli_query($conn, $monthly_query);
+    if (!$monthly_result) {
+        throw new Exception(mysqli_error($conn));
+    }
+    
+    $monthly_data = [];
+    while($row = mysqli_fetch_assoc($monthly_result)) {
+        $monthly_data[] = $row;
+    }
+
+    $response = [
+        'status' => 'success',
+        'total_tracked' => intval($total_tracked),
+        'alerts_accepted' => intval($alerts_row['accepted'] ?? 0),
+        'alerts_rejected' => intval($alerts_row['rejected'] ?? 0),
+        'recent_activities' => $recent_activities,
+        'monthly_data' => array_reverse($monthly_data) // Reverse to show chronological order
+    ];
+
+    echo json_encode($response);
+
+} catch (Exception $e) {
+    http_response_code(500);
+    echo json_encode([
+        'status' => 'error',
+        'message' => $e->getMessage()
+    ]);
 }
-
-$response = [
-    'total_tracked' => $total_tracked,
-    'alerts_accepted' => $alerts_accepted,
-    'alerts_rejected' => $alerts_rejected,
-    'recent_activities' => $recent_activities
-];
-
-echo json_encode($response);
 ?>
