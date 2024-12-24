@@ -13,6 +13,7 @@ define('BASE_PATH', dirname(__FILE__));
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -29,10 +30,97 @@ define('BASE_PATH', dirname(__FILE__));
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Burger Icon */
+        .sidebar-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        .burger-icon {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background-color: #fff;
+            position: relative;
+            transition: background-color 0.3s;
+        }
+
+        .burger-icon::before,
+        .burger-icon::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: #fff;
+            transition: all 0.3s;
+        }
+
+        .burger-icon::before {
+            top: -8px;
+        }
+
+        .burger-icon::after {
+            bottom: -8px;
+        }
+
+        /* Sidebar Toggle */
+        .sidebar.collapsed {
+            width: 60px;
+        }
+
+        .sidebar.collapsed h2,
+        .sidebar.collapsed ul li a span {
+            display: none;
+        }
+
+        .main-content.expanded {
+            margin-left: 60px;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar-toggle {
+                display: block;
+                position: absolute;
+                top: 10px;
+                left: 10px;
+                z-index: 1000;
+            }
+
+            .sidebar {
+                position: fixed;
+                left: -240px;
+                transition: left 0.3s ease;
+            }
+
+            .sidebar.collapsed {
+                left: 0;
+                width: 240px;
+            }
+
+            .main-content {
+                margin-left: 0;
+                transition: margin-left 0.3s ease;
+            }
+
+            .main-content.expanded {
+                margin-left: 240px;
+            }
+        }
+    </style>
 </head>
+
 <body>
     <!-- Sidebar -->
     <div class="sidebar">
+        <button id="sidebarToggle" class="sidebar-toggle">
+            <span class="burger-icon"><i class="fas fa-bars"></i>
+            </span>
+        </button>
         <h2>Admin POLRI</h2>
         <ul>
             <li class="<?php echo ($page === 'dashboard') ? 'active' : ''; ?>">
@@ -58,7 +146,7 @@ define('BASE_PATH', dirname(__FILE__));
 
     <!-- Main Content -->
     <div class="main-content">
-        <?php 
+        <?php
         $page_file = "content/{$page}.php";
         if (file_exists($page_file)) {
             include $page_file;
@@ -74,11 +162,12 @@ define('BASE_PATH', dirname(__FILE__));
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
     <!-- Database Specific JS -->
     <?php if ($page === 'database'): ?>
-    <script src="/wetrack/polri/assets/js/database.js"></script>
+        <script src="/wetrack/polri/assets/js/database.js"></script>
     <?php endif; ?>
     <!-- Alerts Specific JS -->
     <?php if ($page === 'alerts'): ?>
-    <script src="/wetrack/polri/assets/js/alerts.js"></script>
+        <script src="/wetrack/polri/assets/js/alerts.js"></script>
     <?php endif; ?>
 </body>
+
 </html>
