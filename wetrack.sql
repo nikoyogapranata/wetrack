@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 22, 2024 at 04:21 PM
+-- Generation Time: Dec 24, 2024 at 04:02 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -116,7 +116,16 @@ INSERT INTO `login_history` (`id`, `user_id`, `login_time`, `ip_address`) VALUES
 (36, 1200001, '2024-12-22 09:40:24', '::1'),
 (37, 1200001, '2024-12-22 09:59:32', '::1'),
 (38, 1200001, '2024-12-22 13:41:50', '::1'),
-(39, 1200001, '2024-12-22 13:46:48', '::1');
+(39, 1200001, '2024-12-22 13:46:48', '::1'),
+(40, 1200001, '2024-12-23 01:25:21', '::1'),
+(41, 1200001, '2024-12-23 02:14:18', '::1'),
+(42, 1200001, '2024-12-23 08:32:08', '::1'),
+(43, 1200001, '2024-12-23 13:36:17', '::1'),
+(44, 1200001, '2024-12-23 14:05:36', '::1'),
+(45, 1200001, '2024-12-23 14:09:18', '::1'),
+(46, 1200001, '2024-12-23 14:18:46', '::1'),
+(47, 1200001, '2024-12-24 00:59:50', '::1'),
+(48, 1200001, '2024-12-24 01:05:27', '::1');
 
 -- --------------------------------------------------------
 
@@ -145,17 +154,18 @@ CREATE TABLE `mantan_narapidana` (
   `radiusFence` float DEFAULT NULL,
   `centerLat` float DEFAULT NULL,
   `centerLng` float DEFAULT NULL,
-  `city_district` varchar(100) DEFAULT NULL
+  `city_district` varchar(100) DEFAULT NULL,
+  `last_login` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `mantan_narapidana`
 --
 
-INSERT INTO `mantan_narapidana` (`id`, `fileInput`, `nik`, `nrt`, `nama`, `dateBirth`, `address`, `gender`, `nationality`, `crime`, `case`, `punishment`, `releaseDate`, `report`, `action`, `created_at`, `prisoner_type`, `radiusFence`, `centerLat`, `centerLng`, `city_district`) VALUES
-(11, 'uploads/tahanan1.webp', '1', '1', 'ferdi', '1999-11-11', 'ya', 'male', 'Belgium', 'MvT', 'ya', 'ya', '2056-11-11', NULL, NULL, '2024-12-22 14:23:10', 'cityPrisoner', NULL, NULL, NULL, 'Kabupaten Sleman'),
-(13, 'uploads/tahanan2.jpeg', '2', '2', 'Anton', '2001-01-01', 'Jakal Bawah', 'male', 'Brazil', 'Robbery', 'Merampok Gol', '1 Musim', '2025-12-22', NULL, NULL, '2024-12-22 15:00:27', NULL, NULL, NULL, NULL, NULL),
-(14, 'uploads/tahanan3.jpeg', '3', '3', 'Muth Rick', '2000-02-25', 'London', 'male', 'Ukraine', 'NO', 'Pengguna Narkoba', '4 Tahun', '2028-12-22', NULL, NULL, '2024-12-22 15:02:40', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `mantan_narapidana` (`id`, `fileInput`, `nik`, `nrt`, `nama`, `dateBirth`, `address`, `gender`, `nationality`, `crime`, `case`, `punishment`, `releaseDate`, `report`, `action`, `created_at`, `prisoner_type`, `radiusFence`, `centerLat`, `centerLng`, `city_district`, `last_login`) VALUES
+(11, 'uploads/tahanan1.webp', '1', '1', 'ferdi', '1999-11-11', 'ya', 'male', 'Belgium', 'MvT', 'ya', 'ya', '2056-11-11', NULL, NULL, '2024-12-22 14:23:10', 'cityPrisoner', NULL, NULL, NULL, 'Kabupaten Sleman', '2024-12-24 02:59:14'),
+(13, 'uploads/tahanan2.jpeg', '2', '2', 'Anton', '2001-01-01', 'Jakal Bawah', 'male', 'Brazil', 'Robbery', 'Merampok Gol', '1 Musim', '2025-12-22', NULL, NULL, '2024-12-22 15:00:27', NULL, NULL, NULL, NULL, NULL, '2024-12-23 13:49:32'),
+(19, 'uploads/tahanan3.jpeg', '3', '3', 'Kang Udik', '1999-02-02', 'Jakal', 'male', 'Barbados', 'NO', 'Pengedar narkobs', '1 Years', '2025-12-23', NULL, NULL, '2024-12-23 10:44:37', NULL, NULL, NULL, NULL, NULL, '2024-12-23 13:49:37');
 
 -- --------------------------------------------------------
 
@@ -180,9 +190,23 @@ CREATE TABLE `prisoner_geofence` (
 --
 
 INSERT INTO `prisoner_geofence` (`id`, `nik`, `nrt`, `prisoner_type`, `radiusFence`, `centerLat`, `centerLng`, `city_district`, `created_at`) VALUES
-(5, '1', '1', 'houseArrest', 1, -7.7031, 110.404, NULL, '2024-12-22 14:47:54'),
-(8, '2', '2', 'houseArrest', 1, -7.79073, 110.366, NULL, '2024-12-22 15:00:34'),
-(9, '3', '3', 'houseArrest', 1, -7.96456, 110.602, NULL, '2024-12-22 15:03:05');
+(5, '1', '1', 'houseArrest', 1, -7.68343, 110.414, NULL, '2024-12-22 14:47:54'),
+(8, '2', '2', 'houseArrest', 1, -7.70029, 110.413, NULL, '2024-12-22 15:00:34'),
+(15, '3', '3', 'houseArrest', 1, -7.69854, 110.409, NULL, '2024-12-23 10:44:50');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `prisoner_location`
+--
+
+CREATE TABLE `prisoner_location` (
+  `id` int(11) NOT NULL,
+  `prisoner_id` int(11) NOT NULL,
+  `latitude` decimal(10,8) NOT NULL,
+  `longitude` decimal(11,8) NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -223,7 +247,14 @@ INSERT INTO `recent_activities` (`id`, `action_type`, `action_description`, `cre
 (40, 'create', 'New user account created: ferdi', '2024-12-22 14:23:10'),
 (41, 'create', 'New user account created: Anton', '2024-12-22 14:54:58'),
 (42, 'create', 'New user account created: Anton', '2024-12-22 15:00:27'),
-(43, 'create', 'New user account created: Muth Rick', '2024-12-22 15:02:40');
+(43, 'create', 'New user account created: Muth Rick', '2024-12-22 15:02:40'),
+(44, 'create', 'New user account created: Nyu Nyez', '2024-12-22 15:42:49'),
+(45, 'create', 'New user account created: Juwita', '2024-12-23 09:23:55'),
+(46, 'create', 'New user account created: Kang Udik', '2024-12-23 10:30:07'),
+(47, 'create', 'New user account created: Darween', '2024-12-23 10:39:58'),
+(48, 'create', 'New user account created: Kang Udik', '2024-12-23 10:44:37'),
+(49, 'alert_rejected', 'Alert ID #6 for ardel ganteng 20 dec was rejected', '2024-12-23 13:34:37'),
+(50, 'alert_rejected', 'Alert ID #6 for ardel ganteng 20 dec was rejected', '2024-12-23 13:34:46');
 
 -- --------------------------------------------------------
 
@@ -305,6 +336,13 @@ ALTER TABLE `prisoner_geofence`
   ADD KEY `nik` (`nik`,`nrt`);
 
 --
+-- Indexes for table `prisoner_location`
+--
+ALTER TABLE `prisoner_location`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `prisoner_id` (`prisoner_id`);
+
+--
 -- Indexes for table `recent_activities`
 --
 ALTER TABLE `recent_activities`
@@ -337,25 +375,31 @@ ALTER TABLE `final_report`
 -- AUTO_INCREMENT for table `login_history`
 --
 ALTER TABLE `login_history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT for table `mantan_narapidana`
 --
 ALTER TABLE `mantan_narapidana`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `prisoner_geofence`
 --
 ALTER TABLE `prisoner_geofence`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT for table `prisoner_location`
+--
+ALTER TABLE `prisoner_location`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `recent_activities`
 --
 ALTER TABLE `recent_activities`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- Constraints for dumped tables
@@ -378,6 +422,12 @@ ALTER TABLE `login_history`
 --
 ALTER TABLE `prisoner_geofence`
   ADD CONSTRAINT `prisoner_geofence_ibfk_1` FOREIGN KEY (`nik`,`nrt`) REFERENCES `mantan_narapidana` (`nik`, `nrt`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `prisoner_location`
+--
+ALTER TABLE `prisoner_location`
+  ADD CONSTRAINT `prisoner_location_ibfk_1` FOREIGN KEY (`prisoner_id`) REFERENCES `mantan_narapidana` (`id`);
 
 --
 -- Constraints for table `users`
