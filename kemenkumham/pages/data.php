@@ -66,6 +66,91 @@ $polriUsers = fetchUsersByRole($conn, 'Polri', $search);
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        @media screen and (max-width: 1024px) {
+            .sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 60px;
+                background: var(--primary-color);
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                padding: 0 1rem;
+                transform: none;
+            }
+
+            .sidebar-header {
+                margin: 0;
+                padding: 0;
+                flex: 0 0 auto;
+            }
+
+            .logo {
+                padding: 0;
+                margin-right: 1rem;
+            }
+
+            .logo img {
+                width: 30px;
+                height: 30px;
+            }
+
+            .logo-text {
+                font-size: 1rem;
+            }
+
+            .nav-links {
+                margin: 0;
+                margin-left: auto;
+            }
+
+            .nav-links ul {
+                flex-direction: row;
+                gap: 1.5rem;
+                justify-content: flex-end;
+                padding-right: 1rem;
+            }
+
+            .nav-links li {
+                width: auto;
+            }
+
+            .nav-links li a {
+                padding: 0.5rem;
+            }
+
+            .nav-links li a span {
+                display: none;
+            }
+
+            .nav-links li a i {
+                font-size: 1.2rem;
+            }
+
+            .content {
+                margin-left: 0;
+                margin-top: 60px;
+                padding-top: 1rem;
+            }
+
+            .content.shifted {
+                margin-left: 0;
+            }
+
+            .toggle-sidebar,
+            .user-profile {
+                display: none;
+            }
+
+            /* Active state for navigation items */
+            .nav-links li.active a {
+                background: none;
+                color: var(--accent-color);
+            }
+        }
+
         .table-section {
             margin-bottom: 2rem;
             background: white;
@@ -153,8 +238,8 @@ $polriUsers = fetchUsersByRole($conn, 'Polri', $search);
             </div>
             <nav class="nav-links">
                 <ul>
-                    <li class="active"><a href="/wetrack/kemenkumham/pages/home.php"><i class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a></li>
-                    <li><a href="/wetrack/kemenkumham/pages/data.php"><i class="fas fa-database"></i> <span>Database</span></a></li>
+                    <li><a href="/wetrack/kemenkumham/pages/home.php"><i class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a></li>
+                    <li class="active"><a href="/wetrack/kemenkumham/pages/data.php"><i class="fas fa-database"></i> <span>Database</span></a></li>
                     <li><a href="/wetrack/kemenkumham/pages/create-account.php"><i class="fas fa-user-plus"></i> <span>Create Account</span></a></li>
                     <li><a href="/wetrack/kemenkumham/pages/setting.php"><i class="fas fa-cog"></i> <span>Settings</span></a></li>
                 </ul>
