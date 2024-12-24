@@ -18,10 +18,9 @@ $user = $result->fetch_assoc();
 // Close the statement
 $stmt->close();
 
-// Close the database connection
-$conn->close();
+// Debugging: Log user data
+error_log("Debug: User data: " . print_r($user, true));
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -76,6 +75,7 @@ $conn->close();
             border-radius: 50%;
             border: 4px solid var(--card-color);
             margin-bottom: 1rem;
+            object-fit: cover;
         }
 
         .profile-name {
@@ -149,20 +149,36 @@ $conn->close();
     <div class="container">
         <div class="profile-card">
             <div class="profile-header">
-                <img src="<?php echo $user['fileInput']; ?>" alt="Prisoner Photo" class="profile-photo">
-                <h1 class="profile-name"><?php echo $user['nama']; ?></h1>
-                <p class="profile-nik">NIK: <?php echo $user['nik']; ?></p>
-                <p class="profile-nrt">NRT: <?php echo $user['nrt']; ?></p>
+                <?php
+                if (isset($user['id'])) {
+                    $imagePath = htmlspecialchars($user["fileInput"]);
+                    error_log("Debug: Image path: $imagePath");
+                    
+                    $fullPath = $_SERVER['DOCUMENT_ROOT'] . $imagePath;
+                    if (file_exists($fullPath)) {
+                        echo "<img src='" . htmlspecialchars($imagePath) . "' alt='Profile Image' class='profile-photo'>";
+                    } else {
+                        error_log("Debug: Image file not found at: $fullPath");
+                        echo "<img src='/wetrack/lapas/image/nanti-diganti.png' alt='Default Photo' class='profile-photo'>";
+                    }
+                } else {
+                    error_log("Debug: User ID not set");
+                    echo "<img src='/wetrack/lapas/image/nanti-diganti.png' alt='Default Photo' class='profile-photo'>";
+                }
+                ?>
+                <h1 class="profile-name"><?php echo htmlspecialchars($user['nama']); ?></h1>
+                <p class="profile-nik">NIK: <?php echo htmlspecialchars($user['nik']); ?></p>
+                <p class="profile-nrt">NRT: <?php echo htmlspecialchars($user['nrt']); ?></p>
             </div>
             <div class="profile-info">
-                <p><strong>Gender:</strong> <span><?php echo $user['gender']; ?></span></p>
-                <p><strong>Date of Birth:</strong> <span><?php echo $user['dateBirth']; ?></span></p>
-                <p><strong>Address:</strong> <span><?php echo $user['address']; ?></span></p>
-                <p><strong>Nationality:</strong> <span><?php echo $user['nationality']; ?></span></p>
-                <p><strong>Crime:</strong> <span><?php echo $user['crime']; ?></span></p>
-                <p><strong>Punishment:</strong> <span><?php echo $user['punishment']; ?></span></p>
-                <p><strong>Release Date:</strong> <span><?php echo $user['releaseDate']; ?></span></p>
-                <p><strong>Prisoner Type:</strong> <span><?php echo $user['prisoner_type']; ?></span></p>
+                <p><strong>Gender:</strong> <span><?php echo htmlspecialchars($user['gender']); ?></span></p>
+                <p><strong>Date of Birth:</strong> <span><?php echo htmlspecialchars($user['dateBirth']); ?></span></p>
+                <p><strong>Address:</strong> <span><?php echo htmlspecialchars($user['address']); ?></span></p>
+                <p><strong>Nationality:</strong> <span><?php echo htmlspecialchars($user['nationality']); ?></span></p>
+                <p><strong>Crime:</strong> <span><?php echo htmlspecialchars($user['crime']); ?></span></p>
+                <p><strong>Punishment:</strong> <span><?php echo htmlspecialchars($user['punishment']); ?></span></p>
+                <p><strong>Release Date:</strong> <span><?php echo htmlspecialchars($user['releaseDate']); ?></span></p>
+                <p><strong>Prisoner Type:</strong> <span><?php echo htmlspecialchars($user['prisoner_type']); ?></span></p>
                 <div class="status-pemantauan">
                     <strong>Monitoring Status:</strong>
                     <span class="badge active">Active</span>
@@ -173,4 +189,7 @@ $conn->close();
     </div>
 </body>
 </html>
-
+<?php
+// Close the database connection at the end of the file
+$conn->close();
+?>

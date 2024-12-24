@@ -1,13 +1,13 @@
 Directory Structure for: d:\xampp\htdocs\wetrack
-Scanned on: 2024-12-23 08:30:35
+Scanned on: 2024-12-24 10:34:37
 ==================================================
 
 📁 .vscode/
     📄 settings.json (42.0 B)
 📁 bapas/
     📁 css/
-        📄 data-napi.css (7.4 KB)
-        📄 data.css (7.4 KB)
+        📄 data-napi.css (7.0 KB)
+        📄 data.css (8.3 KB)
         📄 profile.css (2.0 KB)
         📄 setting.css (1.5 KB)
         📄 style.css (6.5 KB)
@@ -27,17 +27,17 @@ Scanned on: 2024-12-23 08:30:35
     📁 pages/
         📁 geojson/
             📄 districts.json (23.2 KB)
-        📄 data-napi.php (11.4 KB)
-        📄 dataBapas.php (13.9 KB)
+        📄 data-napi.php (17.0 KB)
+        📄 dataBapas.php (20.3 KB)
         📄 debug_log.txt (4.9 KB)
         📄 delete_prisoner.php (1.3 KB)
         📄 error.log (933.0 B)
         📄 get_geofence.php (724.0 B)
-        📄 home.php (5.5 KB)
-        📄 profile.php (4.0 KB)
+        📄 home.php (7.5 KB)
+        📄 profile.php (6.0 KB)
         📄 save_prisoner.php (2.4 KB)
-        📄 setting.php (4.2 KB)
-        📄 tracking.php (2.9 KB)
+        📄 setting.php (6.2 KB)
+        📄 tracking.php (4.9 KB)
         📄 update_schema.php (659.0 B)
     📄 geo.txt (23.2 KB)
 📁 config/
@@ -60,15 +60,15 @@ Scanned on: 2024-12-23 08:30:35
         📄 dataNapi.js (2.8 KB)
         📄 script.js (5.2 KB)
     📁 pages/
-        📄 change-password.php (7.8 KB)
-        📄 create-account.php (14.2 KB)
-        📄 data.php (13.6 KB)
-        📄 edit-user.php (12.9 KB)
-        📄 home.php (18.2 KB)
+        📄 change-password.php (9.8 KB)
+        📄 create-account.php (16.2 KB)
+        📄 data.php (15.6 KB)
+        📄 edit-user.php (14.9 KB)
+        📄 home.php (20.2 KB)
         📄 logout.php (199.0 B)
-        📄 profile.php (4.6 KB)
-        📄 setting.php (4.7 KB)
-        📄 user-details.php (8.8 KB)
+        📄 profile.php (6.6 KB)
+        📄 setting.php (6.7 KB)
+        📄 user-details.php (10.8 KB)
     📁 uploads/
         📄 67658decd1bde.png (159.4 KB)
         📄 67658def7548c.png (159.4 KB)
@@ -94,7 +94,7 @@ Scanned on: 2024-12-23 08:30:35
         📄 6766a20b55102.jpg (95.7 KB)
 📁 lapas/
     📁 css/
-        📄 data.css (7.3 KB)
+        📄 data.css (8.3 KB)
         📄 dataNapi.css (6.8 KB)
         📄 profile.css (2.0 KB)
         📄 setting.css (1.5 KB)
@@ -111,6 +111,7 @@ Scanned on: 2024-12-23 08:30:35
         📄 script.js (4.4 KB)
     📁 pages/
         📁 uploads/
+            📄 20240305.webp (27.0 KB)
             📄 Final Report.pdf (9.0 KB)
             📄 images.jpeg (8.1 KB)
             📄 tahanan1.webp (20.1 KB)
@@ -119,15 +120,15 @@ Scanned on: 2024-12-23 08:30:35
             📄 tahanan4.png (760.1 KB)
         📁 utils/
             📄 activity_logger.php (746.0 B)
-        📄 data.php (10.7 KB)
-        📄 dataNapi.php (6.3 KB)
+        📄 data.php (12.7 KB)
+        📄 dataNapi.php (8.3 KB)
         📄 delete-final-report.php (1.3 KB)
         📄 delete-record.php (617.0 B)
         📄 get_nrt.php (496.0 B)
-        📄 home.php (5.5 KB)
-        📄 Laporan.php (11.9 KB)
-        📄 profile.php (3.9 KB)
-        📄 setting.php (4.1 KB)
+        📄 home.php (7.5 KB)
+        📄 Laporan.php (13.9 KB)
+        📄 profile.php (5.9 KB)
+        📄 setting.php (6.1 KB)
 📁 monitored-individuals/
     📁 css/
         📄 profile.css (1.9 KB)
@@ -137,12 +138,12 @@ Scanned on: 2024-12-23 08:30:35
         📄 profile.js (248.0 B)
     📁 pages/
         📄 final-report.php (1.4 KB)
-        📄 profile.php (2.2 KB)
+        📄 profile.php (6.6 KB)
         📄 WETRACK - BYTE ME.pdf (191.0 KB)
 📁 polri/
     📁 assets/
         📁 css/
-            📄 dashboard.css (7.2 KB)
+            📄 dashboard.css (7.1 KB)
             📄 styles.css (3.3 KB)
         📁 js/
             📄 alerts.js (6.3 KB)
@@ -177,7 +178,7 @@ Scanned on: 2024-12-23 08:30:35
             📄 6763c1e19283b.jpg (536.6 KB)
             📄 6763c47fcfc18.png (188.1 KB)
             📄 6763ec680142f.jpg (64.3 KB)
-        📄 index.php (3.4 KB)
+        📄 index.php (5.5 KB)
     📁 uploads/
         📄 6763fad3e5a94.jpg (55.6 KB)
         📄 67640e76c0ba2.jpg (536.6 KB)
@@ -273,11 +274,11 @@ Scanned on: 2024-12-23 08:30:35
             📄 webflow-badge-icon-d2.89e12c322e.svg (424.0 B)
             📄 webflow-badge-text-d2.c82cec3b78.svg (9.7 KB)
         📁 js/
-            📄 location-tracking.js (1.8 KB)
+            📄 location-tracking.js (3.8 KB)
             📄 script.js (3.8 KB)
-        📄 index.php (4.7 KB)
+        📄 index.php (5.7 KB)
 📁 socket/
-    📄 server.js (1.8 KB)
+    📄 server.js (2.0 KB)
 📁 uploads/
     📄 67641c574ce09.jpg (55.6 KB)
 📄 .DS_Store (6.0 KB)
@@ -289,7 +290,7 @@ Scanned on: 2024-12-23 08:30:35
 📄 package-lock.json (43.3 KB)
 📄 package.json (342.0 B)
 📄 password.php (204.0 B)
-📄 README.md (286.0 B)
+📄 README.md (331.0 B)
 📄 start.sh (175.0 B)
 📄 wetrack (backup database).txt (13.0 KB)
-📄 wetrack.sql (16.2 KB)
+📄 wetrack.sql (18.2 KB)

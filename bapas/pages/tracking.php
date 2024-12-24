@@ -1,3 +1,18 @@
+<?php
+require __DIR__ . '/../../config/connection.php';
+
+// Fetch all geofences from the mantan_narapidana table
+$query = "SELECT id, nama, centerLat, centerLng, radiusFence FROM mantan_narapidana WHERE centerLat IS NOT NULL AND centerLng IS NOT NULL AND radiusFence IS NOT NULL";
+$result = $conn->query($query);
+
+$geofences = array();
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $geofences[] = $row;
+    }
+}
+$geofencesJson = json_encode($geofences);
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -101,7 +116,8 @@
                 background: none;
                 color: var(--accent-color);
             }
-        }</style>
+        }
+    </style>
 </head>
 
 <body>
@@ -134,11 +150,58 @@
             </div>
         </aside>
         <main class="content">
-            </header>
+            <header> </header>
             <div id="map" style="width: 100%; height: 100%"></div>
         </main>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.2/socket.io.js"></script>
+    <script>
+        var geofences = <?php echo $geofencesJson; ?>;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof initMap === 'function') {
+                initMap(geofences);
+            }
+        });
+        let map;
+        let markers = {};
+
+        function initMap(geofences) {
+            map = L.map('map').setView([-7.7956, 110.3695], 12); // Centered on Yogyakarta
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+
+            // Add geofences to the map
+            geofences.forEach(function(geofence) {
+                let circle = L.circle([geofence.centerLat, geofence.centerLng], {
+                    color: 'red',
+                    fillColor: '#f03',
+                    fillOpacity: 0.2,
+                    radius: geofence.radiusFence * 1000 // Convert km to meters
+                }).addTo(map);
+
+                circle.bindPopup("Geofence for: " + geofence.nama);
+            });
+
+            // Initialize Socket.io connection
+            const socket = io('http://localhost:3000');
+
+            socket.on('locationUpdate', function(data) {
+                updateMarker(data.nik, data.lat, data.lng);
+            });
+        }
+
+        function updateMarker(nik, lat, lng) {
+            if (markers[nik]) {
+                markers[nik].setLatLng([lat, lng]);
+            } else {
+                markers[nik] = L.marker([lat, lng]).addTo(map);
+            }
+            map.setView([lat, lng], 15);
+        }
+    </script>
 </body>
 
 </html>
