@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 24, 2024 at 04:02 AM
+-- Generation Time: Dec 26, 2024 at 01:31 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -125,7 +125,12 @@ INSERT INTO `login_history` (`id`, `user_id`, `login_time`, `ip_address`) VALUES
 (45, 1200001, '2024-12-23 14:09:18', '::1'),
 (46, 1200001, '2024-12-23 14:18:46', '::1'),
 (47, 1200001, '2024-12-24 00:59:50', '::1'),
-(48, 1200001, '2024-12-24 01:05:27', '::1');
+(48, 1200001, '2024-12-24 01:05:27', '::1'),
+(49, 1200001, '2024-12-24 03:30:37', '::1'),
+(50, 1200001, '2024-12-24 04:41:19', '::1'),
+(51, 1000001, '2024-12-24 08:09:25', '::1'),
+(52, 1200001, '2024-12-24 08:10:32', '::1'),
+(53, 1000001, '2024-12-24 08:12:09', '::1');
 
 -- --------------------------------------------------------
 
@@ -163,9 +168,10 @@ CREATE TABLE `mantan_narapidana` (
 --
 
 INSERT INTO `mantan_narapidana` (`id`, `fileInput`, `nik`, `nrt`, `nama`, `dateBirth`, `address`, `gender`, `nationality`, `crime`, `case`, `punishment`, `releaseDate`, `report`, `action`, `created_at`, `prisoner_type`, `radiusFence`, `centerLat`, `centerLng`, `city_district`, `last_login`) VALUES
-(11, 'uploads/tahanan1.webp', '1', '1', 'ferdi', '1999-11-11', 'ya', 'male', 'Belgium', 'MvT', 'ya', 'ya', '2056-11-11', NULL, NULL, '2024-12-22 14:23:10', 'cityPrisoner', NULL, NULL, NULL, 'Kabupaten Sleman', '2024-12-24 02:59:14'),
-(13, 'uploads/tahanan2.jpeg', '2', '2', 'Anton', '2001-01-01', 'Jakal Bawah', 'male', 'Brazil', 'Robbery', 'Merampok Gol', '1 Musim', '2025-12-22', NULL, NULL, '2024-12-22 15:00:27', NULL, NULL, NULL, NULL, NULL, '2024-12-23 13:49:32'),
-(19, 'uploads/tahanan3.jpeg', '3', '3', 'Kang Udik', '1999-02-02', 'Jakal', 'male', 'Barbados', 'NO', 'Pengedar narkobs', '1 Years', '2025-12-23', NULL, NULL, '2024-12-23 10:44:37', NULL, NULL, NULL, NULL, NULL, '2024-12-23 13:49:37');
+(20, 'uploads/tahanan1.webp', '001', '001', 'Adam', '1976-01-01', 'Jalan Melati No. 123, Kelurahan Mawar, Kecamatan Anggrek, Kota Bogor, Provinsi Jawa Barat, 12345.', 'male', 'Indonesia', 'MvT', 'Pada tanggal 24 Desember 2024, sekitar pukul 10:00 pagi, tersangka melakukan pencurian barang elektronik di Gudang PT Sejahtera Abadi. Tersangka berhasil membawa keluar laptop dan tablet senilai Rp 400 juta.', '10 Tahun', '2034-12-24', NULL, NULL, '2024-12-24 03:47:25', NULL, NULL, NULL, NULL, NULL, '2024-12-24 04:35:16'),
+(21, 'uploads/tahanan2.jpeg', '002', '002', 'Anton', '2000-09-09', 'Jl. Pahlawan Timur No. 45, Kel. Tanjung Mas, Kec. Gading Serpong, Kota Tangerang, Banten, 15810', 'male', 'Indonesia', 'Robbery', 'Tersangka diketahui melakukan penganiayaan terhadap seorang pedagang kaki lima dan korban meninggal dunia ditempat', '10 Years', '2034-12-24', NULL, NULL, '2024-12-24 03:50:42', NULL, NULL, NULL, NULL, NULL, '2024-12-24 07:56:03'),
+(22, 'uploads/mudrik 1.jpeg', '003', '003', 'Kang Udrik ', '1999-05-05', 'Jl. Sudirman No. 99, Kel. Karya Utama, Kec. Andalas Baru, Kota Padang, Sumatera Barat, 25115', 'male', 'Indonesia', 'NO', 'During a late-night operation, authorities detained a 25-year-old male at a private residence. Approximately 120 kilogram of heroin and drug paraphernalia were discovered. The suspect is believed to be a major distributor in the area.', '30 Years', '2054-12-24', NULL, NULL, '2024-12-24 03:55:18', NULL, NULL, NULL, NULL, NULL, '2024-12-24 07:20:54'),
+(23, 'uploads/darwin-nunez-2_169.jpeg', '004', '004', 'Darwis Nur Nes', '2000-12-01', 'Jl. Melati Raya Blok B-5 No. 8, Kel. Mekar Sari, Kec. Cempaka Putih, Kota Surabaya, Jawa Timur, 60123', 'male', 'Indonesia', 'MvT', 'Tersangka melakukan balap liar dan melarikan diri saat dihentikan oleh petugas lalu lintas. Setelah pengejaran singkat, tersangka berhasil ditangkap.', '2 Years ', '2026-12-24', NULL, NULL, '2024-12-24 04:02:16', NULL, NULL, NULL, NULL, NULL, '2024-12-24 05:23:40');
 
 -- --------------------------------------------------------
 
@@ -190,9 +196,10 @@ CREATE TABLE `prisoner_geofence` (
 --
 
 INSERT INTO `prisoner_geofence` (`id`, `nik`, `nrt`, `prisoner_type`, `radiusFence`, `centerLat`, `centerLng`, `city_district`, `created_at`) VALUES
-(5, '1', '1', 'houseArrest', 1, -7.68343, 110.414, NULL, '2024-12-22 14:47:54'),
-(8, '2', '2', 'houseArrest', 1, -7.70029, 110.413, NULL, '2024-12-22 15:00:34'),
-(15, '3', '3', 'houseArrest', 1, -7.69854, 110.409, NULL, '2024-12-23 10:44:50');
+(16, '002', '002', 'houseArrest', 1, -7.68642, 110.41, NULL, '2024-12-24 04:13:44'),
+(17, '001', '001', 'houseArrest', 1, -7.69551, 110.414, NULL, '2024-12-24 04:35:04'),
+(18, '003', '003', 'houseArrest', 1, -7.68359, 110.412, NULL, '2024-12-24 04:36:34'),
+(19, '004', '004', 'houseArrest', 1, -7.68635, 110.411, NULL, '2024-12-24 04:41:41');
 
 -- --------------------------------------------------------
 
@@ -254,7 +261,11 @@ INSERT INTO `recent_activities` (`id`, `action_type`, `action_description`, `cre
 (47, 'create', 'New user account created: Darween', '2024-12-23 10:39:58'),
 (48, 'create', 'New user account created: Kang Udik', '2024-12-23 10:44:37'),
 (49, 'alert_rejected', 'Alert ID #6 for ardel ganteng 20 dec was rejected', '2024-12-23 13:34:37'),
-(50, 'alert_rejected', 'Alert ID #6 for ardel ganteng 20 dec was rejected', '2024-12-23 13:34:46');
+(50, 'alert_rejected', 'Alert ID #6 for ardel ganteng 20 dec was rejected', '2024-12-23 13:34:46'),
+(51, 'create', 'New user account created: Adam', '2024-12-24 03:47:25'),
+(52, 'create', 'New user account created: Anton', '2024-12-24 03:50:42'),
+(53, 'create', 'New user account created: Kang Udrik ', '2024-12-24 03:55:18'),
+(54, 'create', 'New user account created: Darwis Nur Nes', '2024-12-24 04:02:16');
 
 -- --------------------------------------------------------
 
@@ -375,19 +386,19 @@ ALTER TABLE `final_report`
 -- AUTO_INCREMENT for table `login_history`
 --
 ALTER TABLE `login_history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT for table `mantan_narapidana`
 --
 ALTER TABLE `mantan_narapidana`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `prisoner_geofence`
 --
 ALTER TABLE `prisoner_geofence`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `prisoner_location`
@@ -399,7 +410,7 @@ ALTER TABLE `prisoner_location`
 -- AUTO_INCREMENT for table `recent_activities`
 --
 ALTER TABLE `recent_activities`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 
 --
 -- Constraints for dumped tables
