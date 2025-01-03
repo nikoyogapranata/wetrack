@@ -152,9 +152,6 @@ if (isset($_GET['id'])) {
                 <div class="path-to-back">
                     <a href="/wetrack/lapas/pages/data.php"><i class="fas fa-arrow-left"></i></a>
                 </div>
-                <div class="edit-data">
-                    <a href="/wetrack/lapas/pages/editNapi.php"><i class="fas fa-edit"></i></a>
-                </div>
                 <div class="profile-header">
                     <?php
                     $result = $conn->query("SELECT * FROM mantan_narapidana WHERE id = $id");

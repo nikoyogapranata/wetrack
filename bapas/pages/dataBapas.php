@@ -168,7 +168,7 @@ if (!$profile_picture) {
         <main class="content">
             <div class="content-container">
                 <div class="content-header">
-                    <h1>Database</h1>
+                    <h1>Prisoner Database</h1>
                     <div class="search-bar">
                         <input type="text" placeholder="Search...">
                         <i class="fas fa-search"></i>
