@@ -44,7 +44,7 @@ if (isset($_POST["submit"])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WETRACK | Database</title>
+    <title>WETRACK | Prisoner Database</title>
     <link rel="icon" href="/wetrack/Lapas/Image/wetrack-logo-white.png" type="Image/x-icon">
     <link rel="stylesheet" type="text/css" href="/wetrack/lapas/css/data.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -137,7 +137,8 @@ if (isset($_POST["submit"])) {
                 background: none;
                 color: var(--accent-color);
             }
-        }</style>
+        }
+    </style>
 </head>
 
 <body>
@@ -178,7 +179,7 @@ if (isset($_POST["submit"])) {
                     <h1>Prisoner Database</h1>
                     <div class="search-bar">
                         <i class="fas fa-search"></i>
-                        <input type="text" id="searchInput" placeholder="Search...">
+                        <input type="text" id="searchInput" placeholder="Search by name, ID, or NRT">
                     </div>
                 </div>
                 <div class="button-group">
@@ -192,12 +193,14 @@ if (isset($_POST["submit"])) {
                             <tr>
                                 <th>No.</th>
                                 <th>Name</th>
+                                <th>National ID Number</th>
+                                <th>Prisoner Registration Number (NRT)</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php
-                            $result = mysqli_query($conn, "SELECT mn.id, mn.nama 
+                            $result = mysqli_query($conn, "SELECT mn.id, mn.nama, mn.nik, mn.nrt 
                                FROM mantan_narapidana mn 
                                LEFT JOIN final_report fr ON mn.nik = fr.nik AND mn.nrt = fr.nrt 
                                WHERE fr.id IS NULL 
@@ -207,7 +210,9 @@ if (isset($_POST["submit"])) {
                                 echo "<tr>";
                                 echo "<td>" . $i . "</td>";
                                 echo "<td>" . $row['nama'] . "</td>";
-                                echo "<td><button class='btn btn-action' data-id='" . $row['id'] . "'>Details</button> </td>";
+                                echo "<td>" . $row['nik'] . "</td>";
+                                echo "<td>" . $row['nrt'] . "</td>";
+                                echo "<td><button class='btn btn-action' data-id='" . $row['id'] . "'>View Details</button></td>";
                                 echo "</tr>";
                                 $i++;
                             }
@@ -289,10 +294,28 @@ if (isset($_POST["submit"])) {
         </main>
     </div>
     <script>
-        
+      document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('searchInput');
+        const tableRows = document.querySelectorAll('tbody tr');
+
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+
+            tableRows.forEach(row => {
+                const name = row.children[1].textContent.toLowerCase();
+                const nik = row.children[2].textContent.toLowerCase();
+                const nrt = row.children[3].textContent.toLowerCase();
+
+                if (name.includes(searchTerm) || nik.includes(searchTerm) || nrt.includes(searchTerm)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+    });
     </script>
     <script src="/wetrack/lapas/js/delete-functionality.js"></script>
 </body>
 
 </html>
-

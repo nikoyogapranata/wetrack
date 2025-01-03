@@ -16,7 +16,7 @@ if (isset($_GET['id'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WETRACK | Database</title>
+    <title>WETRACK | Prisoner Database</title>
     <link rel="stylesheet" href="/wetrack/Lapas/css/dataNapi.css">
     <script src="/wetrack/Lapas/js/dataNapi.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -29,6 +29,18 @@ if (isset($_GET['id'])) {
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <style>
+        .icon-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+        }
+
+        .icon-container i{
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
         @media screen and (max-width: 1024px) {
             .sidebar {
                 position: fixed;
@@ -112,7 +124,8 @@ if (isset($_GET['id'])) {
                 background: none;
                 color: var(--accent-color);
             }
-        }</style>
+        }
+    </style>
 </head>
 
 <body>
@@ -149,11 +162,13 @@ if (isset($_GET['id'])) {
         </aside>
         <main class="content">
             <div class="profile-card">
-                <div class="path-to-back">
-                    <a href="/wetrack/lapas/pages/data.php"><i class="fas fa-arrow-left"></i></a>
-                </div>
-                <div class="edit-data">
-                    <a href="/wetrack/lapas/pages/editNapi.php"><i class="fas fa-edit"></i></a>
+                <div class="icon-container">
+                    <div class="path-to-back">
+                        <a href="/wetrack/lapas/pages/data.php"><i class="fas fa-arrow-left"></i></a>
+                    </div>
+                    <div class="edit-data">
+                        <a href="/wetrack/lapas/pages/editNapi.php?id=<?php echo $id; ?>"><i class="fas fa-edit"></i></a>
+                    </div>
                 </div>
                 <div class="profile-header">
                     <?php

@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
             this.textContent = 'Delete';
             this.classList.remove('btn-danger');
             actionButtons.forEach(btn => {
-                btn.textContent = 'Details';
+                btn.textContent = 'View Details';
                 btn.classList.remove('btn-danger');
             });
         }
