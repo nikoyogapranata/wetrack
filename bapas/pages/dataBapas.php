@@ -151,7 +151,7 @@ if (!$profile_picture) {
                     <li><a href="/wetrack/bapas/pages/tracking.php"><i class="fas fa-map-marker-alt"></i><span>
                                 Tracking Map</span></a></li>
                     <li class="active"><a href="/wetrack/bapas/pages/dataBapas.php"><i class="fas fa-database"></i>
-                            <span>Database</span></a></li>
+                            <span>Prisoner Database</span></a></li>
 
                     <li><a href="/wetrack/bapas/pages/setting.php"><i class="fas fa-cog"></i>
                             <span>Settings</span></a></li>

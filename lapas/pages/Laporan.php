@@ -174,7 +174,7 @@ if (isset($_POST["submit"])) {
                     <li><a href="/wetrack/Lapas/pages/home.php"><i class="fas fa-tachometer-alt"></i>
                             <span>Dashboard</span></a></li>
                     <li><a href="/wetrack/Lapas/pages/data.php"><i class="fas fa-database"></i>
-                            <span>Database</span></a></li>
+                            <span>Prisoner Database</span></a></li>
                     <li class="active"><a href="/wetrack/Lapas/pages/Laporan.php"><i
                                 class="fas fa-file-invoice"></i> <span>Final Report</span></a></li>
                     <li><a href="/wetrack/Lapas/pages/setting.php"><i class="fas fa-cog"></i>
