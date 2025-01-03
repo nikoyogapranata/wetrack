@@ -164,19 +164,14 @@ if (!$profile_picture) {
                 <section class="card summary-card">
                     <h3><i class="fas fa-users"></i>Total Tracked Individuals</h3>
                     <div class="card-content">
-                        <span class="number">1,365</span>
-                    </div>
-                    <p class="trend positive">+5% from last month</p>
-                    <div class="chart-container">
-                        <canvas id="summaryChart"></canvas>
+                        <span class="number">5</span>
                     </div>
                 </section>
                 <section class="card alert-card">
                     <h3><i class="fas fa-exclamation-triangle"></i>Active Alerts</h3>
                     <div class="card-content">
-                        <span class="number">7</span>
+                        <span class="number">5</span>
                     </div>
-                    <p class="trend negative">Requires immediate attention</p>
                 </section>
                 <section class="card activity-card">
                     <h3><i class="fas fa-history"></i>Recent Activities</h3>
