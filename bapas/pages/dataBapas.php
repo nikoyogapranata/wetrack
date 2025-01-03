@@ -347,7 +347,12 @@ ORDER BY mn.id ASC");
                         method: 'POST',
                         body: formData
                     })
-                    .then(response => response.json())
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
                     .then(data => {
                         if (data.success) {
                             alert('Data saved successfully');
@@ -360,7 +365,7 @@ ORDER BY mn.id ASC");
                     })
                     .catch(error => {
                         console.error('Fetch error:', error);
-                        alert('An error occurred while saving the data');
+                        alert('An error occurred while saving the data: ' + error.message);
                     });
             });
 

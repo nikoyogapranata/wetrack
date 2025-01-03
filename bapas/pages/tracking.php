@@ -1,17 +1,24 @@
 <?php
 require __DIR__ . '/../../config/connection.php';
 
-// Fetch all geofences from the mantan_narapidana table
-$query = "SELECT id, nama, centerLat, centerLng, radiusFence FROM mantan_narapidana WHERE centerLat IS NOT NULL AND centerLng IS NOT NULL AND radiusFence IS NOT NULL";
+// Fetch the most recent location for each prisoner
+$query = "SELECT pl.prisoner_id, pl.latitude, pl.longitude, mn.nama
+          FROM prisoner_location pl
+          INNER JOIN (
+              SELECT prisoner_id, MAX(timestamp) as max_timestamp
+              FROM prisoner_location
+              GROUP BY prisoner_id
+          ) latest ON pl.prisoner_id = latest.prisoner_id AND pl.timestamp = latest.max_timestamp
+          INNER JOIN mantan_narapidana mn ON pl.prisoner_id = mn.nik";
 $result = $conn->query($query);
 
-$geofences = array();
+$locations = array();
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
-        $geofences[] = $row;
+        $locations[] = $row;
     }
 }
-$geofencesJson = json_encode($geofences);
+$locationsJson = json_encode($locations);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -156,51 +163,13 @@ $geofencesJson = json_encode($geofences);
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.2/socket.io.js"></script>
     <script>
-        var geofences = <?php echo $geofencesJson; ?>;
+        var prisonerLocations = <?php echo $locationsJson; ?>;
 
         document.addEventListener('DOMContentLoaded', function() {
             if (typeof initMap === 'function') {
-                initMap(geofences);
+                initMap(prisonerLocations);
             }
         });
-        let map;
-        let markers = {};
-
-        function initMap(geofences) {
-            map = L.map('map').setView([-7.7956, 110.3695], 12); // Centered on Yogyakarta
-
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            }).addTo(map);
-
-            // Add geofences to the map
-            geofences.forEach(function(geofence) {
-                let circle = L.circle([geofence.centerLat, geofence.centerLng], {
-                    color: 'red',
-                    fillColor: '#f03',
-                    fillOpacity: 0.2,
-                    radius: geofence.radiusFence * 1000 // Convert km to meters
-                }).addTo(map);
-
-                circle.bindPopup("Geofence for: " + geofence.nama);
-            });
-
-            // Initialize Socket.io connection
-            const socket = io('http://localhost:3000');
-
-            socket.on('locationUpdate', function(data) {
-                updateMarker(data.nik, data.lat, data.lng);
-            });
-        }
-
-        function updateMarker(nik, lat, lng) {
-            if (markers[nik]) {
-                markers[nik].setLatLng([lat, lng]);
-            } else {
-                markers[nik] = L.marker([lat, lng]).addTo(map);
-            }
-            map.setView([lat, lng], 15);
-        }
     </script>
 </body>
 

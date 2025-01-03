@@ -10,10 +10,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $latitude = $_POST['latitude'];
   $longitude = $_POST['longitude'];
 
-  $stmt = $conn->prepare("SELECT * FROM mantan_narapidana WHERE nik = ? AND nrt = ?");
-  $stmt->bind_param("ss", $nik, $nrt);
-  $stmt->execute();
-  $result = $stmt->get_result();
+  // First, check if the nik and nrt exist in the mantan_narapidana table
+  $check_stmt = $conn->prepare("SELECT * FROM mantan_narapidana WHERE nik = ? AND nrt = ?");
+  $check_stmt->bind_param("ss", $nik, $nrt);
+  $check_stmt->execute();
+  $result = $check_stmt->get_result();
 
   if ($result->num_rows == 1) {
     $row = $result->fetch_assoc();
@@ -23,27 +24,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $_SESSION['latitude'] = $latitude;
     $_SESSION['longitude'] = $longitude;
 
-    // Update location in the prisoner_location table
-    $insert_location_stmt = $conn->prepare("INSERT INTO prisoner_location (prisoner_id, latitude, longitude, timestamp) VALUES (?, ?, ?, CURRENT_TIMESTAMP)");
-    $insert_location_stmt->bind_param("sdd", $nik, $latitude, $longitude);
-    $insert_location_stmt->execute();
+    // Now insert into prisoner_location table
+    $insert_location_stmt = $conn->prepare("INSERT INTO prisoner_location (prisoner_id, nrt, latitude, longitude, timestamp) VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)");
+    $insert_location_stmt->bind_param("ssdd", $nik, $nrt, $latitude, $longitude);
+    
+    if ($insert_location_stmt->execute()) {
+      // Update last_login in the mantan_narapidana table
+      $update_login_stmt = $conn->prepare("UPDATE mantan_narapidana SET last_login = CURRENT_TIMESTAMP WHERE nik = ?");
+      $update_login_stmt->bind_param("s", $nik);
+      $update_login_stmt->execute();
+      $update_login_stmt->close();
+
+      $_SESSION['has_logged_in'] = true;
+
+      header("Location: /wetrack/monitored-individuals/pages/profile.php");
+      exit();
+    } else {
+      $error_message = "Error updating location. Please try again.";
+    }
+
     $insert_location_stmt->close();
-
-    // Update last_login in the mantan_narapidana table
-    $update_login_stmt = $conn->prepare("UPDATE mantan_narapidana SET last_login = CURRENT_TIMESTAMP WHERE nik = ?");
-    $update_login_stmt->bind_param("s", $nik);
-    $update_login_stmt->execute();
-    $update_login_stmt->close();
-
-    $_SESSION['has_logged_in'] = true;
-
-    header("Location: /wetrack/monitored-individuals/pages/profile.php");
-    exit();
   } else {
     $error_message = "Invalid NIK or NRT. Please try again.";
   }
 
-  $stmt->close();
+  $check_stmt->close();
 }
 ?>
 

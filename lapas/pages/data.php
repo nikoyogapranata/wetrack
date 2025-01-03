@@ -1,6 +1,7 @@
 <?php
-require __DIR__ . '/../../config/connection.php';  // Corrected path
+require __DIR__ . '/../../config/connection.php';
 require_once 'utils/activity_logger.php';
+
 if (isset($_POST["submit"])) {
     $fileInput = $_FILES["fileInput"]["name"];
     $nik = $_POST["nik"];
@@ -16,25 +17,48 @@ if (isset($_POST["submit"])) {
     $punishment = $_POST["punishment"];
     $releaseDate = $_POST["releaseDate"];
 
-    // File upload handling
-    $target_dir = "uploads/";
-    $target_file = $target_dir . basename($_FILES["fileInput"]["name"]);
-    move_uploaded_file($_FILES["fileInput"]["tmp_name"], $target_file);
+    // Check if the nik-nrt combination already exists
+    $check_query = "SELECT * FROM mantan_narapidana WHERE nik = ? AND nrt = ?";
+    $check_stmt = $conn->prepare($check_query);
+    $check_stmt->bind_param("ss", $nik, $nrt);
+    $check_stmt->execute();
+    $result = $check_stmt->get_result();
 
-    $query = "INSERT INTO mantan_narapidana (fileInput, nik, nrt, nama, dateBirth, address, gender, nationality, crime, `case`, punishment, releaseDate) 
-              VALUES ('$target_file', '$nik', '$nrt', '$nama', '$dateBirth', '$address', '$gender', '$nationality', '$crime', '$case', '$punishment', '$releaseDate')";
-
-    if (mysqli_query($conn, $query)) {
-        logRecentActivity("create", "New user account created: " . $nama);
+    if ($result->num_rows > 0) {
         echo "
         <script>
-        alert('Data Added Successfully');
+        alert('Error: This NIK and NRT combination already exists in the database.');
         document.location.href = '/wetrack/lapas/pages/dataNapi.php';
         </script>
         ";
     } else {
-        echo "Error: " . $query . "<br>" . mysqli_error($conn);
+        // File upload handling
+        $target_dir = "uploads/";
+        $target_file = $target_dir . basename($_FILES["fileInput"]["name"]);
+        move_uploaded_file($_FILES["fileInput"]["tmp_name"], $target_file);
+
+        $insert_query = "INSERT INTO mantan_narapidana (fileInput, nik, nrt, nama, dateBirth, address, gender, nationality, crime, `case`, punishment, releaseDate) 
+                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        
+        $insert_stmt = $conn->prepare($insert_query);
+        $insert_stmt->bind_param("ssssssssssss", $target_file, $nik, $nrt, $nama, $dateBirth, $address, $gender, $nationality, $crime, $case, $punishment, $releaseDate);
+
+        if ($insert_stmt->execute()) {
+            logRecentActivity("create", "New user account created: " . $nama);
+            echo "
+            <script>
+            alert('Data Added Successfully');
+            document.location.href = '/wetrack/lapas/pages/dataNapi.php';
+            </script>
+            ";
+        } else {
+            echo "Error: " . $insert_stmt->error;
+        }
+
+        $insert_stmt->close();
     }
+
+    $check_stmt->close();
 }
 ?>
 
