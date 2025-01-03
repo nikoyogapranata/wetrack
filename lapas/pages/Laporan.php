@@ -176,7 +176,7 @@ if (isset($_POST["submit"])) {
                     <li><a href="/wetrack/Lapas/pages/data.php"><i class="fas fa-database"></i>
                             <span>Prisoner Database</span></a></li>
                     <li class="active"><a href="/wetrack/Lapas/pages/Laporan.php"><i
-                                class="fas fa-file-invoice"></i> <span>Final Report</span></a></li>
+                                class="fas fa-file-invoice"></i> <span>Prisoner Final Report</span></a></li>
                     <li><a href="/wetrack/Lapas/pages/setting.php"><i class="fas fa-cog"></i>
                             <span>Settings</span></a></li>
                 </ul>
@@ -192,7 +192,7 @@ if (isset($_POST["submit"])) {
         <main class="content">
             <div class="content-container">
                 <div class="content-header">
-                    <h1>Final Report</h1>
+                    <h1>Prisoner Final Report</h1>
                     <div class="search-bar">
                         <input type="text" placeholder="Search...">
                         <i class="fas fa-search"></i>
@@ -209,8 +209,8 @@ if (isset($_POST["submit"])) {
                             <tr>
                                 <th>No.</th>
                                 <th>Name</th>
-                                <th>NIK</th>
-                                <th>NRT</th>
+                                <th>National ID Number</th>
+                                <th>Prisoner Registration Number</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -224,7 +224,7 @@ if (isset($_POST["submit"])) {
                                 echo "<td>" . $row['nama'] . "</td>";
                                 echo "<td>" . $row['nik'] . "</td>";
                                 echo "<td>" . $row['nrt'] . "</td>";
-                                echo "<td><button class='btn btn-action' data-id='" . $row['id'] . "' data-doc='" . $row['docInput'] . "'>Details</button></td>";
+                                echo "<td><button class='btn btn-action' data-id='" . $row['id'] . "' data-doc='" . $row['docInput'] . "'><i class='fas fa-download'></i> Download</button></td>";
                                 echo "</tr>";
                                 $i++;
                             }

@@ -3,7 +3,8 @@ require __DIR__ . '/../../config/connection.php';  // Corrected path
 require_once 'utils/activity_logger.php';
 
 // Function to log recent activity
-function logRecentActivity($action_type, $action_description) {
+function logRecentActivity($action_type, $action_description)
+{
     global $conn;
     $query = "INSERT INTO recent_activities (action_type, action_description) VALUES (?, ?)";
     $stmt = $conn->prepare($query);
@@ -19,14 +20,14 @@ if ($result_data) {
     $row = mysqli_fetch_assoc($result_data);
     $total = $row['total'];
 } else {
-    $total = 0; 
+    $total = 0;
 }
 
 if ($result_report) {
     $row_report = mysqli_fetch_assoc($result_report);
     $total_report = $row_report['total'];
 } else {
-    $total_report = 0; 
+    $total_report = 0;
 }
 
 ?>
@@ -123,7 +124,7 @@ if ($result_report) {
             }
 
             .toggle-sidebar,
-            .user-profile {
+            .user-profile, .path-profile {
                 display: none;
             }
 
@@ -132,7 +133,8 @@ if ($result_report) {
                 background: none;
                 color: var(--accent-color);
             }
-        }</style>
+        }
+    </style>
 </head>
 
 <body>
@@ -151,36 +153,33 @@ if ($result_report) {
                 <ul>
                     <li class="active"><a href="/wetrack/Lapas/pages/home.php"><i class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a></li>
                     <li><a href="/wetrack/Lapas/pages/data.php"><i class="fas fa-database"></i> <span>Prisoner Database</span></a></li>
-                    <li><a href="/wetrack/Lapas/pages/Laporan.php"><i class="fas fa-file-invoice"></i> <span>Final Report</span></a></li>
+                    <li><a href="/wetrack/Lapas/pages/Laporan.php"><i class="fas fa-file-invoice"></i> <span>Prisoner Final Report</span></a></li>
                     <li><a href="/wetrack/Lapas/pages/setting.php"><i class="fas fa-cog"></i> <span>Settings</span></a></li>
                 </ul>
             </nav>
-            <div class="user-profile">
-                <img src="/wetrack/Lapas/Image/lapas-logo.png" alt="Profile picture" width="40" height="40">
-                <div class="user-info">
-                    <h2>Serdy Fambo</h2>
-                    <p>Administrative Staff</p>
+            <a href="/wetrack/lapas/pages/profile.php" style="text-decoration: none; color: inherit; margin-top: 120%;" class="path-profile">
+                <div class="user-profile">
+                    <img src="/wetrack/Lapas/Image/lapas-logo.png" alt="Profile picture" width="40" height="40">
+                    <div class="user-info">
+                        <h2>Serdy Fambo</h2>
+                        <p>Administrative Staff</p>
+                    </div>
                 </div>
-            </div>
+            </a>
         </aside>
         <main class="content">
             <div class="dashboard-grid">
                 <section class="card summary-card">
-                    <h3><i class="fas fa-users"></i>Total Individuals Registered</h3>
+                    <h3><i class="fas fa-users"></i>Total Prisoner Registered</h3>
                     <div class="card-content">
                         <span class="number"><?php echo $total; ?></span>
                     </div>
-                    <p class="trend positive">+5% from last month</p>
-                    <div class="chart-container">
-                        <canvas id="summaryChart"></canvas>
-                    </div>
                 </section>
                 <section class="card alert-card">
-                    <h3><i class="fas fa-file-invoice"></i>Total Final Report</h3>
+                    <h3><i class="fas fa-file-invoice"></i>Total Prisoner Final Report</h3>
                     <div class="card-content">
                         <span class="number"><?php echo $total_report; ?></span>
                     </div>
-                    <p class="trend negative">Requires immediate attention</p>
                 </section>
                 <section class="card activity-card">
                     <h3><i class="fas fa-history"></i>Recent Activities</h3>

@@ -23,15 +23,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $_SESSION['latitude'] = $latitude;
     $_SESSION['longitude'] = $longitude;
 
-    // Update location in the database
-    $update_stmt = $conn->prepare("UPDATE prisoner_geofence SET centerLat = ?, centerLng = ? WHERE nik = ? AND nrt = ?");
-    $update_stmt->bind_param("ddss", $latitude, $longitude, $nik, $nrt);
-    $update_stmt->execute();
-    $update_stmt->close();
+    // Update location in the prisoner_location table
+    $insert_location_stmt = $conn->prepare("INSERT INTO prisoner_location (prisoner_id, latitude, longitude, timestamp) VALUES (?, ?, ?, CURRENT_TIMESTAMP)");
+    $insert_location_stmt->bind_param("sdd", $nik, $latitude, $longitude);
+    $insert_location_stmt->execute();
+    $insert_location_stmt->close();
 
-    // Update last_login time
-    $update_login_stmt = $conn->prepare("UPDATE mantan_narapidana SET last_login = CURRENT_TIMESTAMP WHERE nik = ? AND nrt = ?");
-    $update_login_stmt->bind_param("ss", $nik, $nrt);
+    // Update last_login in the mantan_narapidana table
+    $update_login_stmt = $conn->prepare("UPDATE mantan_narapidana SET last_login = CURRENT_TIMESTAMP WHERE nik = ?");
+    $update_login_stmt->bind_param("s", $nik);
     $update_login_stmt->execute();
     $update_login_stmt->close();
 

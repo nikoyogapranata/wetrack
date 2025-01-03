@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 26, 2024 at 01:31 PM
+-- Generation Time: Jan 03, 2025 at 04:05 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -64,6 +64,13 @@ CREATE TABLE `final_report` (
   `docInput` varchar(255) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `final_report`
+--
+
+INSERT INTO `final_report` (`id`, `nik`, `nrt`, `docInput`, `created_at`) VALUES
+(7, '001', '001', 'uploads/Resume PKN_23523064.docx', '2025-01-03 02:15:09');
 
 -- --------------------------------------------------------
 
@@ -130,7 +137,12 @@ INSERT INTO `login_history` (`id`, `user_id`, `login_time`, `ip_address`) VALUES
 (50, 1200001, '2024-12-24 04:41:19', '::1'),
 (51, 1000001, '2024-12-24 08:09:25', '::1'),
 (52, 1200001, '2024-12-24 08:10:32', '::1'),
-(53, 1000001, '2024-12-24 08:12:09', '::1');
+(53, 1000001, '2024-12-24 08:12:09', '::1'),
+(54, 1200001, '2024-12-26 12:33:53', '::1'),
+(55, 1200001, '2024-12-26 12:34:37', '::1'),
+(56, 1200001, '2025-01-03 00:08:59', '::1'),
+(57, 1200001, '2025-01-03 01:53:53', '::1'),
+(58, 1200001, '2025-01-03 03:02:31', '::1');
 
 -- --------------------------------------------------------
 
@@ -156,6 +168,11 @@ CREATE TABLE `mantan_narapidana` (
   `action` tinyint(1) DEFAULT NULL COMMENT '1 for accept, 0 for reject',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `prisoner_type` enum('houseArrest','cityPrisoner') DEFAULT NULL,
+  `geofence_type` enum('houseArrest','cityPrisoner') DEFAULT NULL,
+  `geofence_radius` float DEFAULT NULL,
+  `geofence_lat` decimal(10,8) DEFAULT NULL,
+  `geofence_lng` decimal(11,8) DEFAULT NULL,
+  `geofence_city_district` varchar(100) DEFAULT NULL,
   `radiusFence` float DEFAULT NULL,
   `centerLat` float DEFAULT NULL,
   `centerLng` float DEFAULT NULL,
@@ -167,39 +184,11 @@ CREATE TABLE `mantan_narapidana` (
 -- Dumping data for table `mantan_narapidana`
 --
 
-INSERT INTO `mantan_narapidana` (`id`, `fileInput`, `nik`, `nrt`, `nama`, `dateBirth`, `address`, `gender`, `nationality`, `crime`, `case`, `punishment`, `releaseDate`, `report`, `action`, `created_at`, `prisoner_type`, `radiusFence`, `centerLat`, `centerLng`, `city_district`, `last_login`) VALUES
-(20, 'uploads/tahanan1.webp', '001', '001', 'Adam', '1976-01-01', 'Jalan Melati No. 123, Kelurahan Mawar, Kecamatan Anggrek, Kota Bogor, Provinsi Jawa Barat, 12345.', 'male', 'Indonesia', 'MvT', 'Pada tanggal 24 Desember 2024, sekitar pukul 10:00 pagi, tersangka melakukan pencurian barang elektronik di Gudang PT Sejahtera Abadi. Tersangka berhasil membawa keluar laptop dan tablet senilai Rp 400 juta.', '10 Tahun', '2034-12-24', NULL, NULL, '2024-12-24 03:47:25', NULL, NULL, NULL, NULL, NULL, '2024-12-24 04:35:16'),
-(21, 'uploads/tahanan2.jpeg', '002', '002', 'Anton', '2000-09-09', 'Jl. Pahlawan Timur No. 45, Kel. Tanjung Mas, Kec. Gading Serpong, Kota Tangerang, Banten, 15810', 'male', 'Indonesia', 'Robbery', 'Tersangka diketahui melakukan penganiayaan terhadap seorang pedagang kaki lima dan korban meninggal dunia ditempat', '10 Years', '2034-12-24', NULL, NULL, '2024-12-24 03:50:42', NULL, NULL, NULL, NULL, NULL, '2024-12-24 07:56:03'),
-(22, 'uploads/mudrik 1.jpeg', '003', '003', 'Kang Udrik ', '1999-05-05', 'Jl. Sudirman No. 99, Kel. Karya Utama, Kec. Andalas Baru, Kota Padang, Sumatera Barat, 25115', 'male', 'Indonesia', 'NO', 'During a late-night operation, authorities detained a 25-year-old male at a private residence. Approximately 120 kilogram of heroin and drug paraphernalia were discovered. The suspect is believed to be a major distributor in the area.', '30 Years', '2054-12-24', NULL, NULL, '2024-12-24 03:55:18', NULL, NULL, NULL, NULL, NULL, '2024-12-24 07:20:54'),
-(23, 'uploads/darwin-nunez-2_169.jpeg', '004', '004', 'Darwis Nur Nes', '2000-12-01', 'Jl. Melati Raya Blok B-5 No. 8, Kel. Mekar Sari, Kec. Cempaka Putih, Kota Surabaya, Jawa Timur, 60123', 'male', 'Indonesia', 'MvT', 'Tersangka melakukan balap liar dan melarikan diri saat dihentikan oleh petugas lalu lintas. Setelah pengejaran singkat, tersangka berhasil ditangkap.', '2 Years ', '2026-12-24', NULL, NULL, '2024-12-24 04:02:16', NULL, NULL, NULL, NULL, NULL, '2024-12-24 05:23:40');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `prisoner_geofence`
---
-
-CREATE TABLE `prisoner_geofence` (
-  `id` int(11) NOT NULL,
-  `nik` varchar(20) NOT NULL,
-  `nrt` varchar(20) NOT NULL,
-  `prisoner_type` enum('houseArrest','cityPrisoner') NOT NULL,
-  `radiusFence` float DEFAULT NULL,
-  `centerLat` float DEFAULT NULL,
-  `centerLng` float DEFAULT NULL,
-  `city_district` varchar(100) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `prisoner_geofence`
---
-
-INSERT INTO `prisoner_geofence` (`id`, `nik`, `nrt`, `prisoner_type`, `radiusFence`, `centerLat`, `centerLng`, `city_district`, `created_at`) VALUES
-(16, '002', '002', 'houseArrest', 1, -7.68642, 110.41, NULL, '2024-12-24 04:13:44'),
-(17, '001', '001', 'houseArrest', 1, -7.69551, 110.414, NULL, '2024-12-24 04:35:04'),
-(18, '003', '003', 'houseArrest', 1, -7.68359, 110.412, NULL, '2024-12-24 04:36:34'),
-(19, '004', '004', 'houseArrest', 1, -7.68635, 110.411, NULL, '2024-12-24 04:41:41');
+INSERT INTO `mantan_narapidana` (`id`, `fileInput`, `nik`, `nrt`, `nama`, `dateBirth`, `address`, `gender`, `nationality`, `crime`, `case`, `punishment`, `releaseDate`, `report`, `action`, `created_at`, `prisoner_type`, `geofence_type`, `geofence_radius`, `geofence_lat`, `geofence_lng`, `geofence_city_district`, `radiusFence`, `centerLat`, `centerLng`, `city_district`, `last_login`) VALUES
+(20, 'uploads/tahanan1.webp', '001', '001', 'Adam Kusuma', '1976-01-01', 'Jalan Melati No. 123, Kelurahan Mawar, Kecamatan Anggrek, Kota Bogor, Provinsi Jawa Barat, 12345.', 'male', 'Indonesia', 'MvT', 'Pada tanggal 24 Desember 2024, sekitar pukul 10:00 pagi, tersangka melakukan pencurian barang elektronik di Gudang PT Sejahtera Abadi. Tersangka berhasil membawa keluar laptop dan tablet senilai Rp 400 juta.', '10 Tahun', '2034-12-24', NULL, NULL, '2024-12-24 03:47:25', NULL, 'houseArrest', 1, -7.70028687, 110.41290283, NULL, NULL, NULL, NULL, NULL, '2025-01-03 02:35:49'),
+(21, 'uploads/tahanan2.jpeg', '002', '002', 'Anton', '2000-09-09', 'Jl. Pahlawan Timur No. 45, Kel. Tanjung Mas, Kec. Gading Serpong, Kota Tangerang, Banten, 15810', 'male', 'Indonesia', 'Robbery', 'Tersangka diketahui melakukan penganiayaan terhadap seorang pedagang kaki lima dan korban meninggal dunia ditempat', '10 Years', '2034-12-24', NULL, NULL, '2024-12-24 03:50:42', NULL, 'houseArrest', 1, -7.70031700, 110.41290290, NULL, NULL, NULL, NULL, NULL, '2025-01-03 02:50:20'),
+(22, 'uploads/mudrik 1.jpeg', '003', '003', 'Kang Udrik ', '1999-05-05', 'Jl. Sudirman No. 99, Kel. Karya Utama, Kec. Andalas Baru, Kota Padang, Sumatera Barat, 25115', 'male', 'Indonesia', 'NO', 'During a late-night operation, authorities detained a 25-year-old male at a private residence. Approximately 120 kilogram of heroin and drug paraphernalia were discovered. The suspect is believed to be a major distributor in the area.', '30 Years', '2054-12-24', NULL, NULL, '2024-12-24 03:55:18', NULL, 'houseArrest', 1, -7.70028260, 110.41290410, NULL, NULL, NULL, NULL, NULL, '2025-01-03 02:57:46'),
+(23, 'uploads/darwin-nunez-2_169.jpeg', '004', '004', 'Darwis Nur Nes', '2000-12-01', 'Jl. Melati Raya Blok B-5 No. 8, Kel. Mekar Sari, Kec. Cempaka Putih, Kota Surabaya, Jawa Timur, 60123', 'male', 'Indonesia', 'MvT', 'Tersangka melakukan balap liar dan melarikan diri saat dihentikan oleh petugas lalu lintas. Setelah pengejaran singkat, tersangka berhasil ditangkap.', '2 Years ', '2026-12-24', NULL, NULL, '2024-12-24 04:02:16', NULL, 'houseArrest', 1, -7.70028260, 110.41290410, NULL, NULL, NULL, NULL, NULL, '2025-01-03 02:57:13');
 
 -- --------------------------------------------------------
 
@@ -209,7 +198,8 @@ INSERT INTO `prisoner_geofence` (`id`, `nik`, `nrt`, `prisoner_type`, `radiusFen
 
 CREATE TABLE `prisoner_location` (
   `id` int(11) NOT NULL,
-  `prisoner_id` int(11) NOT NULL,
+  `prisoner_id` varchar(20) NOT NULL,
+  `nrt` varchar(20) NOT NULL,
   `latitude` decimal(10,8) NOT NULL,
   `longitude` decimal(11,8) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT current_timestamp()
@@ -265,7 +255,8 @@ INSERT INTO `recent_activities` (`id`, `action_type`, `action_description`, `cre
 (51, 'create', 'New user account created: Adam', '2024-12-24 03:47:25'),
 (52, 'create', 'New user account created: Anton', '2024-12-24 03:50:42'),
 (53, 'create', 'New user account created: Kang Udrik ', '2024-12-24 03:55:18'),
-(54, 'create', 'New user account created: Darwis Nur Nes', '2024-12-24 04:02:16');
+(54, 'create', 'New user account created: Darwis Nur Nes', '2024-12-24 04:02:16'),
+(55, 'report', 'Final report created for NRT: 001', '2025-01-03 02:15:09');
 
 -- --------------------------------------------------------
 
@@ -340,18 +331,12 @@ ALTER TABLE `mantan_narapidana`
   ADD UNIQUE KEY `unique_nik_nrt` (`nik`,`nrt`);
 
 --
--- Indexes for table `prisoner_geofence`
---
-ALTER TABLE `prisoner_geofence`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `nik` (`nik`,`nrt`);
-
---
 -- Indexes for table `prisoner_location`
 --
 ALTER TABLE `prisoner_location`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `prisoner_id` (`prisoner_id`);
+  ADD KEY `fk_prisoner_location` (`prisoner_id`,`nrt`),
+  ADD KEY `idx_prisoner_location_timestamp` (`timestamp`);
 
 --
 -- Indexes for table `recent_activities`
@@ -380,13 +365,13 @@ ALTER TABLE `data_polri`
 -- AUTO_INCREMENT for table `final_report`
 --
 ALTER TABLE `final_report`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `login_history`
 --
 ALTER TABLE `login_history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 
 --
 -- AUTO_INCREMENT for table `mantan_narapidana`
@@ -395,22 +380,16 @@ ALTER TABLE `mantan_narapidana`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
--- AUTO_INCREMENT for table `prisoner_geofence`
---
-ALTER TABLE `prisoner_geofence`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
-
---
 -- AUTO_INCREMENT for table `prisoner_location`
 --
 ALTER TABLE `prisoner_location`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `recent_activities`
 --
 ALTER TABLE `recent_activities`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- Constraints for dumped tables
@@ -429,16 +408,10 @@ ALTER TABLE `login_history`
   ADD CONSTRAINT `fk_user_login_history` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `prisoner_geofence`
---
-ALTER TABLE `prisoner_geofence`
-  ADD CONSTRAINT `prisoner_geofence_ibfk_1` FOREIGN KEY (`nik`,`nrt`) REFERENCES `mantan_narapidana` (`nik`, `nrt`) ON DELETE CASCADE;
-
---
 -- Constraints for table `prisoner_location`
 --
 ALTER TABLE `prisoner_location`
-  ADD CONSTRAINT `prisoner_location_ibfk_1` FOREIGN KEY (`prisoner_id`) REFERENCES `mantan_narapidana` (`id`);
+  ADD CONSTRAINT `fk_prisoner_location` FOREIGN KEY (`prisoner_id`,`nrt`) REFERENCES `mantan_narapidana` (`nik`, `nrt`);
 
 --
 -- Constraints for table `users`

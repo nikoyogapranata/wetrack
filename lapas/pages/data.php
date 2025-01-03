@@ -159,8 +159,7 @@ if (isset($_POST["submit"])) {
                             <span>Dashboard</span></a></li>
                     <li class="active"><a href="/wetrack/Lapas/pages/data.php"><i class="fas fa-database"></i>
                             <span>Prisoner Database</span></a></li>
-                    <li><a href="/wetrack/Lapas/pages/Laporan.php"><i class="fas fa-file-invoice"></i><span>Final
-                                Report</span></a></li>
+                    <li><a href="/wetrack/Lapas/pages/Laporan.php"><i class="fas fa-file-invoice"></i><span>Prisoner Final Report</span></a></li>
                     <li><a href="/wetrack/Lapas/pages/setting.php"><i class="fas fa-cog"></i>
                             <span>Settings</span></a></li>
                 </ul>
@@ -294,26 +293,29 @@ if (isset($_POST["submit"])) {
         </main>
     </div>
     <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        const searchInput = document.getElementById('searchInput');
-        const tableRows = document.querySelectorAll('tbody tr');
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('searchInput');
+            const tableRows = document.querySelectorAll('tbody tr');
 
-        searchInput.addEventListener('input', function() {
-            const searchTerm = this.value.toLowerCase();
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase().trim();
 
-            tableRows.forEach(row => {
-                const name = row.children[1].textContent.toLowerCase();
-                const nik = row.children[2].textContent.toLowerCase();
-                const nrt = row.children[3].textContent.toLowerCase();
+                tableRows.forEach(row => {
+                    const name = row.cells[1].textContent.toLowerCase().trim();
+                    const nik = row.cells[2].textContent.toLowerCase().trim();
+                    const nrt = row.cells[3].textContent.toLowerCase().trim();
 
-                if (name.includes(searchTerm) || nik.includes(searchTerm) || nrt.includes(searchTerm)) {
-                    row.style.display = '';
-                } else {
-                    row.style.display = 'none';
-                }
+                    if (searchTerm === '' ||
+                        name.includes(searchTerm) ||
+                        nik.includes(searchTerm) ||
+                        nrt.includes(searchTerm)) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
             });
         });
-    });
     </script>
     <script src="/wetrack/lapas/js/delete-functionality.js"></script>
 </body>

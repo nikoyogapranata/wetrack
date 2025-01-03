@@ -28,10 +28,18 @@ if (!$profile_picture) {
 // Fetch ex-prisoner data
 if (isset($_GET['id'])) {
     $prisoner_id = $_GET['id'];
-    $query = "SELECT mn.*, pg.prisoner_type, pg.radiusFence, pg.centerLat, pg.centerLng, pg.city_district 
-            FROM mantan_narapidana mn 
-            LEFT JOIN prisoner_geofence pg ON mn.nik = pg.nik AND mn.nrt = pg.nrt 
-            WHERE mn.id = ?";
+    $query = "SELECT mn.*, pl.latitude as real_lat, pl.longitude as real_lng, pl.timestamp as last_update
+              FROM mantan_narapidana mn 
+              LEFT JOIN (
+                  SELECT prisoner_id, latitude, longitude, timestamp
+                  FROM prisoner_location
+                  WHERE (prisoner_id, timestamp) IN (
+                      SELECT prisoner_id, MAX(timestamp)
+                      FROM prisoner_location
+                      GROUP BY prisoner_id
+                  )
+              ) pl ON mn.nik = pl.prisoner_id
+              WHERE mn.id = ?";
     $stmt = $conn->prepare($query);
     $stmt->bind_param("i", $prisoner_id);
     $stmt->execute();
@@ -148,7 +156,8 @@ if (isset($_GET['id'])) {
                 background: none;
                 color: var(--accent-color);
             }
-        }</style>
+        }
+    </style>
 </head>
 
 <body>
@@ -171,7 +180,6 @@ if (isset($_GET['id'])) {
                                 Tracking Map</span></a></li>
                     <li class="active"><a href="/wetrack/bapas/pages/dataBapas.php"><i class="fas fa-database"></i>
                             <span>Prisoner Database</span></a></li>
-
                     <li><a href="/wetrack/bapas/pages/setting.php"><i class="fas fa-cog"></i>
                             <span>Settings</span></a></li>
                 </ul>
@@ -191,24 +199,16 @@ if (isset($_GET['id'])) {
                 </div>
                 <div class="profile-header">
                     <?php
-                    $result = $conn->query("SELECT * FROM mantan_narapidana WHERE id = $id");
-                    if ($result->num_rows > 0) {
-                        $row = $result->fetch_assoc();
-                        echo '<img src="' . htmlspecialchars($row["fileInput"]) . '" alt="Profile Image" class="profile-image">';
+                    if (isset($prisoner_data["fileInput"]) && !empty($prisoner_data["fileInput"])) {
+                        echo '<img src="' . htmlspecialchars($prisoner_data["fileInput"]) . '" alt="Profile Image" class="profile-image">';
                     } else {
                         echo '<img src="/wetrack/lapas/image/nanti-diganti.png" alt="Default Photo" class="profile-image">';
                     }
                     ?>
                     <div class="profile-title">
-                        <h1>
-                            <?php echo $prisoner_data["nama"]; ?>
-                        </h1>
-                        <p class="id-text">National ID Number:
-                            <?php echo $prisoner_data["nik"]; ?>
-                        </p>
-                        <p class="id-text">Prisoner Registration Number:
-                            <?php echo $prisoner_data["nrt"]; ?>
-                        </p>
+                        <h1><?php echo htmlspecialchars($prisoner_data["nama"]); ?></h1>
+                        <p class="id-text">National ID Number: <?php echo htmlspecialchars($prisoner_data["nik"]); ?></p>
+                        <p class="id-text">Prisoner Registration Number: <?php echo htmlspecialchars($prisoner_data["nrt"]); ?></p>
                     </div>
                 </div>
 
@@ -218,101 +218,94 @@ if (isset($_GET['id'])) {
                         <div class="info-grid">
                             <div class="info-item">
                                 <label>Date of Birth:</label>
-                                <span>
-                                    <?php echo $prisoner_data["dateBirth"]; ?>
-                                </span>
+                                <span><?php echo htmlspecialchars($prisoner_data["dateBirth"]); ?></span>
                             </div>
                             <div class="info-item">
                                 <label>Address:</label>
-                                <span>
-                                    <?php echo $prisoner_data["address"]; ?>
-                                </span>
+                                <span><?php echo htmlspecialchars($prisoner_data["address"]); ?></span>
                             </div>
                             <div class="info-item">
                                 <label>Gender:</label>
-                                <span>
-                                    <?php echo $prisoner_data["gender"]; ?>
-                                </span>
+                                <span><?php echo htmlspecialchars($prisoner_data["gender"]); ?></span>
                             </div>
                             <div class="info-item">
                                 <label>Nationality:</label>
-                                <span>
-                                    <?php echo $prisoner_data["nationality"]; ?>
-                                </span>
+                                <span><?php echo htmlspecialchars($prisoner_data["nationality"]); ?></span>
                             </div>
                             <div class="info-item">
                                 <label>Type of Crime:</label>
-                                <span>
-                                    <?php echo $prisoner_data["crime"]; ?>
-                                </span>
+                                <span><?php echo htmlspecialchars($prisoner_data["crime"]); ?></span>
                             </div>
                             <div class="info-item">
                                 <label>Incident Report:</label>
-                                <span>
-                                    <?php echo $prisoner_data["case"]; ?>
-                                </span>
+                                <span><?php echo htmlspecialchars($prisoner_data["case"]); ?></span>
                             </div>
                             <div class="info-item">
                                 <label>Punishment Period:</label>
-                                <span>
-                                    <?php echo $prisoner_data["punishment"]; ?>
-                                </span>
+                                <span><?php echo htmlspecialchars($prisoner_data["punishment"]); ?></span>
                             </div>
                             <div class="info-item">
                                 <label>Release Date:</label>
-                                <span>
-                                    <?php echo $prisoner_data["releaseDate"]; ?>
-                                </span>
+                                <span><?php echo htmlspecialchars($prisoner_data["releaseDate"]); ?></span>
                             </div>
                         </div>
                     </div>
                     <div class="info-section">
                         <h2>Violation Report</h2>
+                        <!-- Add violation report content here if available -->
                     </div>
                     <div class="info-section">
-                        <div class="info-section">
-                            <h2>Tracking Map</h2>
-                            <div class="info-grid">
-                                <div class="info-item">
-                                    <label>Prisoner Type:</label>
-                                    <span><?php echo $prisoner_data["prisoner_type"]; ?></span>
-                                </div>
-                                <?php if ($prisoner_data["prisoner_type"] == "houseArrest"): ?>
-                                    <div class="info-item">
-                                        <label>Geofence Radius:</label>
-                                        <span><?php echo isset($prisoner_data["radiusFence"]) ? $prisoner_data["radiusFence"] . " km" : "Not set"; ?></span>
-                                    </div>
-                                <?php elseif ($prisoner_data["prisoner_type"] == "cityPrisoner"): ?>
-                                    <div class="info-item">
-                                        <label>City/District:</label>
-                                        <span><?php echo $prisoner_data["city_district"]; ?></span>
-                                    </div>
-                                <?php endif; ?>
+                        <h2>Tracking Map</h2>
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <label>Prisoner Type:</label>
+                                <span><?php echo htmlspecialchars($prisoner_data["geofence_type"]); ?></span>
                             </div>
-                            <div id="prisoner-map" style="height: 400px;"></div>
-                            <div id="connection-status"></div>
-                            <button class="report-btn" id="report-btn" class="btn btn-danger">Report</button>
+                            <?php if ($prisoner_data["geofence_type"] == "houseArrest"): ?>
+                                <div class="info-item">
+                                    <label>Geofence Radius:</label>
+                                    <span><?php echo isset($prisoner_data["geofence_radius"]) ? htmlspecialchars($prisoner_data["geofence_radius"]) . " km" : "Not set"; ?></span>
+                                </div>
+                            <?php elseif ($prisoner_data["geofence_type"] == "cityPrisoner"): ?>
+                                <div class="info-item">
+                                    <label>City/District:</label>
+                                    <span><?php echo htmlspecialchars($prisoner_data["geofence_city_district"]); ?></span>
+                                </div>
+                            <?php endif; ?>
+                            <div class="info-item">
+                                <label>Last Update:</label>
+                                <span id="last-update"><?php echo isset($prisoner_data["last_update"]) ? htmlspecialchars($prisoner_data["last_update"]) : "N/A"; ?></span>
+                            </div>
                         </div>
+                        <div id="prisoner-map" style="height: 400px;"></div>
+                        <div id="connection-status"></div>
+                        <button class="report-btn" id="report-btn" class="btn btn-danger">Report</button>
                     </div>
+                </div>
+            </div>
         </main>
     </div>
     <script>
         document.getElementById('toggle-sidebar').addEventListener('click', function() {
             const sidebar = document.querySelector('.sidebar');
             const content = document.querySelector('.content');
-        })
+            sidebar.classList.toggle('active');
+            content.classList.toggle('shifted');
+        });
+
         document.addEventListener('DOMContentLoaded', function() {
             var prisonerMap = L.map('prisoner-map').setView([0, 0], 13);
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '© OpenStreetMap contributors'
             }).addTo(prisonerMap);
 
-            var geofenceLat = <?php echo $prisoner_data['centerLat']; ?>;
-            var geofenceLng = <?php echo $prisoner_data['centerLng']; ?>;
-            var radiusFence = <?php echo isset($prisoner_data['radiusFence']) ? $prisoner_data['radiusFence'] : 'null'; ?>;
+            var geofenceLat = <?php echo $prisoner_data['geofence_lat'] ?? 'null'; ?>;
+            var geofenceLng = <?php echo $prisoner_data['geofence_lng'] ?? 'null'; ?>;
+            var radiusFence = <?php echo $prisoner_data['geofence_radius'] ?? 'null'; ?>;
+            var realLat = <?php echo $prisoner_data['real_lat'] ?? 'null'; ?>;
+            var realLng = <?php echo $prisoner_data['real_lng'] ?? 'null'; ?>;
 
-            var circle, prisonerMarker;
-            var currentLocationMarker;
+            var circle, geofenceMidpointMarker, realTimeMarker;
 
             function initPrisonerMap() {
                 if (geofenceLat && geofenceLng) {
@@ -325,22 +318,34 @@ if (isset($_GET['id'])) {
                             fillOpacity: 0.2,
                             radius: radiusFence * 1000 // Convert km to meters
                         }).addTo(prisonerMap);
-                        prisonerMap.fitBounds(circle.getBounds());
                     }
 
-                    prisonerMarker = L.marker([geofenceLat, geofenceLng]).addTo(prisonerMap);
-                    prisonerMarker.bindPopup("Prisoner's Last Known Location").openPopup();
+                    geofenceMidpointMarker = L.marker([geofenceLat, geofenceLng], {
+                        icon: L.icon({
+                            iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png',
+                            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+                            iconSize: [25, 41],
+                            iconAnchor: [12, 41],
+                            popupAnchor: [1, -34],
+                            shadowSize: [41, 41]
+                        })
+                    }).addTo(prisonerMap);
+                    geofenceMidpointMarker.bindPopup("Geofence Midpoint").openPopup();
                 } else {
                     console.log('No geofence data available for this prisoner');
                     prisonerMap.setView([0, 0], 2);
                 }
+
+                if (realLat && realLng) {
+                    updateRealTimeMarker(realLat, realLng);
+                }
             }
 
-            function updateMarkerPosition(lat, lng) {
-                if (currentLocationMarker) {
-                    currentLocationMarker.setLatLng([lat, lng]);
+            function updateRealTimeMarker(lat, lng) {
+                if (realTimeMarker) {
+                    realTimeMarker.setLatLng([lat, lng]);
                 } else {
-                    currentLocationMarker = L.marker([lat, lng], {
+                    realTimeMarker = L.marker([lat, lng], {
                         icon: L.icon({
                             iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
                             shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
@@ -351,10 +356,14 @@ if (isset($_GET['id'])) {
                         })
                     }).addTo(prisonerMap);
                 }
-                currentLocationMarker.bindPopup("Prisoner's Current Location").openPopup();
+                realTimeMarker.bindPopup("Prisoner's Real-time Location").openPopup();
 
-                if (!prisonerMap.getBounds().contains([lat, lng])) {
-                    prisonerMap.fitBounds(L.latLngBounds([prisonerMarker.getLatLng(), currentLocationMarker.getLatLng()]));
+                if (circle) {
+                    var bounds = circle.getBounds();
+                    bounds.extend(realTimeMarker.getLatLng());
+                    prisonerMap.fitBounds(bounds);
+                } else {
+                    prisonerMap.setView(realTimeMarker.getLatLng(), 13);
                 }
             }
 
@@ -368,6 +377,7 @@ if (isset($_GET['id'])) {
             });
 
             const connectionStatus = document.getElementById('connection-status');
+            const lastUpdateElement = document.getElementById('last-update');
 
             socket.on('connect', () => {
                 console.log('Connected to Socket.IO server');
@@ -388,7 +398,8 @@ if (isset($_GET['id'])) {
             socket.on('locationUpdate', (data) => {
                 console.log('Received location update:', data);
                 if (data.lat && data.lng) {
-                    updateMarkerPosition(data.lat, data.lng);
+                    updateRealTimeMarker(data.lat, data.lng);
+                    lastUpdateElement.textContent = new Date().toLocaleString();
 
                     if (circle) {
                         var distance = prisonerMap.distance([data.lat, data.lng], [geofenceLat, geofenceLng]) / 1000; // in km
@@ -397,8 +408,7 @@ if (isset($_GET['id'])) {
                         }
                     }
                 } else {
-                    console.log('Prisoner has not logged in yet');
-                    // You can add a message to the UI here if needed
+                    console.log('Invalid location data received');
                 }
             });
 
@@ -412,3 +422,4 @@ if (isset($_GET['id'])) {
 </body>
 
 </html>
+

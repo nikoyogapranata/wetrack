@@ -129,7 +129,8 @@ if (!$profile_picture) {
                 background: none;
                 color: var(--accent-color);
             }
-        }</style>
+        }
+    </style>
 </head>
 
 <body>
@@ -177,7 +178,7 @@ if (!$profile_picture) {
                 <div class="button-group">
                     <button class="btn btn-primary" id="showTableBtn">All</button>
                     <button class="btn btn-secondary" id="showInputBtn" onclick="showInput()">Input Data</button>
-                    <button class="delete-btn" id="delete-btn" class="btn btn-danger">Delete</button>
+                    <button class="delete-btn" id="delete-btn" class="btn btn-danger">Delete Geofence</button>
                 </div>
                 <div class="table-container">
                     <table>
@@ -186,28 +187,32 @@ if (!$profile_picture) {
                                 <th></th>
                                 <th>No.</th>
                                 <th>Name</th>
+                                <th>Geofence</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php
-                            $result = mysqli_query($conn, "SELECT mn.id, mn.nama, pg.prisoner_type, 
-                            CASE 
-                                WHEN pg.prisoner_type = 'houseArrest' THEN CONCAT(pg.radiusFence, ' km radius')
-                                WHEN pg.prisoner_type = 'cityPrisoner' THEN pg.city_district
-                                ELSE 'Not set'
-                            END AS geofence_info
-                            FROM mantan_narapidana mn 
-                            INNER JOIN prisoner_geofence pg ON mn.nik = pg.nik AND mn.nrt = pg.nrt 
-                            LEFT JOIN final_report fr ON mn.nik = fr.nik AND mn.nrt = fr.nrt 
-                            WHERE fr.id IS NULL
-                            ORDER BY mn.id ASC");
+                            $result = mysqli_query($conn, "SELECT mn.id, mn.nama, mn.geofence_type, 
+CASE 
+    WHEN mn.geofence_type = 'houseArrest' THEN CONCAT(mn.geofence_radius, ' km radius')
+    WHEN mn.geofence_type = 'cityPrisoner' THEN mn.geofence_city_district
+    ELSE 'Not set'
+END AS geofence_info
+FROM mantan_narapidana mn 
+LEFT JOIN final_report fr ON mn.nik = fr.nik AND mn.nrt = fr.nrt 
+WHERE fr.id IS NULL
+ORDER BY mn.id ASC");
+                            if (!$result) {
+                                die("Query failed: " . mysqli_error($conn));
+                            }
                             $i = 1;
                             while ($row = mysqli_fetch_assoc($result)) {
                                 echo "<tr>";
                                 echo "<td><input type='checkbox' class='row-checkbox' data-id='" . $row['id'] . "'></td>";
                                 echo "<td>" . $i . "</td>";
                                 echo "<td>" . $row['nama'] . "</td>";
+                                echo "<td>" . ($row['geofence_info'] ? $row['geofence_info'] : 'Not set') . "</td>";
                                 echo "<td><a href='data-napi.php?id=" . $row['id'] . "' class='btn btn-action'>Details</a></td>";
                                 echo "</tr>";
                                 $i++;
@@ -359,18 +364,17 @@ if (!$profile_picture) {
                     });
             });
 
-            // Add event listener for the delete button
             deleteBtn.addEventListener('click', function() {
                 const selectedRows = document.querySelectorAll('.row-checkbox:checked');
                 if (selectedRows.length === 0) {
-                    alert('Please select at least one row to delete.');
+                    alert('Please select at least one row to delete the geofence.');
                     return;
                 }
 
-                if (confirm('Are you sure you want to delete the selected records?')) {
+                if (confirm('Are you sure you want to delete the geofence data for the selected records?')) {
                     const ids = Array.from(selectedRows).map(checkbox => checkbox.getAttribute('data-id'));
 
-                    fetch('delete_prisoner.php', {
+                    fetch('delete_prisoner_geofence.php', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
@@ -382,15 +386,16 @@ if (!$profile_picture) {
                         .then(response => response.json())
                         .then(data => {
                             if (data.success) {
-                                alert('Selected records deleted successfully');
-                                selectedRows.forEach(checkbox => checkbox.closest('tr').remove());
+                                alert(`Geofence data deleted successfully. ${data.geofenceDeleted} geofence records and ${data.locationDeleted} location records were removed.`);
+                                window.location.reload(); // Reload the page to reflect changes
                             } else {
                                 alert('Error: ' + data.message);
+                                console.error('Delete operation failed:', data.message);
                             }
                         })
                         .catch(error => {
                             console.error('Error:', error);
-                            alert('An error occurred while deleting the records');
+                            alert('An error occurred while deleting the geofence data. Please check the console and server logs for more information.');
                         });
                 }
             });
@@ -477,4 +482,3 @@ if (!$profile_picture) {
 </body>
 
 </html>
-

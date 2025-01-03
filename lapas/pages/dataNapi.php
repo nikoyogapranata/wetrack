@@ -147,7 +147,7 @@ if (isset($_GET['id'])) {
                     <li class="active"><a href="/wetrack/Lapas/pages/data.php"><i class="fas fa-database"></i>
                             <span>Prisoner Database</span></a></li>
                     <li><a href="/wetrack/Lapas/pages/Laporan.php"><i class="fas fa-file-invoice"></i>
-                            <span>Final Report</span></a></li>
+                            <span>Prisoner Final Report</span></a></li>
                     <li><a href="/wetrack/Lapas/pages/setting.php"><i class="fas fa-cog"></i>
                             <span>Settings</span></a></li>
                 </ul>
