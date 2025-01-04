@@ -46,6 +46,16 @@ if (!$profile_picture) {
     <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
 
     <style>
+
+        .btn-primary {
+            background-color: var(--background-color);
+            color: var(--primary-color);
+        }
+
+        .btn-secondary {
+            background-color: var(--primary-color);
+            color: white;
+        }
         @media screen and (max-width: 1024px) {
             .sidebar {
                 position: fixed;
@@ -154,8 +164,7 @@ if (!$profile_picture) {
                     <li class="active"><a href="/wetrack/bapas/pages/dataBapas.php"><i class="fas fa-database"></i>
                             <span>Prisoner Database</span></a></li>
 
-                    <li><a href="/wetrack/bapas/pages/setting.php"><i class="fas fa-cog"></i>
-                            <span>Settings</span></a></li>
+
                 </ul>
             </nav>
             <div class="user-profile">
@@ -171,8 +180,8 @@ if (!$profile_picture) {
                 <div class="content-header">
                     <h1>Prisoner Database</h1>
                     <div class="search-bar">
-                        <input type="text" placeholder="Search...">
                         <i class="fas fa-search"></i>
+                        <input type="text" id="searchInput" placeholder="Search by name">
                     </div>
                 </div>
                 <div class="button-group">
@@ -258,7 +267,7 @@ ORDER BY mn.id ASC");
                                 </select>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary" style="margin-top: 20px;">Submit</button>
+                        <button type="submit" class="btn btn-secondary" style="margin-top: 20px;">Submit</button>
                     </form>
                 </div>
             </div>
@@ -266,6 +275,26 @@ ORDER BY mn.id ASC");
     </div>
 
     <script src="/wetrack/bapas/js/map-socket.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('searchInput');
+    const tableRows = document.querySelectorAll('tbody tr');
+
+    searchInput.addEventListener('input', function() {
+        const searchTerm = this.value.toLowerCase();
+
+        tableRows.forEach(row => {
+            const name = row.cells[2].textContent.toLowerCase();
+
+            if (name.includes(searchTerm)) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    });
+});
+    </script>
     <script>
         document.getElementById('toggle-sidebar').addEventListener('click', function() {
             const sidebar = document.querySelector('.sidebar');

@@ -124,8 +124,6 @@
                                 Map</span></a></li>
                     <li><a href="/wetrack/Bapas/pages/dataBapas.php"><i class="fas fa-database"></i> <span>Prisoner Database</span></a>
                     </li>
-                    <li class="active"><a href="/wetrack/Bapas/pages/setting.php"><i class="fas fa-cog"></i>
-                            <span>Settings</span></a></li>
                 </ul>
             </nav>
             <div class="user-profile">

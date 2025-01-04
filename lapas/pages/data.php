@@ -1,5 +1,29 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+session_start();
 require __DIR__ . '/../../config/connection.php';
+
+// Check if user is logged in
+if (!isset($_SESSION['user_id'])) {
+    header('Location: /wetrack/public/login-admin/index.php');
+    exit();
+}
+
+$user_id = $_SESSION['user_id'];
+
+// Fetch user information
+$query = "SELECT id, profile_picture FROM users WHERE id = ?";
+$stmt = $conn->prepare($query);
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$stmt->bind_result($id, $profile_picture);
+$stmt->fetch();
+$stmt->close();
+
+if (!$profile_picture) {
+    $profile_picture = '/wetrack/kemenkumham/Image/kemenkumham.png';
+}
 require_once 'utils/activity_logger.php';
 
 if (isset($_POST["submit"])) {
@@ -194,14 +218,12 @@ if (isset($_POST["submit"])) {
                     <li class="active"><a href="/wetrack/Lapas/pages/data.php"><i class="fas fa-database"></i>
                             <span>Prisoner Database</span></a></li>
                     <li><a href="/wetrack/Lapas/pages/Laporan.php"><i class="fas fa-file-invoice"></i><span>Prisoner Final Report</span></a></li>
-                    <li><a href="/wetrack/Lapas/pages/setting.php"><i class="fas fa-cog"></i>
-                            <span>Settings</span></a></li>
                 </ul>
             </nav>
             <div class="user-profile">
-                <img src="/wetrack/Lapas/Image/lapas-logo.png" alt="Profile picture" width="40" height="40">
+                <img src="<?php echo $profile_picture; ?>" alt="Profile picture" width="40" height="40">
                 <div class="user-info">
-                    <h2>Serdy Fambo</h2>
+                    <h2><?php echo htmlspecialchars($id); ?></h2>
                     <p>Administrative Staff</p>
                 </div>
             </div>

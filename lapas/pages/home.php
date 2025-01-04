@@ -154,10 +154,8 @@ if ($result_report) {
                     <li class="active"><a href="/wetrack/Lapas/pages/home.php"><i class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a></li>
                     <li><a href="/wetrack/Lapas/pages/data.php"><i class="fas fa-database"></i> <span>Prisoner Database</span></a></li>
                     <li><a href="/wetrack/Lapas/pages/Laporan.php"><i class="fas fa-file-invoice"></i> <span>Prisoner Final Report</span></a></li>
-                    <li><a href="/wetrack/Lapas/pages/setting.php"><i class="fas fa-cog"></i> <span>Settings</span></a></li>
                 </ul>
             </nav>
-            <a href="/wetrack/lapas/pages/profile.php" style="text-decoration: none; color: inherit; margin-top: 120%;" class="path-profile">
                 <div class="user-profile">
                     <img src="/wetrack/Lapas/Image/lapas-logo.png" alt="Profile picture" width="40" height="40">
                     <div class="user-info">
@@ -165,7 +163,6 @@ if ($result_report) {
                         <p>Administrative Staff</p>
                     </div>
                 </div>
-            </a>
         </aside>
         <main class="content">
             <div class="dashboard-grid">

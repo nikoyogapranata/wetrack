@@ -1,5 +1,29 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+session_start();
 require __DIR__ . '/../../config/connection.php';
+
+// Check if user is logged in
+if (!isset($_SESSION['user_id'])) {
+    header('Location: /wetrack/public/login-admin/index.php');
+    exit();
+}
+
+$user_id = $_SESSION['user_id'];
+
+// Fetch user information
+$query = "SELECT id, profile_picture FROM users WHERE id = ?";
+$stmt = $conn->prepare($query);
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$stmt->bind_result($id, $profile_picture);
+$stmt->fetch();
+$stmt->close();
+
+if (!$profile_picture) {
+    $profile_picture = '/wetrack/kemenkumham/Image/kemenkumham.png';
+}
 
 // Fetch the most recent location for each prisoner
 $query = "SELECT pl.prisoner_id, pl.latitude, pl.longitude, mn.nama
@@ -145,14 +169,14 @@ $locationsJson = json_encode($locations);
                     <li class="active"><a href="/wetrack/Bapas/pages/tracking.php"><i class="fas fa-map-marker-alt"></i> <span>Tracking Map</span></a></li>
                     <li><a href="/wetrack/Bapas/pages/dataBapas.php"><i class="fas fa-database"></i> <span>Prisoner Database</span></a>
                     </li>
-                    <li><a href="/wetrack/Bapas/pages/setting.php"><i class="fas fa-cog"></i> <span>Settings</span></a></li>
+                    
                 </ul>
             </nav>
             <div class="user-profile">
-                <img src="/wetrack/Bapas/Image/lapas-logo.png" alt="Profile picture" width="40" height="40">
+                <img src="<?php echo $profile_picture; ?>" alt="Profile picture" width="40" height="40">
                 <div class="user-info">
-                    <h2>Serdy Fambo</h2>
-                    <p>Parole Observation Team</p>
+                    <h2><?php echo htmlspecialchars($id); ?></h2>
+                    <p>Administrative Staff</p>
                 </div>
             </div>
         </aside>

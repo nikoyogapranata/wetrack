@@ -151,12 +151,17 @@ error_log("Debug: User data: " . print_r($user, true));
             <div class="profile-header">
                 <?php
                 if (isset($user['id'])) {
-                    $imagePath = htmlspecialchars($user["fileInput"]);
-                    error_log("Debug: Image path: $imagePath");
+                    $imagePath = $user["fileInput"];
+                    error_log("Debug: Image path from database: $imagePath");
                     
-                    $fullPath = $_SERVER['DOCUMENT_ROOT'] . $imagePath;
+                    // Construct the full server path
+                    $fullPath = $_SERVER['DOCUMENT_ROOT'] . '/wetrack/lapas/pages/' . $imagePath;
+                    error_log("Debug: Full image path: $fullPath");
+                    
                     if (file_exists($fullPath)) {
-                        echo "<img src='" . htmlspecialchars($imagePath) . "' alt='Profile Image' class='profile-photo'>";
+                        // Construct the web-accessible path
+                        $webPath = '/wetrack/lapas/pages/' . $imagePath;
+                        echo "<img src='" . htmlspecialchars($webPath) . "' alt='Profile Image' class='profile-photo'>";
                     } else {
                         error_log("Debug: Image file not found at: $fullPath");
                         echo "<img src='/wetrack/lapas/image/nanti-diganti.png' alt='Default Photo' class='profile-photo'>";
@@ -193,3 +198,4 @@ error_log("Debug: User data: " . print_r($user, true));
 // Close the database connection at the end of the file
 $conn->close();
 ?>
+

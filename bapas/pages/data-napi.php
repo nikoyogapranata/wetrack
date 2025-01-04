@@ -180,8 +180,7 @@ if (isset($_GET['id'])) {
                                 Tracking Map</span></a></li>
                     <li class="active"><a href="/wetrack/bapas/pages/dataBapas.php"><i class="fas fa-database"></i>
                             <span>Prisoner Database</span></a></li>
-                    <li><a href="/wetrack/bapas/pages/setting.php"><i class="fas fa-cog"></i>
-                            <span>Settings</span></a></li>
+
                 </ul>
             </nav>
             <div class="user-profile">
@@ -200,7 +199,9 @@ if (isset($_GET['id'])) {
                 <div class="profile-header">
                     <?php
                     if (isset($prisoner_data["fileInput"]) && !empty($prisoner_data["fileInput"])) {
-                        echo '<img src="' . htmlspecialchars($prisoner_data["fileInput"]) . '" alt="Profile Image" class="profile-image">';
+                        // Update path to match your actual directory structure
+                        $image_path = '/wetrack/lapas/pages/' . $prisoner_data["fileInput"];
+                        echo '<img src="' . htmlspecialchars($image_path) . '" alt="Profile Image" class="profile-image">';
                     } else {
                         echo '<img src="/wetrack/lapas/image/nanti-diganti.png" alt="Default Photo" class="profile-image">';
                     }
