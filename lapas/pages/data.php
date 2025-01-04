@@ -78,6 +78,16 @@ if (isset($_POST["submit"])) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="/wetrack/lapas/js/data.js" defer></script>
     <style>
+
+        .btn-primary {
+            background-color: var(--background-color);
+            color: var(--primary-color);
+        }
+
+        .btn-secondary {
+            background-color: var(--primary-color);
+            color: white;
+        }
         @media screen and (max-width: 1024px) {
             .sidebar {
                 position: fixed;
@@ -310,7 +320,7 @@ if (isset($_POST["submit"])) {
                             <label for="releaseDate">Release Date:</label>
                             <input type="date" id="releaseDate" name="releaseDate" required>
                         </div>
-                        <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" name="submit" class="btn btn-secondary">Submit</button>
                     </form>
                 </div>
             </div>
