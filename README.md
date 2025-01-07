@@ -5,11 +5,14 @@ Frontend: (HTML, CSS - Bootstrap, JavaScript)
 Backend: (PHP)
 Database: (MySQL)
 
-# Development Phase:
+# To run the location tracking
+node socket/server.js
+- and allow location access
+- please don't refresh the web after that
+
+# Docker:
 
 $servername = "localhost";
-
-# Deployment Phase:
 
 $servername = "db";
 
